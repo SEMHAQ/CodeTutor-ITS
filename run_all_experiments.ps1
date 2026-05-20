@@ -109,7 +109,7 @@ function RunStep($name, $command, $timeoutMinutes = 120) {
 # Step 3: Experiment 1 - Tutoring Quality (BLEU/ROUGE-L)
 # ------------------------------------------------------------
 if (HasTime 60) {
-    RunStep "Exp1-TutoringQuality" "-u experiments/scripts/evaluate_tutoring_quality.py --sample 50" 90
+    RunStep "Exp1-TutoringQuality" "-u experiments/scripts/evaluate_tutoring_quality.py" 90
 } else {
     Log "SKIP Exp1 - not enough time"
 }
@@ -118,7 +118,7 @@ if (HasTime 60) {
 # Step 4: Experiment 2 - Prompt Comparison
 # ------------------------------------------------------------
 if (HasTime 90) {
-    RunStep "Exp2-PromptComparison" "-u experiments/scripts/prompt_comparison.py --sample 50" 120
+    RunStep "Exp2-PromptComparison" "-u experiments/scripts/prompt_comparison.py" 120
 } else {
     Log "SKIP Exp2 - not enough time"
 }
@@ -127,7 +127,7 @@ if (HasTime 90) {
 # Step 5: Experiment 3 - Ablation Study
 # ------------------------------------------------------------
 if (HasTime 120) {
-    RunStep "Exp3-AblationStudy" "-u experiments/scripts/ablation_study.py --sample 50" 180
+    RunStep "Exp3-AblationStudy" "-u experiments/scripts/ablation_study.py" 180
 } else {
     Log "SKIP Exp3 - not enough time"
 }
