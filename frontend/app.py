@@ -8,7 +8,7 @@ from datetime import datetime
 API_BASE_URL = "http://localhost:8000"
 
 st.set_page_config(
-    page_title="CodeTutor - 智能编程辅导系统",
+    page_title="CodeTutor - Intelligent Programming Tutoring System",
     page_icon="💻",
     layout="wide",
 )
@@ -41,9 +41,9 @@ def send_message(message: str, mode: str = "tutor", hint_level: int = None):
             response.raise_for_status()
             return response.json()
     except httpx.ConnectError:
-        return {"response": "无法连接到后端服务，请确保FastAPI服务已启动。"}
+        return {"response": "Cannot connect to backend service. Please ensure FastAPI is running."}
     except Exception as e:
-        return {"response": f"错误：{str(e)}"}
+        return {"response": f"Error: {str(e)}"}
 
 
 def generate_exercise(topic: str, difficulty: str):
@@ -62,7 +62,7 @@ def generate_exercise(topic: str, difficulty: str):
             response.raise_for_status()
             return response.json()
     except Exception as e:
-        return {"title": "错误", "description": str(e)}
+        return {"title": "Error", "description": str(e)}
 
 
 def get_progress():
@@ -81,19 +81,19 @@ def get_progress():
 # Sidebar
 with st.sidebar:
     st.title("CodeTutor")
-    st.caption("智能编程辅导系统")
+    st.caption("Intelligent Programming Tutor")
 
     st.divider()
 
     # Mode selection
-    st.subheader("辅导模式")
+    st.subheader("Tutoring Mode")
     mode = st.radio(
-        "选择模式",
+        "Select Mode",
         ["tutor", "hint", "exercise"],
         format_func=lambda x: {
-            "tutor": "对话辅导",
-            "hint": "代码提示",
-            "exercise": "练习生成",
+            "tutor": "Dialogue Tutor",
+            "hint": "Code Hints",
+            "exercise": "Exercise Generator",
         }[x],
         index=0,
     )
@@ -102,9 +102,9 @@ with st.sidebar:
     st.divider()
 
     # Language selection
-    st.subheader("编程语言")
+    st.subheader("Programming Language")
     language = st.selectbox(
-        "选择语言",
+        "Select Language",
         ["python", "c", "cpp", "java", "javascript"],
         format_func=lambda x: {
             "python": "Python",
@@ -119,31 +119,31 @@ with st.sidebar:
     st.divider()
 
     # Session info
-    st.subheader("会话信息")
+    st.subheader("Session Info")
     st.text(f"ID: {st.session_state.session_id[:8]}...")
-    st.text(f"消息数: {len(st.session_state.messages)}")
+    st.text(f"Messages: {len(st.session_state.messages)}")
 
-    if st.button("清除对话"):
+    if st.button("Clear Chat"):
         st.session_state.messages = []
         st.rerun()
 
     st.divider()
 
     # Progress button
-    if st.button("查看学习进度"):
+    if st.button("View Learning Progress"):
         progress = get_progress()
         if progress:
             st.json(progress)
 
 # Main area
-st.title("CodeTutor - 智能编程辅导系统")
-st.caption("基于开源大语言模型的编程教育智能辅导系统")
+st.title("CodeTutor - Intelligent Programming Tutoring System")
+st.caption("An LLM-powered intelligent tutoring system for programming education")
 
 # Display mode description
 mode_descriptions = {
-    "tutor": "在对话辅导模式下，我可以回答你的编程问题，解释概念，帮你理解代码。我不会直接给答案，而是引导你思考。",
-    "hint": "在代码提示模式下，你可以提交有错误的代码，我会逐步给出提示帮你找到问题。",
-    "exercise": "在练习生成模式下，告诉我你想练习什么主题，我会为你生成合适的练习题。",
+    "tutor": "In Dialogue Tutor mode, I can answer your programming questions, explain concepts, and help you understand code. I won't give direct answers but guide you to think.",
+    "hint": "In Code Hints mode, you can submit code with errors, and I'll provide progressive hints to help you find the issues.",
+    "exercise": "In Exercise Generator mode, tell me what topic you want to practice, and I'll generate appropriate exercises for you.",
 }
 st.info(mode_descriptions[mode])
 
@@ -153,7 +153,7 @@ for msg in st.session_state.messages:
         st.markdown(msg["content"])
 
 # Chat input
-if prompt := st.chat_input("输入你的编程问题..."):
+if prompt := st.chat_input("Enter your programming question..."):
     # Add user message
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
@@ -161,18 +161,18 @@ if prompt := st.chat_input("输入你的编程问题..."):
 
     # Get response
     with st.chat_message("assistant"):
-        with st.spinner("思考中..."):
+        with st.spinner("Thinking..."):
             if mode == "exercise":
                 result = generate_exercise(prompt, "medium")
-                response = f"### {result.get('title', '练习题')}\n\n"
+                response = f"### {result.get('title', 'Exercise')}\n\n"
                 response += result.get("description", "")
                 if result.get("input_example"):
-                    response += f"\n\n**输入示例：** `{result['input_example']}`"
+                    response += f"\n\n**Input Example:** `{result['input_example']}`"
                 if result.get("output_example"):
-                    response += f"\n**输出示例：** `{result['output_example']}`"
+                    response += f"\n**Output Example:** `{result['output_example']}`"
             else:
                 result = send_message(prompt, mode)
-                response = result.get("response", "抱歉，出现了错误。")
+                response = result.get("response", "Sorry, an error occurred.")
 
         st.markdown(response)
 

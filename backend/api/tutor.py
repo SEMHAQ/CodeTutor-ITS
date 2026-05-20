@@ -58,7 +58,7 @@ async def chat_with_tutor(request: ChatRequest, db: Session = Depends(get_db)):
     if knowledge:
         weak = [k.knowledge_point for k in knowledge if k.mastery_level < 0.5]
         if weak:
-            knowledge_context = f"学生薄弱知识点：{', '.join(weak)}"
+            knowledge_context = f"Student's weak knowledge points: {', '.join(weak)}"
 
     # Build prompt based on mode
     if request.mode == "tutor":
@@ -133,7 +133,7 @@ async def generate_exercise(request: ExerciseRequest, db: Session = Depends(get_
     if knowledge:
         weak = [k.knowledge_point for k in knowledge if k.mastery_level < 0.5]
         if weak:
-            knowledge_context = f"学生薄弱知识点：{', '.join(weak)}"
+            knowledge_context = f"Student's weak knowledge points: {', '.join(weak)}"
 
     messages = build_exercise_prompt(
         request.topic, request.difficulty, request.programming_language, knowledge_context
@@ -184,9 +184,9 @@ async def get_progress(session_id: str, db: Session = Depends(get_db)):
 
     recommendations = []
     if weak_points:
-        recommendations.append(f"建议重点复习：{', '.join(weak_points[:3])}")
+        recommendations.append(f"Recommended review: {', '.join(weak_points[:3])}")
     if total_questions < 10:
-        recommendations.append("建议多做练习题以巩固知识")
+        recommendations.append("Practice more exercises to consolidate knowledge")
 
     return ProgressReport(
         session_id=session_id,

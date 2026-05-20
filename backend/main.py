@@ -27,7 +27,8 @@ app.include_router(tutor_router)
 async def startup():
     init_db()
     print("Database initialized.")
-    print(f"Using LLM model: {config.LLM_MODEL}")
+    print(f"Using LLM model: {config.LLM_MODEL_NAME}")
+    print(f"Model path: {config.LLM_MODEL_PATH}")
 
 
 @app.get("/")
@@ -36,7 +37,7 @@ async def root():
         "name": "CodeTutor API",
         "version": "1.0.0",
         "status": "running",
-        "model": config.LLM_MODEL,
+        "model": config.LLM_MODEL_NAME,
     }
 
 

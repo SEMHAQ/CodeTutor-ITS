@@ -14,7 +14,7 @@ def build_tutor_prompt(
         messages.append(
             {
                 "role": "system",
-                "content": f"学生当前知识状态：{knowledge_context}",
+                "content": f"Student's current knowledge state: {knowledge_context}",
             }
         )
 
@@ -37,13 +37,13 @@ def build_hint_prompt(
     messages = [{"role": "system", "content": config.SYSTEM_PROMPTS["hint_system"]}]
 
     hint_guidance = {
-        1: "给出一个非常简短的提示，只指出错误类型，不要透露具体位置。",
-        2: "给出中等程度的提示，指出大致的错误区域和原因。",
-        3: "给出较详细的提示，说明如何修复，但不给出完整代码。",
-        4: "给出完整的解答和详细解释。",
+        1: "Give a very brief hint, only indicate the error type without revealing the specific location.",
+        2: "Give a moderate hint, indicating the general error area and reason.",
+        3: "Give a detailed hint explaining how to fix, but without providing complete code.",
+        4: "Provide the complete solution with detailed explanation.",
     }
 
-    prompt = f"""学生提交了以下{programming_language}代码：
+    prompt = f"""The student submitted the following {programming_language} code:
 
 ```{programming_language}
 {code}
@@ -51,10 +51,10 @@ def build_hint_prompt(
 
 """
     if error_description:
-        prompt += f"学生描述的问题：{error_description}\n\n"
+        prompt += f"Student's description of the problem: {error_description}\n\n"
 
-    prompt += f"当前提示级别：{hint_level}\n"
-    prompt += f"指导：{hint_guidance.get(hint_level, hint_guidance[1])}"
+    prompt += f"Current hint level: {hint_level}\n"
+    prompt += f"Guidance: {hint_guidance.get(hint_level, hint_guidance[1])}"
 
     messages.append({"role": "user", "content": prompt})
 
@@ -74,27 +74,27 @@ def build_exercise_prompt(
     """Build prompt for exercise generation."""
     messages = [{"role": "system", "content": config.SYSTEM_PROMPTS["exercise_generator"]}]
 
-    prompt = f"""请生成一道编程练习题：
+    prompt = f"""Please generate a programming exercise:
 
-主题：{topic}
-难度：{difficulty}
-编程语言：{programming_language}
+Topic: {topic}
+Difficulty: {difficulty}
+Programming Language: {programming_language}
 
 """
     if knowledge_context:
-        prompt += f"学生当前知识水平：{knowledge_context}\n\n"
+        prompt += f"Student's current knowledge level: {knowledge_context}\n\n"
 
-    prompt += """请按以下JSON格式输出（只输出JSON，不要其他内容）：
+    prompt += """Please output in the following JSON format (output JSON only, no other content):
 {
-    "title": "题目标题",
-    "description": "题目描述（详细说明要求）",
-    "input_example": "输入示例",
-    "output_example": "输出示例",
+    "title": "Exercise title",
+    "description": "Detailed problem description with requirements",
+    "input_example": "Input example",
+    "output_example": "Output example",
     "test_cases": [
-        {"input": "测试输入1", "expected_output": "期望输出1"},
-        {"input": "测试输入2", "expected_output": "期望输出2"}
+        {"input": "test input 1", "expected_output": "expected output 1"},
+        {"input": "test input 2", "expected_output": "expected output 2"}
     ],
-    "knowledge_points": ["涉及的知识点1", "涉及的知识点2"],
+    "knowledge_points": ["knowledge point 1", "knowledge point 2"],
     "difficulty": "easy/medium/hard"
 }"""
 
@@ -109,7 +109,7 @@ def build_knowledge_analysis_prompt(
     messages = [
         {
             "role": "system",
-            "content": "你是一个教育分析专家。根据学生的对话历史，分析他们对各个编程知识点的掌握程度。",
+            "content": "You are an education analytics expert. Analyze the student's chat history to assess their mastery of various programming knowledge points.",
         }
     ]
 
@@ -117,18 +117,18 @@ def build_knowledge_analysis_prompt(
         [f"{msg['role']}: {msg['content'][:200]}" for msg in chat_history[-20:]]
     )
 
-    prompt = f"""请分析以下学生对话历史，评估学生对各知识点的掌握程度：
+    prompt = f"""Please analyze the following student chat history and assess their mastery of each knowledge point:
 
 {history_text}
 
-请按以下JSON格式输出（只输出JSON）：
+Please output in the following JSON format (JSON only):
 {{
     "knowledge_levels": {{
-        "知识点1": {{"mastery": 0.0-1.0, "evidence": "判断依据"}},
-        "知识点2": {{"mastery": 0.0-1.0, "evidence": "判断依据"}}
+        "knowledge_point_1": {{"mastery": 0.0-1.0, "evidence": "basis for judgment"}},
+        "knowledge_point_2": {{"mastery": 0.0-1.0, "evidence": "basis for judgment"}}
     }},
-    "weak_points": ["薄弱知识点列表"],
-    "recommendations": ["学习建议列表"]
+    "weak_points": ["list of weak knowledge points"],
+    "recommendations": ["list of learning recommendations"]
 }}"""
 
     messages.append({"role": "user", "content": prompt})

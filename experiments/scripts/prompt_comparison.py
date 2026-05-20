@@ -144,11 +144,11 @@ if __name__ == "__main__":
 
     # Default test questions
     test_questions = [
-        "什么是Python中的列表推导式？",
-        "解释递归的概念和工作原理",
-        "什么是面向对象编程中的多态？",
-        "解释Python中的装饰器是什么",
-        "什么是时间复杂度和空间复杂度？",
+        "What is a list comprehension in Python?",
+        "Explain the concept and working principle of recursion",
+        "What is polymorphism in OOP?",
+        "Explain what decorators are in Python",
+        "What are time complexity and space complexity?",
     ]
 
     run_comparison(test_questions, args.output)
