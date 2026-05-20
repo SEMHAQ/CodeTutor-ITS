@@ -4,7 +4,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # LLM Configuration
-LLM_MODEL = os.getenv("LLM_MODEL", "qwen2.5:7b")
+LLM_MODEL_PATH = os.getenv(
+    "LLM_MODEL_PATH",
+    r"E:\Project\mfrl-llm-alignment\models\Qwen2.5-7B-Instruct"
+)
+LLM_MODEL_NAME = os.getenv("LLM_MODEL_NAME", "Qwen2.5-7B-Instruct")
+
+# Legacy Ollama config (kept for compatibility)
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 
 # Database
