@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "question": "什么是Python中的变量？",
+        "topic": "python_basics",
+        "reference_answer": "变量是程序中用来存储数据的命名容器。在Python中，变量不需要声明类型，可以直接赋值创建。例如：name = 'Alice' 创建了一个字符串变量，age = 25 创建了一个整数变量。Python是动态类型语言，变量的类型由赋的值决定。",
+        "difficulty": "easy"
+    },
+    {
+        "id": 2,
+        "question": "Python中for循环和while循环有什么区别？",
+        "topic": "control_flow",
+        "reference_answer": "for循环用于遍历可迭代对象（如列表、字符串、range），已知循环次数时使用。while循环在条件为真时持续执行，适合不确定循环次数的场景。例如：for i in range(5)遍历0-4，while x > 0在x大于0时持续循环。",
+        "difficulty": "easy"
+    },
+    {
+        "id": 3,
+        "question": "什么是递归？请举例说明。",
+        "topic": "algorithms",
+        "reference_answer": "递归是函数调用自身的编程技巧。每个递归函数需要：1）基本情况（终止条件）2）递归情况（缩小问题规模）。例如计算阶乘：def factorial(n): if n <= 1: return 1; return n * factorial(n-1)。factorial(5) = 5 * 4 * 3 * 2 * 1 = 120。",
+        "difficulty": "medium"
+    },
+    {
+        "id": 4,
+        "question": "解释Python中列表和元组的区别。",
+        "topic": "data_structures",
+        "reference_answer": "列表（list）是可变的，用[]创建，可以增删改元素。元组（tuple）是不可变的，用()创建，创建后不能修改。列表适合需要修改的数据集合，元组适合表示固定数据如坐标(x,y)。元组可以作为字典的键，列表不行。",
+        "difficulty": "easy"
+    },
+    {
+        "id": 5,
+        "question": "什么是面向对象编程中的封装？",
+        "topic": "oop",
+        "reference_answer": "封装是将数据（属性）和操作数据的方法捆绑在一起，并隐藏内部实现细节的机制。通过访问控制（public/private/protected）限制对内部状态的直接访问。在Python中，用_前缀表示私有，__前缀表示名称改写。封装提高了代码安全性和可维护性。",
+        "difficulty": "medium"
+    },
+    {
+        "id": 6,
+        "question": "如何在Python中处理异常？",
+        "topic": "python_basics",
+        "reference_answer": "使用try-except语句处理异常。try块中放可能出错的代码，except捕获并处理异常。可以有多个except处理不同类型异常，else在无异常时执行，finally无论是否异常都执行。例如：try: x = 1/0 except ZeroDivisionError: print('不能除以零')。",
+        "difficulty": "easy"
+    },
+    {
+        "id": 7,
+        "question": "解释二分查找算法的原理。",
+        "topic": "algorithms",
+        "reference_answer": "二分查找是在有序数组中查找目标值的高效算法。原理：取中间元素与目标比较，若目标小则在左半部分继续查找，若大则在右半部分，相等则找到。每次将搜索范围缩小一半，时间复杂度O(log n)。要求数据必须有序。",
+        "difficulty": "medium"
+    },
+    {
+        "id": 8,
+        "question": "什么是Python中的字典推导式？",
+        "topic": "python_basics",
+        "reference_answer": "字典推导式是创建字典的简洁语法：{key: value for item in iterable}。例如：{x: x**2 for x in range(5)} 创建 {0:0, 1:1, 2:4, 3:9, 4:16}。可以加条件过滤：{x: x**2 for x in range(10) if x % 2 == 0}。",
+        "difficulty": "medium"
+    },
+    {
+        "id": 9,
+        "question": "解释栈和队列的区别。",
+        "topic": "data_structures",
+        "reference_answer": "栈（Stack）是后进先出（LIFO）结构，只能在一端（栈顶）操作，push入栈，pop出栈。队列（Queue）是先进先出（FIFO）结构，一端入队，另一端出队。栈用于函数调用、撤销操作；队列用于任务调度、广度优先搜索。",
+        "difficulty": "easy"
+    },
+    {
+        "id": 10,
+        "question": "什么是Python中的装饰器？请举例说明。",
+        "topic": "python_basics",
+        "reference_answer": "装饰器是一个接受函数作为参数并返回新函数的高阶函数，用@语法使用。用于在不修改原函数代码的情况下扩展功能。例如：def timer(func): def wrapper(*args): start=time.time(); result=func(*args); print(f'耗时{time.time()-start}秒'); return result; return wrapper。使用@timer装饰函数。",
+        "difficulty": "hard"
+    }
+]
