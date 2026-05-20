@@ -12,7 +12,7 @@ class ChatMessage(BaseModel):
 class ChatRequest(BaseModel):
     message: str
     session_id: str
-    mode: str = "tutor"  # "tutor", "hint", "exercise"
+    mode: str = "tutor"  # "tutor", "hint", "exercise", "baseline"
     programming_language: str = "python"
     hint_level: Optional[int] = None
 

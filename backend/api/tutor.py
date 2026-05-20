@@ -61,7 +61,13 @@ async def chat_with_tutor(request: ChatRequest, db: Session = Depends(get_db)):
             knowledge_context = f"Student's weak knowledge points: {', '.join(weak)}"
 
     # Build prompt based on mode
-    if request.mode == "tutor":
+    if request.mode == "baseline":
+        # Baseline mode: simple direct answer, no tutoring features
+        messages = [
+            {"role": "system", "content": "You are a helpful programming assistant. Answer the student's question clearly and concisely."},
+            {"role": "user", "content": request.message},
+        ]
+    elif request.mode == "tutor":
         messages = build_tutor_prompt(
             request.message, chat_history, request.programming_language, knowledge_context
         )
