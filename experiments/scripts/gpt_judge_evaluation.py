@@ -72,6 +72,47 @@ def call_hf_inference(prompt: str, model: str = "Qwen/Qwen2.5-72B-Instruct",
                 return ""
 
 
+# --- Local judge (runs on GPU, no API cost) ---
+_local_judge_model = None
+_local_judge_tokenizer = None
+
+
+def call_local_judge(prompt: str, model_path: str = None) -> str:
+    """Call a local LLM as judge (zero cost, runs on GPU)."""
+    global _local_judge_model, _local_judge_tokenizer
+
+    if _local_judge_model is None:
+        import torch
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+
+        if model_path is None:
+            sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+            import config
+            model_path = config.LLM_MODEL_PATH
+
+        print(f"Loading local judge model from {model_path}...")
+        _local_judge_tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+        _local_judge_model = AutoModelForCausalLM.from_pretrained(
+            model_path, torch_dtype=torch.float16, device_map="auto", trust_remote_code=True
+        )
+        print("Local judge model loaded.")
+
+    messages = [
+        {"role": "system", "content": "You are an expert evaluator. Respond only in JSON format."},
+        {"role": "user", "content": prompt},
+    ]
+    text = _local_judge_tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+    inputs = _local_judge_tokenizer([text], return_tensors="pt").to(_local_judge_model.device)
+
+    import torch
+    with torch.no_grad():
+        outputs = _local_judge_model.generate(
+            **inputs, max_new_tokens=200, temperature=0.1, do_sample=True, top_p=0.9
+        )
+    generated = outputs[0][inputs["input_ids"].shape[1]:]
+    return _local_judge_tokenizer.decode(generated, skip_special_tokens=True).strip()
+
+
 def parse_judge_scores(response: str) -> Dict[str, float]:
     """Parse JSON scores from judge response."""
     default = {"accuracy": 0, "clarity": 0, "educational_value": 0, "completeness": 0, "overall": 0}

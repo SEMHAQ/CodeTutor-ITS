@@ -10,12 +10,10 @@ import sys
 import time
 import torch
 import pandas as pd
-from typing import Optional
-
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 import config
-from gpt_judge_evaluation import call_hf_inference, parse_judge_scores, JUDGE_PROMPT
+from gpt_judge_evaluation import call_local_judge, parse_judge_scores, JUDGE_PROMPT
 
 TUTOR_SYSTEM_PROMPT = "You are an expert programming tutor. Explain concepts clearly with examples, use step-by-step reasoning, and encourage learning."
 
@@ -73,13 +71,10 @@ def main():
     parser.add_argument("--lora-path", default="experiments/models/qwen2.5-7b-lora/final")
     parser.add_argument("--output", "-o", default="experiments/results/finetune_comparison.csv")
     parser.add_argument("--sample", "-s", type=int, default=50)
-    parser.add_argument("--token", "-t", default=None, help="HuggingFace token for judge")
     args = parser.parse_args()
 
     from transformers import AutoModelForCausalLM, AutoTokenizer
     from peft import PeftModel
-
-    token = args.token or os.environ.get("HUGGINGFACE_TOKEN") or os.environ.get("HF_TOKEN")
 
     test_data = load_test_questions(sample=args.sample)
     print(f"Loaded {len(test_data)} test questions")
@@ -122,12 +117,8 @@ def main():
     df.to_csv(responses_path, index=False, encoding="utf-8-sig")
     print(f"\nResponses saved to {responses_path}")
 
-    # --- Phase 3: GPT-as-Judge ---
-    if not token:
-        print("No HF token, skipping judge. Set HUGGINGFACE_TOKEN or use --token.")
-        return
-
-    print("\n=== Phase 3: GPT-as-Judge ===")
+    # --- Phase 3: GPT-as-Judge (local model, zero cost) ---
+    print("\n=== Phase 3: Local Judge (Qwen2.5-7B) ===")
     judge_results = []
     for idx, row in df.iterrows():
         q = row["question"]
@@ -137,16 +128,14 @@ def main():
         base_prompt = JUDGE_PROMPT.format(
             question=q, reference_answer=ref, system_response=row["base_response"][:1500]
         )
-        base_raw = call_hf_inference(base_prompt, model="Qwen/Qwen2.5-72B-Instruct", token=token)
+        base_raw = call_local_judge(base_prompt)
         base_scores = parse_judge_scores(base_raw)
-        time.sleep(2)
 
         ft_prompt = JUDGE_PROMPT.format(
             question=q, reference_answer=ref, system_response=row["finetuned_response"][:1500]
         )
-        ft_raw = call_hf_inference(ft_prompt, model="Qwen/Qwen2.5-72B-Instruct", token=token)
+        ft_raw = call_local_judge(ft_prompt)
         ft_scores = parse_judge_scores(ft_raw)
-        time.sleep(2)
 
         if base_scores["overall"] == 0 or ft_scores["overall"] == 0:
             print(f"  WARNING: Parse failed. Base raw: {base_raw[:100]}... FT raw: {ft_raw[:100]}...")
