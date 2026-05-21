@@ -137,14 +137,19 @@ def main():
         base_prompt = JUDGE_PROMPT.format(
             question=q, reference_answer=ref, system_response=row["base_response"][:1500]
         )
-        base_scores = parse_judge_scores(call_hf_inference(base_prompt, token=token))
+        base_raw = call_hf_inference(base_prompt, model="Qwen/Qwen2.5-72B-Instruct", token=token)
+        base_scores = parse_judge_scores(base_raw)
         time.sleep(2)
 
         ft_prompt = JUDGE_PROMPT.format(
             question=q, reference_answer=ref, system_response=row["finetuned_response"][:1500]
         )
-        ft_scores = parse_judge_scores(call_hf_inference(ft_prompt, token=token))
+        ft_raw = call_hf_inference(ft_prompt, model="Qwen/Qwen2.5-72B-Instruct", token=token)
+        ft_scores = parse_judge_scores(ft_raw)
         time.sleep(2)
+
+        if base_scores["overall"] == 0 or ft_scores["overall"] == 0:
+            print(f"  WARNING: Parse failed. Base raw: {base_raw[:100]}... FT raw: {ft_raw[:100]}...")
 
         judge_results.append({
             "question_id": row["question_id"],
