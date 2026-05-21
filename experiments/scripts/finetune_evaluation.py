@@ -13,7 +13,7 @@ import pandas as pd
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 import config
-from gpt_judge_evaluation import call_local_judge, parse_judge_scores, JUDGE_PROMPT
+from gpt_judge_evaluation import call_openrouter, parse_judge_scores, JUDGE_PROMPT
 
 TUTOR_SYSTEM_PROMPT = "You are an expert programming tutor. Explain concepts clearly with examples, use step-by-step reasoning, and encourage learning."
 
@@ -128,13 +128,13 @@ def main():
         base_prompt = JUDGE_PROMPT.format(
             question=q, reference_answer=ref, system_response=row["base_response"][:1500]
         )
-        base_raw = call_local_judge(base_prompt)
+        base_raw = call_openrouter(base_prompt)
         base_scores = parse_judge_scores(base_raw)
 
         ft_prompt = JUDGE_PROMPT.format(
             question=q, reference_answer=ref, system_response=row["finetuned_response"][:1500]
         )
-        ft_raw = call_local_judge(ft_prompt)
+        ft_raw = call_openrouter(ft_prompt)
         ft_scores = parse_judge_scores(ft_raw)
 
         if base_scores["overall"] == 0 or ft_scores["overall"] == 0:

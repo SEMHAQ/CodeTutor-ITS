@@ -72,6 +72,49 @@ def call_hf_inference(prompt: str, model: str = "Qwen/Qwen2.5-72B-Instruct",
                 return ""
 
 
+def call_openrouter(prompt: str, model: str = "qwen/qwen-2.5-72b-instruct:free",
+                    token: Optional[str] = None, max_retries: int = 3) -> str:
+    """Call OpenRouter API (OpenAI-compatible, has free Qwen models)."""
+    import requests
+
+    if token is None:
+        token = os.environ.get("OPENROUTER_API_KEY")
+    if not token:
+        print("  No OpenRouter API key. Set OPENROUTER_API_KEY.")
+        return ""
+
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "model": model,
+        "messages": [
+            {"role": "system", "content": "You are an expert evaluator. Respond only in JSON format."},
+            {"role": "user", "content": prompt},
+        ],
+        "max_tokens": 200,
+        "temperature": 0.1,
+    }
+
+    for attempt in range(max_retries):
+        try:
+            resp = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers=headers, json=payload, timeout=60
+            )
+            resp.raise_for_status()
+            return resp.json()["choices"][0]["message"]["content"]
+        except Exception as e:
+            if attempt < max_retries - 1:
+                wait_time = 5 * (attempt + 1)
+                print(f"  OpenRouter error: {e}. Retrying in {wait_time}s...")
+                time.sleep(wait_time)
+            else:
+                print(f"  OpenRouter failed after {max_retries} attempts: {e}")
+                return ""
+
+
 # --- Local judge (runs on GPU, no API cost) ---
 _local_judge_model = None
 _local_judge_tokenizer = None
