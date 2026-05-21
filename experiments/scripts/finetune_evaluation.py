@@ -1,6 +1,7 @@
 """
 Experiment 7: Fine-tuned vs Base Model Evaluation
 Compare LoRA fine-tuned Qwen2.5-7B with the base model using GPT-as-Judge.
+Loads one model at a time to avoid OOM.
 """
 
 import json
@@ -17,36 +18,6 @@ import config
 from gpt_judge_evaluation import call_hf_inference, parse_judge_scores, JUDGE_PROMPT
 
 TUTOR_SYSTEM_PROMPT = "You are an expert programming tutor. Explain concepts clearly with examples, use step-by-step reasoning, and encourage learning."
-
-
-def load_base_model():
-    """Load base Qwen2.5-7B model."""
-    from transformers import AutoModelForCausalLM, AutoTokenizer
-
-    print(f"Loading base model from {config.LLM_MODEL_PATH}...")
-    tokenizer = AutoTokenizer.from_pretrained(config.LLM_MODEL_PATH, trust_remote_code=True)
-    model = AutoModelForCausalLM.from_pretrained(
-        config.LLM_MODEL_PATH, torch_dtype=torch.float16, device_map="auto", trust_remote_code=True
-    )
-    return model, tokenizer
-
-
-def load_finetuned_model(lora_path: str):
-    """Load LoRA fine-tuned model."""
-    from transformers import AutoModelForCausalLM, AutoTokenizer
-    from peft import PeftModel
-
-    print(f"Loading base model for LoRA merge...")
-    tokenizer = AutoTokenizer.from_pretrained(config.LLM_MODEL_PATH, trust_remote_code=True)
-    base_model = AutoModelForCausalLM.from_pretrained(
-        config.LLM_MODEL_PATH, torch_dtype=torch.float16, device_map="auto", trust_remote_code=True
-    )
-
-    print(f"Loading LoRA weights from {lora_path}...")
-    model = PeftModel.from_pretrained(base_model, lora_path)
-    model = model.merge_and_unload()  # Merge LoRA into base for faster inference
-    print("LoRA merged successfully.")
-    return model, tokenizer
 
 
 def generate_response(model, tokenizer, question: str, max_tokens: int = 1024) -> str:
@@ -79,6 +50,23 @@ def load_test_questions(filepath: str = "experiments/data/test_questions.json", 
     return data[:sample]
 
 
+def generate_all_responses(model, tokenizer, test_data, label: str):
+    """Generate responses for all test questions."""
+    results = []
+    for i, item in enumerate(test_data):
+        q = item["question"]
+        print(f"  [{i+1}/{len(test_data)}] {q[:50]}...")
+        resp = generate_response(model, tokenizer, q)
+        print(f"    -> {len(resp)} chars")
+        results.append({
+            "question_id": i,
+            "question": q,
+            "reference_answer": item.get("reference_answer", ""),
+            f"{label}_response": resp,
+        })
+    return results
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser()
@@ -88,71 +76,70 @@ def main():
     parser.add_argument("--token", "-t", default=None, help="HuggingFace token for judge")
     args = parser.parse_args()
 
-    # Get HF token
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+    from peft import PeftModel
+
     token = args.token or os.environ.get("HUGGINGFACE_TOKEN") or os.environ.get("HF_TOKEN")
 
-    # Load test questions
     test_data = load_test_questions(sample=args.sample)
     print(f"Loaded {len(test_data)} test questions")
 
-    # Load both models
-    base_model, base_tokenizer = load_base_model()
-    ft_model, ft_tokenizer = load_finetuned_model(args.lora_path)
+    # --- Phase 1: Generate base model responses ---
+    print("\n=== Phase 1: Base Model ===")
+    tokenizer = AutoTokenizer.from_pretrained(config.LLM_MODEL_PATH, trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained(
+        config.LLM_MODEL_PATH, torch_dtype=torch.float16, device_map="auto", trust_remote_code=True
+    )
+    base_results = generate_all_responses(model, tokenizer, test_data, "base")
 
-    # Generate responses from both models
-    results = []
-    for i, item in enumerate(test_data):
-        q = item["question"]
-        ref = item.get("reference_answer", "")
-        print(f"[{i+1}/{len(test_data)}] {q[:50]}...")
+    # Free base model
+    del model
+    torch.cuda.empty_cache()
+    time.sleep(5)
 
-        # Base model response
-        base_resp = generate_response(base_model, base_tokenizer, q)
-        print(f"  Base: {len(base_resp)} chars")
+    # --- Phase 2: Generate fine-tuned model responses ---
+    print("\n=== Phase 2: Fine-tuned Model ===")
+    base_model = AutoModelForCausalLM.from_pretrained(
+        config.LLM_MODEL_PATH, torch_dtype=torch.float16, device_map="auto", trust_remote_code=True
+    )
+    print(f"Loading LoRA from {args.lora_path}...")
+    ft_model = PeftModel.from_pretrained(base_model, args.lora_path)
+    ft_model = ft_model.merge_and_unload()
+    print("LoRA merged.")
 
-        # Fine-tuned model response
-        ft_resp = generate_response(ft_model, ft_tokenizer, q)
-        print(f"  Fine-tuned: {len(ft_resp)} chars")
+    ft_results = generate_all_responses(ft_model, tokenizer, test_data, "finetuned")
 
-        results.append({
-            "question_id": i,
-            "question": q,
-            "reference_answer": ref,
-            "base_response": base_resp,
-            "finetuned_response": ft_resp,
-        })
-
-    # Free GPU memory
-    del base_model, ft_model
+    del ft_model
     torch.cuda.empty_cache()
 
-    # Save responses
-    df = pd.DataFrame(results)
+    # --- Merge results ---
+    merged = []
+    for br, fr in zip(base_results, ft_results):
+        merged.append({**br, "finetuned_response": fr["finetuned_response"]})
+
+    df = pd.DataFrame(merged)
     responses_path = args.output.replace(".csv", "_responses.csv")
     df.to_csv(responses_path, index=False, encoding="utf-8-sig")
-    print(f"Responses saved to {responses_path}")
+    print(f"\nResponses saved to {responses_path}")
 
-    # Judge both with GPT-as-Judge
+    # --- Phase 3: GPT-as-Judge ---
     if not token:
-        print("No HF token provided, skipping GPT-as-Judge evaluation.")
-        print("Set HUGGINGFACE_TOKEN env var or use --token flag.")
+        print("No HF token, skipping judge. Set HUGGINGFACE_TOKEN or use --token.")
         return
 
-    print("\nStarting GPT-as-Judge evaluation...")
+    print("\n=== Phase 3: GPT-as-Judge ===")
     judge_results = []
     for idx, row in df.iterrows():
         q = row["question"]
         ref = row["reference_answer"]
         print(f"[{idx+1}/{len(df)}] Judging: {q[:50]}...")
 
-        # Judge base
         base_prompt = JUDGE_PROMPT.format(
             question=q, reference_answer=ref, system_response=row["base_response"][:1500]
         )
         base_scores = parse_judge_scores(call_hf_inference(base_prompt, token=token))
         time.sleep(2)
 
-        # Judge fine-tuned
         ft_prompt = JUDGE_PROMPT.format(
             question=q, reference_answer=ref, system_response=row["finetuned_response"][:1500]
         )
@@ -173,13 +160,12 @@ def main():
             "ft_completeness": ft_scores["completeness"],
             "ft_overall": ft_scores["overall"],
         })
+        print(f"  Base: {base_scores['overall']:.2f} | FT: {ft_scores['overall']:.2f}")
 
-        print(f"  Base: {base_scores['overall']:.2f} | Fine-tuned: {ft_scores['overall']:.2f}")
-
-    # Save and summarize
     judge_df = pd.DataFrame(judge_results)
     judge_df.to_csv(args.output, index=False, encoding="utf-8-sig")
 
+    # Summary
     print("\n" + "=" * 60)
     print("FINE-TUNED vs BASE MODEL COMPARISON")
     print("=" * 60)
