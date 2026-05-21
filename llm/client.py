@@ -4,6 +4,7 @@ Supports local HuggingFace models (Qwen2.5-7B-Instruct) via transformers.
 """
 
 import asyncio
+import os
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import config
@@ -36,6 +37,16 @@ class LLMClient:
             device_map="auto",
             trust_remote_code=True,
         )
+
+        # Load LoRA weights if configured
+        lora_path = config.LORA_MODEL_PATH
+        if lora_path and os.path.isdir(lora_path):
+            print(f"Loading LoRA weights from {lora_path}...")
+            from peft import PeftModel
+            self.model = PeftModel.from_pretrained(self.model, lora_path)
+            self.model = self.model.merge_and_unload()
+            print("LoRA weights merged.")
+
         self._loaded = True
         print(f"Model {self.model_name} loaded successfully.")
 

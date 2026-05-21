@@ -9,6 +9,7 @@ LLM_MODEL_PATH = os.getenv(
     r"E:\Project\mfrl-llm-alignment\models\Qwen2.5-7B-Instruct"
 )
 LLM_MODEL_NAME = os.getenv("LLM_MODEL_NAME", "Qwen2.5-7B-Instruct")
+LORA_MODEL_PATH = os.getenv("LORA_MODEL_PATH", "")  # Set to LoRA weights path to use fine-tuned model
 
 # Legacy Ollama config (kept for compatibility)
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
