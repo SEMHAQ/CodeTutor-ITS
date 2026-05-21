@@ -51,10 +51,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", "-d", default="experiments/data/training_data.jsonl")
     parser.add_argument("--output", "-o", default="experiments/models/qwen2.5-7b-lora")
-    parser.add_argument("--epochs", type=int, default=3)
+    parser.add_argument("--epochs", type=int, default=1)
     parser.add_argument("--batch-size", type=int, default=4)
-    parser.add_argument("--lr", type=float, default=2e-4)
-    parser.add_argument("--lora-rank", type=int, default=16)
+    parser.add_argument("--lr", type=float, default=5e-5)
+    parser.add_argument("--lora-rank", type=int, default=8)
     parser.add_argument("--max-length", type=int, default=1024)
     args = parser.parse_args()
 
@@ -79,8 +79,8 @@ def main():
         task_type=TaskType.CAUSAL_LM,
         r=args.lora_rank,
         lora_alpha=args.lora_rank * 2,
-        lora_dropout=0.05,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        lora_dropout=0.1,
+        target_modules=["q_proj", "v_proj"],
         bias="none",
     )
     model = get_peft_model(model, lora_config)

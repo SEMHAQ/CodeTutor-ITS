@@ -12,6 +12,8 @@ import random
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
+import config
+
 API_BASE_URL = "http://localhost:8000"
 
 # Extended question bank: 200+ questions across 10 topics
@@ -316,10 +318,7 @@ def main():
                 # Format as instruction-following for LoRA training
                 training_example = {
                     "messages": [
-                        {
-                            "role": "system",
-                            "content": "You are an expert programming tutor. Explain concepts clearly with examples, use step-by-step reasoning, and encourage learning."
-                        },
+                        {"role": "system", "content": config.SYSTEM_PROMPTS["tutor"]},
                         {"role": "user", "content": q},
                         {"role": "assistant", "content": response},
                     ]

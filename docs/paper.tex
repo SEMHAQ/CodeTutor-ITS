@@ -188,7 +188,14 @@ Chain-of-thought & 91.2 & 27.04 & 100 & 100 & 0.80 \\
 \end{tabularx}
 \end{table}
 
-The chain-of-thought~\cite{ref24} strategy significantly outperforms other approaches in completeness score (0.80 vs. 0.44 and 0.36) and structured reasoning (100\% step-by-step responses). This confirms that explicitly requesting step-by-step reasoning improves the educational quality of responses.
+The chain-of-thought~\cite{ref24} strategy significantly outperforms other approaches in completeness score (0.80 vs. 0.44 and 0.36) and structured reasoning (100\% step-by-step responses). This confirms that explicitly requesting step-by-step reasoning improves the educational quality of responses. Figure~\ref{fig:prompt} visualizes the comparison across all metrics.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/prompt_comparison}
+\caption{Prompt strategy comparison across four metrics. (a) Word count. (b) Response time. (c) Code inclusion rate. (d) Completeness score.}
+\label{fig:prompt}
+\end{figure}
 
 \subsection{Experiment 3: Ablation Study}
 
