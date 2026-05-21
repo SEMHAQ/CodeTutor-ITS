@@ -72,7 +72,7 @@ def call_hf_inference(prompt: str, model: str = "Qwen/Qwen2.5-72B-Instruct",
                 return ""
 
 
-def call_openrouter(prompt: str, model: str = "qwen/qwen-2.5-72b-instruct:free",
+def call_openrouter(prompt: str, model: str = "qwen/qwen-2.5-72b-instruct",
                     token: Optional[str] = None, max_retries: int = 3) -> str:
     """Call OpenRouter API (OpenAI-compatible, has free Qwen models)."""
     import requests
