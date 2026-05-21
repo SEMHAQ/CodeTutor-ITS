@@ -20,4 +20,20 @@ Thumbs.db
 .claude/
 experiments/logs/
 experiments/models/
+experiments/charts/
 MDPI_template_ACS/
+
+# LaTeX build artifacts
+docs/*.aux
+docs/*.bbl
+docs/*.blg
+docs/*.log
+docs/*.out
+docs/*.toc
+docs/*.synctex.gz
+docs/*.fls
+docs/*.fdb_latexmk
+docs/paper.pdf
+
+# Generated/copied files
+docs/Definitions/

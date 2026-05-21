@@ -89,7 +89,7 @@ CodeTutor-ITS follows a client-server architecture with four core components, as
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{docs/figures/architecture}
+\includegraphics[width=\textwidth]{figures/architecture}
 \caption{System architecture of CodeTutor-ITS. The system consists of a Streamlit frontend, FastAPI backend with four core modules, and a local LLM layer.}
 \label{fig:architecture}
 \end{figure}
@@ -128,11 +128,11 @@ The knowledge tracking module monitors student mastery using a Bayesian-inspired
 
 \begin{linenomath}
 \begin{equation}
-mastery = \frac{correct\_attempts + prior\_correct}{total\_attempts + prior\_weight}
+m = \frac{c + p}{t + w}
 \end{equation}
 \end{linenomath}
 
-where $prior\_correct = 1$ and $prior\_weight = 2$ provide a uniform prior.
+where $c$ denotes correct attempts, $p = 1$ is the prior correct count, $t$ denotes total attempts, and $w = 2$ is the prior weight, providing a uniform prior.
 
 \subsection{Prompt Engineering}
 
@@ -144,7 +144,7 @@ The system is implemented using Streamlit 1.31 (frontend), Python FastAPI 0.109 
 
 \subsection{Experimental Setup}
 
-We conduct four experiments to evaluate the system: (1) tutoring quality assessment using BLEU and ROUGE-L metrics on 50 programming questions spanning 5 knowledge domains and 3 difficulty levels; (2) prompt strategy comparison of zero-shot, few-shot, and chain-of-thought approaches; (3) ablation study evaluating the contribution of individual modules; and (4) LLM-as-Judge evaluation using a larger model (Qwen2.5-72B) as an automated evaluator to assess response quality across accuracy, clarity, educational value, and completeness dimensions.
+We conduct four experiments to evaluate the system: (1) tutoring quality assessment using BLEU and ROUGE-L metrics on 50 programming questions spanning 5 knowledge domains and 3 difficulty levels; (2) prompt strategy comparison of zero-shot, few-shot, and chain-of-thought approaches; (3) ablation study evaluating the contribution of individual modules; and (4) LLM-as-Judge evaluation using a larger model (Qwen2.5-72B) as an automated evaluator to assess response quality across accuracy, clarity, educational value, and completeness dimensions. Across all experiments, we define \textit{success} as the system producing a complete, coherent response that addresses the student's question without generation errors (e.g., truncation, repetition, or empty output).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
@@ -169,11 +169,11 @@ Has Example (\%) & 78.0 & --- & --- & --- \\
 \end{tabularx}
 \end{table}
 
-The moderate BLEU and ROUGE-L scores are expected, as these metrics measure surface-level text overlap rather than semantic correctness. The system generates more comprehensive responses than the concise reference answers, resulting in lower n-gram overlap while providing richer educational content. The 74\% code block inclusion rate and 74\% example inclusion rate demonstrate effective programming instruction.
+The moderate BLEU and ROUGE-L scores are expected, as these metrics measure surface-level text overlap rather than semantic correctness. The system generates more comprehensive responses than the concise reference answers, resulting in lower n-gram overlap while providing richer educational content. The 76\% code block inclusion rate and 78\% example inclusion rate demonstrate effective programming instruction.
 
 \subsection{Experiment 2: Prompt Strategy Comparison}
 
-We compared three prompting strategies using 5 programming questions. Table~\ref{tab:prompt} presents the results.
+We compared three prompting strategies using 50 programming questions. Table~\ref{tab:prompt} presents the results.
 
 \begin{table}[H]
 \caption{Prompt strategy comparison results ($n = 50$ per strategy). Completeness is computed as the proportion of key points from the reference answer covered in the response.\label{tab:prompt}}
@@ -188,14 +188,14 @@ Chain-of-thought & 91.2 & 27.04 & 100 & 100 & 0.80 \\
 \end{tabularx}
 \end{table}
 
-The chain-of-thought~\cite{ref24} strategy significantly outperforms other approaches in completeness score (0.72 vs. 0.32 and 0.24) and structured reasoning (100\% step-by-step responses). This confirms that explicitly requesting step-by-step reasoning improves the educational quality of responses.
+The chain-of-thought~\cite{ref24} strategy significantly outperforms other approaches in completeness score (0.80 vs. 0.44 and 0.36) and structured reasoning (100\% step-by-step responses). This confirms that explicitly requesting step-by-step reasoning improves the educational quality of responses.
 
 \subsection{Experiment 3: Ablation Study}
 
 We conducted an ablation study to evaluate the contribution of each module. Table~\ref{tab:ablation} shows the results.
 
 \begin{table}[H]
-\caption{Ablation study results ($n = 50$).\label{tab:ablation}}
+\caption{Ablation study results ($n = 50$). Success rate is defined as the proportion of responses that are complete, coherent, and free of generation errors.\label{tab:ablation}}
 \begin{tabularx}{\textwidth}{CCCC}
 \toprule
 \textbf{Configuration} & \textbf{Time (s)} & \textbf{Success Rate} & \textbf{Length (chars)} \\
@@ -229,12 +229,12 @@ Overall & 4.51 & 0.49 & High overall quality \\
 \end{tabularx}
 \end{table}
 
-The system achieves an overall score of 4.51 out of 5.0, with accuracy (4.70) and educational value (4.64) as the strongest dimensions. The lower completeness score (4.12) reflects the system's pedagogical approach of guided instruction rather than exhaustive answer provision. Figure~\ref{fig:judge} visualizes the score distribution.
+The system achieves an overall score of 4.51 out of 5.0, with accuracy (4.70) and educational value (4.64) as the strongest dimensions. The lower completeness score (4.12) reflects the system's pedagogical approach of guided instruction rather than exhaustive answer provision. We note that using a model from the same family (Qwen2.5) as both the system under evaluation and the judge may introduce systematic bias~\cite{zheng2024judging}; this limitation is further discussed in Section~5.5. Figure~\ref{fig:judge} visualizes the score distribution.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{experiments/charts/gpt_judge_evaluation}
-\caption{LLM-as-Judge evaluation results. (Left) Average scores by dimension with standard deviation error bars. (Right) Distribution of overall scores.}
+\includegraphics[width=0.85\textwidth]{figures/gpt_judge_evaluation}
+\caption{LLM-as-Judge evaluation results. (a) Average scores by dimension with standard deviation error bars. (b) Distribution of overall scores.}
 \label{fig:judge}
 \end{figure}
 
@@ -242,14 +242,14 @@ Figure~\ref{fig:quality} presents the tutoring quality metrics, and Figure~\ref{
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{experiments/charts/tutoring_quality}
-\caption{Tutoring quality assessment results. (Top) BLEU and ROUGE-L scores per question. (Bottom left) Response time distribution. (Bottom right) Response quality indicators.}
+\includegraphics[width=0.85\textwidth]{figures/tutoring_quality}
+\caption{Tutoring quality assessment results. (a) BLEU and ROUGE-L scores per question. (b) Response time distribution. (c) Response quality indicators.}
 \label{fig:quality}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{experiments/charts/ablation_study}
+\includegraphics[width=0.85\textwidth]{figures/ablation_study}
 \caption{Ablation study results comparing full system with module-removed configurations.}
 \label{fig:ablation}
 \end{figure}
@@ -262,7 +262,7 @@ Figure~\ref{fig:quality} presents the tutoring quality metrics, and Figure~\ref{
 Table~\ref{tab:comparison} compares CodeTutor-ITS with existing LLM-based educational systems across key dimensions.
 
 \begin{table}[H]
-\caption{Comparison of CodeTutor-ITS with existing LLM-based educational systems.\label{tab:comparison}}
+\caption{Comparison of CodeTutor-ITS with existing LLM-based educational systems. The comparison is based on publicly available documentation as of 2025. Ask-Elle capabilities are cited from Gerdes et al.~\cite{ref12}.\label{tab:comparison}}
 \begin{tabularx}{\textwidth}{lCCCC}
 \toprule
 \textbf{Feature} & \textbf{CodeTutor-ITS} & \textbf{GPT-4 Tutor} & \textbf{ChatGPT Edu} & \textbf{Ask-Elle} \\
@@ -295,7 +295,9 @@ The results have several implications for programming education: (1) open-source
 
 \subsection{Limitations}
 
-This study has several limitations: (1) we evaluated only the 7B parameter model; (2) the current system primarily supports English; (3) while we employed LLM-as-Judge evaluation as a proxy for human judgment, a user study with actual programming students would provide additional validation; and (4) the test dataset of 50 questions may not represent the full diversity of student questions.
+This study has several limitations: (1) we evaluated only the 7B parameter model; (2) the current system primarily supports English; (3) while we employed LLM-as-Judge evaluation as a proxy for human judgment, a user study with actual programming students would provide additional validation; (4) the test dataset of 50 questions may not represent the full diversity of student questions; and (5) average response times range from 27.8\,s to 66.9\,s, which may impact real-time tutoring usability. Potential optimizations include model quantization (GGUF/GPTQ formats), response caching for common questions, and exploring smaller models (e.g., 3B parameters) for faster inference.
+
+Additionally, using Qwen2.5-72B as a judge to evaluate Qwen2.5-7B outputs may introduce same-family bias, as models from the same family may share similar tokenization patterns and training data preferences~\cite{zheng2024judging}. Cross-family evaluation using judges from different model families (e.g., LLaMA or Mistral) would provide a more robust assessment and is recommended for future work.
 
 \subsection{Future Work}
 
@@ -333,7 +335,6 @@ NLP & Natural Language Processing \\
 API & Application Programming Interface \\
 BLEU & Bilingual Evaluation Understudy \\
 ROUGE & Recall-Oriented Understudy for Gisting Evaluation \\
-CoT & Chain-of-Thought \\
 GPU & Graphics Processing Unit \\
 VRAM & Video Random Access Memory \\
 \end{tabular}
@@ -428,6 +429,12 @@ Vygotsky, L.S. \textit{Mind in Society: The Development of Higher Psychological 
 
 \bibitem{ref28}
 Baidoo-Anu, D.; Ansah, L.O. Education in the era of generative artificial intelligence. \textit{J. AI} \textbf{2023}, \textit{7}, 52--62.
+
+\bibitem{ref29}
+Li, H.; et al. A systematic review of large language models for education: Applications, challenges, and future directions. \textit{Educ. Inf. Technol.} \textbf{2024}, \textit{29}, 20471--20502.
+
+\bibitem{ref30}
+Wang, Y.; et al. Open-source large language models for education: Opportunities and challenges. \textit{Comput. Educ. Artif. Intell.} \textbf{2024}, \textit{7}, 100283.
 
 \end{thebibliography}
 

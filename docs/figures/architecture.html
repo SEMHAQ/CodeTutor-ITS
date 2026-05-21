@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CodeTutor-ITS Architecture</title>
+<style>
+  @page {
+    size: 170mm 200mm;
+    margin: 0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff;
+    padding: 8mm 5mm 6mm;
+    width: 170mm;
+    margin: 0 auto;
+    color: #000;
+  }
+
+  /* Architecture container */
+  .arch-container {
+    border: 0.75pt solid #94b8e0;
+    padding: 0;
+  }
+
+  /* Layer base */
+  .layer {
+    border: 0.75pt solid #94b8e0;
+    margin: 0;
+  }
+  .layer + .layer {
+    border-top: none;
+  }
+  .layer-header {
+    border-bottom: 0.75pt solid #94b8e0;
+    padding: 3pt 10pt;
+    font-size: 11pt;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .layer-body {
+    display: flex;
+    gap: 0;
+    padding: 6pt 5pt;
+  }
+
+  /* Module base */
+  .module {
+    flex: 1;
+    border: 0.75pt solid #94b8e0;
+    background: #fff;
+    margin: 0 3pt;
+    padding: 5pt 6pt 4pt;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .module:first-child { margin-left: 0; }
+  .module:last-child { margin-right: 0; }
+  .module-name {
+    font-size: 10pt;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2pt;
+    line-height: 1.3;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .module-desc {
+    font-size: 9pt;
+    text-align: center;
+    line-height: 1.35;
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .module-tag {
+    display: block;
+    border: none;
+    font-size: 8pt;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    padding: 1pt 4pt;
+    margin-top: 4pt;
+    border-radius: 2px;
+  }
+
+  /* Blue — Presentation Layer */
+  .layer-blue {
+    border-color: #94b8e0;
+  }
+  .layer-blue .layer-header {
+    background: #ebf3fb;
+    color: #2c5aa0;
+    border-bottom-color: #94b8e0;
+  }
+  .layer-blue .layer-body .module {
+    border-color: #94b8e0;
+  }
+  .layer-blue .module-tag {
+    background: #d4e4f5;
+    color: #2c5aa0;
+  }
+
+  /* Green — Application Layer */
+  .layer-green {
+    border-color: #98d09a;
+  }
+  .layer-green .layer-header {
+    background: #ebf7eb;
+    color: #2e7d32;
+    border-bottom-color: #98d09a;
+  }
+  .layer-green .layer-body .module {
+    border-color: #98d09a;
+  }
+  .layer-green .module-tag {
+    background: #d4eed5;
+    color: #2e7d32;
+  }
+
+  /* Orange — Inference Layer */
+  .layer-orange {
+    border-color: #f5b080;
+  }
+  .layer-orange .layer-header {
+    background: #fff5eb;
+    color: #e65100;
+    border-bottom-color: #f5b080;
+  }
+  .layer-orange .layer-body .module {
+    border-color: #f5b080;
+  }
+  .layer-orange .module-highlight {
+    border: 1pt solid #e65100;
+    background: #fff5eb;
+  }
+  .layer-orange .module-tag {
+    background: #fce0c8;
+    color: #e65100;
+  }
+
+  /* Purple — Data Layer */
+  .layer-purple {
+    border-color: #b39ddb;
+  }
+  .layer-purple .layer-header {
+    background: #f3ebfb;
+    color: #5e35b1;
+    border-bottom-color: #b39ddb;
+  }
+  .layer-purple .layer-body .module {
+    border-color: #b39ddb;
+  }
+  .layer-purple .module-tag {
+    background: #e1d5f0;
+    color: #5e35b1;
+  }
+
+  /* Formula */
+  .formula {
+    font-style: italic;
+    font-family: "Times New Roman", serif;
+    font-size: 8.5pt;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+  .formula .frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 1pt;
+  }
+  .formula .frac .num {
+    border-bottom: 0.75pt solid #000;
+    padding: 0 2pt 1pt;
+    line-height: 1.1;
+  }
+  .formula .frac .den {
+    padding: 1pt 2pt 0;
+    line-height: 1.1;
+  }
+
+  /* Arrow — base */
+  .arrow-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 22pt;
+    background: #fff;
+  }
+  .arrow-wrapper {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 14px;
+  }
+  .arrow-label {
+    position: absolute;
+    background: #fff;
+    padding: 0 5pt;
+    font-size: 9pt;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    white-space: nowrap;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .arrow-line {
+    width: 1pt;
+    height: 12pt;
+    position: relative;
+  }
+  .arrow-head {
+    width: 0;
+    height: 0;
+    border-left: 3.5pt solid transparent;
+    border-right: 3.5pt solid transparent;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Arrow color variants */
+  .arrow-blue .arrow-line { background: #94b8e0; }
+  .arrow-blue .arrow-head { border-top: 5pt solid #94b8e0; }
+  .arrow-blue .arrow-label { color: #2c5aa0; }
+  .arrow-green .arrow-line { background: #98d09a; }
+  .arrow-green .arrow-head { border-top: 5pt solid #98d09a; }
+  .arrow-green .arrow-label { color: #2e7d32; }
+  .arrow-orange .arrow-line { background: #f5b080; }
+  .arrow-orange .arrow-head { border-top: 5pt solid #f5b080; }
+  .arrow-orange .arrow-label { color: #e65100; }
+</style>
+</head>
+<body>
+
+<div class="arch-container">
+
+  <!-- Presentation Layer — Blue -->
+  <div class="layer layer-blue">
+    <div class="layer-header">Presentation Layer</div>
+    <div class="layer-body">
+      <div class="module">
+        <div class="module-name">Chat Interface</div>
+        <div class="module-desc">Interactive dialogue<br>tutoring interface</div>
+        <div class="module-tag">Streamlit</div>
+      </div>
+      <div class="module">
+        <div class="module-name">Mode Selector</div>
+        <div class="module-desc">Tutor / Hints / Exercise<br>generation modes</div>
+      </div>
+      <div class="module">
+        <div class="module-name">Progress Dashboard</div>
+        <div class="module-desc">Knowledge mastery<br>visualization</div>
+      </div>
+      <div class="module">
+        <div class="module-name">Session Manager</div>
+        <div class="module-desc">Chat history and<br>student profiles</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow: Presentation → Application (blue) -->
+  <div class="arrow-row arrow-blue">
+    <div class="arrow-wrapper">
+      <div class="arrow-label">REST API / JSON</div>
+      <div class="arrow-line">
+        <div class="arrow-head"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Layer — Green -->
+  <div class="layer layer-green">
+    <div class="layer-header">Application Layer</div>
+    <div class="layer-body">
+      <div class="module">
+        <div class="module-name">Dialogue Tutor</div>
+        <div class="module-desc">Socratic guided instruction with<br>context-aware responses</div>
+        <div class="module-tag">Prompt Engineering</div>
+      </div>
+      <div class="module">
+        <div class="module-name">Adaptive Hints</div>
+        <div class="module-desc">Four-level progressive hint hierarchy<br>with automatic escalation<br>after 3 consecutive failures</div>
+        <div class="module-tag">L1 &#x2192; L2 &#x2192; L3 &#x2192; L4</div>
+      </div>
+      <div class="module">
+        <div class="module-name">Exercise Generator</div>
+        <div class="module-desc">Topic and difficulty-based<br>problem generation</div>
+        <div class="module-tag">JSON Output</div>
+      </div>
+      <div class="module">
+        <div class="module-name">Knowledge Tracker</div>
+        <div class="module-desc">Bayesian mastery update with<br>weak point identification</div>
+        <div class="module-tag"><span class="formula"><i>M</i> = <span class="frac"><span class="num"><i>C</i> + <i>P</i></span><span class="den"><i>T</i> + <i>W</i></span></span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow: Application → Inference (green) -->
+  <div class="arrow-row arrow-green">
+    <div class="arrow-wrapper">
+      <div class="arrow-label">Prompt Construction + Context Injection</div>
+      <div class="arrow-line">
+        <div class="arrow-head"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inference Layer — Orange -->
+  <div class="layer layer-orange">
+    <div class="layer-header">Inference Layer</div>
+    <div class="layer-body">
+      <div class="module">
+        <div class="module-name">Prompt Engine</div>
+        <div class="module-desc">System prompts with chat history and<br>knowledge context</div>
+      </div>
+      <div class="module module-highlight">
+        <div class="module-name">Qwen2.5-7B-Instruct</div>
+        <div class="module-desc">FP16 inference with automatic device<br>mapping via Transformers</div>
+        <div class="module-tag">RTX 3090 &#183; 24GB VRAM</div>
+      </div>
+      <div class="module">
+        <div class="module-name">Tokenizer</div>
+        <div class="module-desc">Chat template application and token<br>encoding/decoding</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow: Inference → Data (orange) -->
+  <div class="arrow-row arrow-orange">
+    <div class="arrow-wrapper">
+      <div class="arrow-label">SQLAlchemy ORM (Object-Relational Mapping)</div>
+      <div class="arrow-line">
+        <div class="arrow-head"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Layer — Purple -->
+  <div class="layer layer-purple">
+    <div class="layer-header">Data Layer</div>
+    <div class="layer-body">
+      <div class="module">
+        <div class="module-name">Chat History</div>
+        <div class="module-desc">Messages, roles, and timestamps</div>
+      </div>
+      <div class="module">
+        <div class="module-name">Knowledge State</div>
+        <div class="module-desc">Mastery levels per knowledge point</div>
+      </div>
+      <div class="module">
+        <div class="module-name">Exercise Records</div>
+        <div class="module-desc">Performance metrics and attempt<br>history</div>
+      </div>
+      <div class="module">
+        <div class="module-name">Session Data</div>
+        <div class="module-desc">Student profiles and preferences</div>
+        <div class="module-tag">SQLite</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
