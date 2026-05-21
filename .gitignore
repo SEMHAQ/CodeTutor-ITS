@@ -17,3 +17,6 @@ build/
 *.log
 .DS_Store
 Thumbs.db
+.claude/
+experiments/logs/
+MDPI_template_ACS/
