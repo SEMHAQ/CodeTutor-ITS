@@ -236,6 +236,52 @@ def plot_comparison(results_path: str):
     print(f"Chart saved: {chart_path}")
 
 
+def plot_finetune_comparison(results_path: str):
+    """Plot fine-tuned vs base model comparison."""
+    df = pd.read_csv(results_path)
+
+    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+    fig.suptitle("LoRA Fine-tuned vs Base Model", fontsize=14, fontweight="bold")
+
+    # Grouped bar chart
+    metrics = ["accuracy", "clarity", "educational", "completeness", "overall"]
+    metric_labels = ["Accuracy", "Clarity", "Educational", "Completeness", "Overall"]
+
+    base_means = [df[f"base_{m}"].mean() for m in metrics]
+    ft_means = [df[f"ft_{m}"].mean() for m in metrics]
+
+    x = range(len(metrics))
+    width = 0.35
+
+    axes[0].bar([i - width/2 for i in x], base_means, width, label="Base Model",
+                color="#9E9E9E", alpha=0.85, edgecolor="black", linewidth=0.5)
+    axes[0].bar([i + width/2 for i in x], ft_means, width, label="LoRA Fine-tuned",
+                color="#4CAF50", alpha=0.85, edgecolor="black", linewidth=0.5)
+
+    axes[0].set_title("Score Comparison by Dimension")
+    axes[0].set_ylabel("Score (1-5)")
+    axes[0].set_xticks(x)
+    axes[0].set_xticklabels(metric_labels)
+    axes[0].set_ylim(0, 5.5)
+    axes[0].legend()
+    axes[0].axhline(y=3, color="gray", linestyle=":", alpha=0.5)
+
+    # Improvement chart
+    improvements = [(ft_means[i] - base_means[i]) for i in range(len(metrics))]
+    colors = ["#4CAF50" if v >= 0 else "#F44336" for v in improvements]
+    axes[1].bar(metric_labels, improvements, color=colors, alpha=0.85, edgecolor="black", linewidth=0.5)
+    axes[1].set_title("Improvement After Fine-tuning")
+    axes[1].set_ylabel("Score Difference")
+    axes[1].axhline(y=0, color="black", linewidth=0.5)
+    axes[1].tick_params(axis="x", rotation=45)
+
+    plt.tight_layout()
+    chart_path = os.path.join(CHARTS_DIR, "finetune_comparison.pdf")
+    plt.savefig(chart_path, dpi=300, bbox_inches="tight")
+    plt.close()
+    print(f"Chart saved: {chart_path}")
+
+
 if __name__ == "__main__":
     # Generate charts if results exist
     tutoring_path = os.path.join(RESULTS_DIR, "tutoring_quality_results.csv")
@@ -257,5 +303,9 @@ if __name__ == "__main__":
     comparison_path = os.path.join(RESULTS_DIR, "comparison_results.csv")
     if os.path.exists(comparison_path):
         plot_comparison(comparison_path)
+
+    finetune_path = os.path.join(RESULTS_DIR, "finetune_comparison.csv")
+    if os.path.exists(finetune_path):
+        plot_finetune_comparison(finetune_path)
 
     print("Chart generation complete.")
