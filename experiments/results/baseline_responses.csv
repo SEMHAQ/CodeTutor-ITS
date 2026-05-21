@@ -1,51 +1,1231 @@
 ﻿question_id,question,reference_answer,baseline_response,response_time
-1,What is a variable in Python?,"A variable is a named container for storing data in a program. In Python, variables are created by assignment without explicit type declaration. For example: name = 'Alice' creates a string variable, age = 25 creates an integer. Python is dynamically typed, meaning the type is determined by the assigned value.",,122.49019360542297
-2,What is the difference between for loop and while loop in Python?,"A for loop iterates over a sequence (list, string, range) and is used when the number of iterations is known. A while loop continues executing as long as a condition is true, suitable when the number of iterations is unknown. For example: for i in range(5) iterates 0-4, while x > 0 loops while x is positive.",,122.2056519985199
-3,What is recursion? Please give an example.,"Recursion is a programming technique where a function calls itself. Every recursive function needs: 1) a base case (termination condition) 2) a recursive case (reducing the problem size). For example, factorial: def factorial(n): if n <= 1: return 1; return n * factorial(n-1). factorial(5) = 5 * 4 * 3 * 2 * 1 = 120.",,122.22239875793457
-4,Explain the difference between lists and tuples in Python.,"Lists are mutable sequences created with [] that can be modified (add, remove, change elements). Tuples are immutable sequences created with () that cannot be changed after creation. Lists are suitable for data that needs modification, tuples for fixed data like coordinates (x,y). Tuples can be used as dictionary keys, lists cannot.",,122.25402450561523
-5,What is encapsulation in OOP?,"Encapsulation is the mechanism of bundling data (attributes) and methods that operate on the data together, while hiding internal implementation details. It restricts direct access to internal state through access control (public/private/protected). In Python, _ prefix indicates private, __ prefix triggers name mangling. Encapsulation improves code security and maintainability.",,122.23511266708374
-6,How do you handle exceptions in Python?,"Use try-except statements to handle exceptions. Code that might fail goes in the try block, except catches and handles exceptions. Multiple except blocks can handle different exception types. else executes when no exception occurs, finally executes regardless. Example: try: x = 1/0 except ZeroDivisionError: print('Cannot divide by zero').",,122.2228729724884
-7,Explain the principle of binary search algorithm.,"Binary search is an efficient algorithm for finding a target value in a sorted array. It works by comparing the target with the middle element: if target is smaller, search the left half; if larger, search the right half; if equal, found. Each step halves the search range, giving O(log n) time complexity. Requires sorted data.",,122.21515202522278
-8,What is a dictionary comprehension in Python?,"Dictionary comprehension is a concise syntax for creating dictionaries: {key: value for item in iterable}. For example: {x: x**2 for x in range(5)} creates {0:0, 1:1, 2:4, 3:9, 4:16}. You can add conditional filtering: {x: x**2 for x in range(10) if x % 2 == 0} keeps only even numbers.",,32.60419273376465
-9,Explain the difference between stack and queue.,"A stack is a Last-In-First-Out (LIFO) structure where operations occur at one end (top): push adds, pop removes. A queue is a First-In-First-Out (FIFO) structure: enqueue at one end, dequeue at the other. Stacks are used for function calls, undo operations; queues for task scheduling, breadth-first search.",,32.62616276741028
-10,What is a decorator in Python? Give an example.,"A decorator is a higher-order function that takes a function as argument and returns a new function, applied with @syntax. It extends function behavior without modifying the original code. Example: def timer(func): def wrapper(*args): start=time.time(); result=func(*args); print(f'Elapsed: {time.time()-start}s'); return result; return wrapper. Use @timer above a function.",,32.53536653518677
-11,What is a list comprehension in Python?,List comprehension is a concise syntax for creating lists: [expression for item in iterable if condition]. For example: [x**2 for x in range(10)] generates squares of 0-9. With filtering: [x for x in range(10) if x % 2 == 0] keeps only even numbers. More concise and efficient than traditional for loops.,,32.829707622528076
-12,Explain deep copy and shallow copy in Python.,"Shallow copy copies the object but not nested objects (references shared). Deep copy recursively copies all nested objects (completely independent). Shallow copy: copy.copy() or slicing [:]. Deep copy: copy.deepcopy(). For immutable objects (int, str), copying has no practical effect. For data structures with nested mutable objects, deep copy ensures true independence.",,32.284404277801514
-13,What is a hash table? Which Python data structure is based on it?,"A hash table maps keys to array indices via a hash function, achieving O(1) average lookup. Python's dictionary (dict) and set are based on hash tables. Hash collisions are resolved through open addressing. Keys must be hashable (immutable types like int, str, tuple).",,32.222145080566406
-14,Explain inheritance in OOP.,Inheritance is a mechanism where a subclass acquires attributes and methods from a parent class. Subclasses can override parent methods or add new ones. Python supports multiple inheritance. Syntax: class Child(Parent). The super() function calls parent methods. Inheritance enables code reuse and hierarchical design.,,32.22667145729065
-15,What is polymorphism? Give an example.,"Polymorphism means different objects respond differently to the same message. In Python, it's achieved through duck typing—if an object has the required method, it can be called regardless of type. For example: len() works on strings, lists, and dictionaries, each with its own implementation.",,32.382397413253784
-16,What are generators in Python? What are their advantages?,Generators are functions using yield that return a lazily-evaluated iterator. Advantages: 1) memory efficient—don't store all values at once 2) can represent infinite sequences 3) concise code. Example: def gen(): yield 1; yield 2; yield 3. Also generator expressions: (x**2 for x in range(10)).,,32.26253414154053
-17,Explain time complexity and space complexity.,"Time complexity describes how execution time grows with input size, using Big-O notation. Common: O(1) constant, O(log n) logarithmic, O(n) linear, O(n²) quadratic. Space complexity describes extra memory needed. Often there's a tradeoff between time and space.",,32.26519727706909
-18,What is bubble sort? What is its time complexity?,"Bubble sort repeatedly compares adjacent elements and swaps them if out of order. Each pass 'bubbles' the largest element to the end. Time complexity O(n²), space complexity O(1). It's a stable sorting algorithm but inefficient, suitable for small datasets or teaching demonstrations.",,32.313607931137085
-19,Explain lambda functions in Python.,"Lambda is an anonymous function with syntax: lambda arguments: expression. It can only contain a single expression, no statements. Commonly used for simple functions in sorted() key parameter, map(), filter(), etc. Example: square = lambda x: x**2. More concise than def but limited in functionality.",,32.33190131187439
-20,What is a closure? How is it implemented in Python?,"A closure is a function that references free variables from its enclosing scope, retaining access even after the outer function returns. Implemented via nested functions: def outer(x): def inner(): return x; return inner. Closures are used in decorators, callbacks, and function factories. The nonlocal keyword modifies outer variables.",,32.35241460800171
-21,Explain linked lists and their Python implementation.,"A linked list is a linear data structure of nodes, each containing data and a pointer to the next node. Python implementation: class Node: def __init__(self, data): self.data = data; self.next = None. Advantages: O(1) insertion/deletion. Disadvantages: no random access. Variants: singly, doubly, circular linked lists.",,32.32388782501221
-22,What is a binary tree? What are its traversal methods?,A binary tree is a tree where each node has at most two children. Traversal methods: 1) Preorder (root-left-right) 2) Inorder (left-root-right) 3) Postorder (left-right-root) 4) Level-order (level by level). Inorder traversal of a BST yields sorted sequence. Can be implemented recursively or iteratively with a stack.,,32.33378887176514
-23,Explain the concept of dynamic programming.,"Dynamic programming decomposes complex problems into overlapping subproblems, storing results to avoid redundant computation. Two key properties: 1) optimal substructure 2) overlapping subproblems. Implementation: top-down (memoization) or bottom-up (tabulation). Classic problems: Fibonacci, knapsack, longest common subsequence.",,32.215388774871826
-24,What is a greedy algorithm? How does it differ from dynamic programming?,"Greedy algorithms make locally optimal choices at each step without considering the global picture. Suitable for problems with the greedy choice property. Difference from DP: greedy doesn't backtrack, more efficient but may not find global optimum; DP considers all subproblems, guarantees optimality. Classic greedy: activity selection, Huffman coding, MST.",,32.40774750709534
-25,What are *args and **kwargs in Python?,"*args captures variable positional arguments as a tuple. **kwargs captures variable keyword arguments as a dictionary. Example: def func(*args, **kwargs): print(args, kwargs). func(1,2,3, a=4,b=5) outputs (1,2,3) {'a':4,'b':5}. Commonly used for function wrapping and flexible parameters.",,32.377859592437744
-26,Explain context managers and the with statement in Python.,"Context managers handle automatic resource acquisition and release. The with statement ensures proper cleanup after use. Implementation: 1) implement __enter__ and __exit__ methods 2) use contextlib.contextmanager decorator. Common uses: file I/O (with open()), database connections, thread locks.",,32.307071924209595
-27,What is a graph? What are its storage methods?,"A graph consists of vertices and edges, classified as directed or undirected. Storage methods: 1) Adjacency matrix: 2D array, suitable for dense graphs 2) Adjacency list: dict/list, suitable for sparse graphs 3) Edge list: stores all edges. Python implementation uses dict for adjacency lists.",,32.2957022190094
-28,Explain the difference between BFS and DFS.,"BFS (Breadth-First Search) uses a queue, explores level by level, finds shortest paths. DFS (Depth-First Search) uses a stack (or recursion), goes deep before backtracking. Both have O(V) space complexity. BFS is ideal for shortest paths; DFS for connectivity detection, topological sorting.",,32.24576544761658
-29,What are dunder methods (magic methods) in Python?,"Magic methods are special methods with double underscores, automatically called by Python for specific operations. Common: __init__ (constructor), __str__ (string representation), __len__ (length), __getitem__ (index access), __add__ (addition), __eq__ (equality). Implementing magic methods customizes class behavior.",,32.762815713882446
-30,Explain GIL (Global Interpreter Lock) in Python.,GIL is CPython's global lock ensuring only one thread executes Python bytecode at a time. This limits multi-threading parallelism for CPU-bound tasks. Solutions: 1) multiprocessing 2) C extensions 3) alternative implementations. IO-bound tasks still benefit from multi-threading.,,32.66596579551697
-31,What is quicksort? What is its average time complexity?,"Quicksort selects a pivot, partitions the array into elements smaller and larger than the pivot, then recursively sorts. Average time complexity O(n log n), worst O(n²) for sorted arrays. Optimizations: random pivot, median-of-three. Unstable sort. Often the best general-purpose sorting algorithm in practice.",,32.6819429397583
-32,What are the characteristics of Python sets?,"Sets are unordered collections of unique elements, implemented with hash tables. Characteristics: 1) unique elements 2) mutable (frozenset is immutable) 3) support set operations (union |, intersection &, difference -) 4) O(1) lookup. Used for deduplication, membership testing, mathematical set operations. Elements must be hashable.",,32.22367548942566
-33,Explain regular expressions in Python.,"Regular expressions are patterns for matching text. Python's re module provides support. Common methods: re.match() matches from start, re.search() searches anywhere, re.findall() finds all matches, re.sub() replaces. Common patterns: . any char, * zero or more, + one or more, \d digit, \w alphanumeric, [] character set, () group.",,32.517409563064575
-34,What are iterators and iterables?,"An iterable implements __iter__ method, returning an iterator. An iterator implements __next__ method, returning elements one at a time. For loops call __iter__ to get an iterator, then repeatedly call __next__. Lists, strings, dicts are iterables. Generators are special iterators. StopIteration signals end.",,32.21471333503723
-35,Explain abstract classes and interfaces in OOP.,"Abstract classes cannot be instantiated, defining interfaces that subclasses must implement. In Python, use abc module's ABCMeta and @abstractmethod. An interface is a purely abstract class with only method signatures. Python has no formal interface syntax but uses abstract classes. Abstract classes can have concrete methods and attributes.",,32.21604371070862
-36,What is the Singleton pattern? How to implement it in Python?,Singleton ensures a class has only one instance. Python implementations: 1) override __new__ method 2) use decorators 3) use modules (modules are singletons) 4) use metaclasses. Simplest approach: check if instance exists in __new__ before creating a new one.,,32.2269492149353
-37,Explain multi-threading and multi-processing in Python.,"Multi-threading: threading module, shared memory, limited by GIL, suitable for IO-bound tasks. Multi-processing: multiprocessing module, separate memory, bypasses GIL, suitable for CPU-bound tasks. Thread communication uses Queue, Event, Lock. Process communication uses Queue, Pipe, shared memory. concurrent.futures provides high-level interfaces.",,32.61034035682678
-38,What is a database index? Why does it speed up queries?,"An index is a sorted data structure (usually B+ tree) on one or more table columns. It enables fast data location, avoiding full table scans. Reduces time complexity from O(n) to O(log n). Tradeoffs: extra storage, slower writes. Should be created on frequently queried columns with large data volumes.",,32.21396565437317
-39,Explain type hints (type annotations) in Python.,"Type hints add type information to variables, function parameters, and return values. Example: def add(x: int, y: int) -> int: return x + y. Python doesn't enforce types but tools like mypy can check statically. Benefits: improved readability, better IDE support, fewer type errors. typing module provides complex types like List, Dict, Optional.",,32.58690667152405
-40,What is HTTP protocol? What are the common HTTP methods?,"HTTP (HyperText Transfer Protocol) is for client-server communication. Common methods: GET (retrieve), POST (submit), PUT (update), DELETE (remove), PATCH (partial update). HTTP is stateless; cookies/sessions maintain state. Status codes: 200 success, 404 not found, 500 server error.",,32.218443155288696
-41,Explain RESTful API design principles.,"REST is an API design style: 1) resources represented by URIs 2) operations via HTTP methods 3) stateless 4) uniform interface 5) layered system. RESTful APIs use JSON for data transfer. Design guidelines: plural nouns, nested resources, versioning, appropriate HTTP status codes.",,32.23046278953552
-42,What is Git? What are its common commands?,"Git is a distributed version control system. Common commands: git init (initialize), git add (stage), git commit (commit), git push (push), git pull (pull), git branch (branch), git checkout (switch), git merge (merge), git log (history), git status (status). Branch management is Git's core advantage.",,32.78235459327698
-43,Explain asyncio asynchronous programming in Python.,"asyncio is Python's async IO framework. Core concepts: coroutines (async def), event loop (asyncio.run()), await for async operations. Ideal for IO-bound tasks like network requests, file I/O. async/await syntax makes async code look synchronous. Libraries: aiohttp, aiomysql.",,32.684730768203735
-44,What are design patterns? Name three common ones.,"Design patterns are reusable solutions to common software design problems. Three common: 1) Singleton: ensures one instance per class 2) Observer: one-to-many dependency, notifies all observers on state change 3) Factory: interface for creating objects, subclasses decide which to instantiate. Categories: creational, structural, behavioral.",,32.2145459651947
-45,What is a dataclass in Python?,"dataclass is a decorator introduced in Python 3.7 that auto-generates __init__, __repr__, __eq__ etc. for data-storing classes. Defined with @dataclass decorator. Supports default values and type annotations. More concise than manual data classes, more flexible than namedtuple.",,32.22186851501465
-46,Explain merge sort's principle and complexity.,"Merge sort uses divide-and-conquer: split array in half, recursively sort, then merge. Merging compares elements from both halves, placing them in order. Time complexity O(n log n) for all cases (best, worst, average), space complexity O(n). Stable sort. Suitable for linked list sorting and external sorting.",,32.222925424575806
-47,What is a hash collision? How to resolve it?,"Hash collision occurs when different keys map to the same index. Resolution methods: 1) Chaining: each slot holds a linked list 2) Open addressing: probe next empty slot on collision (linear, quadratic, double hashing) 3) Rehashing. Python dicts use open addressing. Good hash functions should distribute uniformly and compute quickly.",,32.214736461639404
-48,What is the difference between coroutines and threads in Python?,"Coroutines are lightweight user-space threads with cooperative scheduling, no OS involvement. Threads are OS-scheduled preemptive concurrent units. Coroutines have low switching overhead, no locks, ideal for IO-bound tasks. Threads have GIL limitations, require locking mechanisms. Coroutines use async/await, threads use threading module.",,32.401084899902344
-49,Explain metaclasses in Python.,"A metaclass is a class that creates classes. type is Python's built-in metaclass. Custom metaclasses control class creation. Syntax: class Foo(metaclass=MyMeta). Common uses: auto-register subclasses, validate class attributes, modify class definitions. Metaclasses are advanced features that should be used judiciously.",,32.22145938873291
-50,What is Docker? What problem does it solve?,"Docker is a containerization platform that packages applications and dependencies into lightweight containers. It solves the 'works on my machine' problem. Core concepts: images (read-only templates), containers (running instances), Dockerfile (build script), Docker Compose (multi-container orchestration). Benefits: environment consistency, fast deployment, resource isolation.",,32.60968565940857
+1,What is a variable in Python?,"A variable is a named container for storing data in a program. In Python, variables are created by assignment without explicit type declaration. For example: name = 'Alice' creates a string variable, age = 25 creates an integer. Python is dynamically typed, meaning the type is determined by the assigned value.","In Python, a variable is a name given to a storage location that holds values which can be of different types such as integers, strings, or floating-point numbers. You can think of a variable as a container for data. Here’s a simple example:
+
+```python
+message = ""Hello, world!""
+number = 42
+pi = 3.14159
+```
+
+In this example:
+- `message` stores a string.
+- `number` stores an integer.
+- `pi` stores a float.
+
+Variables allow you to store and manipulate data in your programs.",21.38300633430481
+2,What is the difference between for loop and while loop in Python?,"A for loop iterates over a sequence (list, string, range) and is used when the number of iterations is known. A while loop continues executing as long as a condition is true, suitable when the number of iterations is unknown. For example: for i in range(5) iterates 0-4, while x > 0 loops while x is positive.","In Python, both `for` loops and `while` loops are used to iterate over a block of code repeatedly, but they differ in how they control the iteration:
+
+1. **For Loop**:
+   - Used when the number of iterations is known or you want to iterate over a sequence (like a list, tuple, string) or any iterable.
+   - Syntax: 
+     ```python
+     for variable in iterable:
+         # do something with variable
+     ```
+   - Example:
+     ```python
+     fruits = [""apple"", ""banana"", ""cherry""]
+     for fruit in fruits:
+         print(fruit)
+     ```
+
+2. **While Loop**:
+   - Used when the number of iterations is unknown and depends on some condition that changes during execution.
+   - Syntax:
+     ```python
+     while condition:
+         # do something
+     ```
+   - Example:
+     ```python
+     count = 0
+     while count < 5:
+         print(count)
+         count += 1
+     ```
+
+The key differences are in their use cases and how they handle the termination condition. For loops are generally more straightforward for iterating over collections, while loops are better suited for situations where you need to repeat an action until a certain condition is met.",14.119213819503784
+3,What is recursion? Please give an example.,"Recursion is a programming technique where a function calls itself. Every recursive function needs: 1) a base case (termination condition) 2) a recursive case (reducing the problem size). For example, factorial: def factorial(n): if n <= 1: return 1; return n * factorial(n-1). factorial(5) = 5 * 4 * 3 * 2 * 1 = 120.","Recursion is a method where the solution to a problem depends on solutions to smaller instances of the same problem. In programming, it involves a function calling itself one or more times in its body.
+
+Example: Let's consider calculating the factorial of a number. The factorial of a non-negative integer n (denoted by n!) is the product of all positive integers less than or equal to n.
+
+Here’s how you can calculate the factorial using recursion:
+
+```python
+def factorial(n):
+    # Base case: if n is 0 or 1, return 1
+    if n == 0 or n == 1:
+        return 1
+    # Recursive case: n * factorial of (n-1)
+    else:
+        return n * factorial(n-1)
+
+# Example usage
+print(factorial(5))  # Output should be 120
+```
+
+In this example, the `factorial` function calls itself with a smaller value (`n-1`) until it reaches the base case (when `n` is 0 or 1). Each call waits for the result of the next call before proceeding, which is a key characteristic of recursive functions.",13.260728120803833
+4,Explain the difference between lists and tuples in Python.,"Lists are mutable sequences created with [] that can be modified (add, remove, change elements). Tuples are immutable sequences created with () that cannot be changed after creation. Lists are suitable for data that needs modification, tuples for fixed data like coordinates (x,y). Tuples can be used as dictionary keys, lists cannot.","In Python, both lists and tuples are used to store collections of items. However, there are key differences between them:
+
+1. **Mutability**:
+   - **Lists**: Are mutable, meaning you can change their content after creation (e.g., add, remove, or modify elements).
+   - **Tuples**: Are immutable, meaning once a tuple is created, you cannot change its contents.
+
+2. **Syntax**:
+   - **Lists**: Enclosed in square brackets `[]`.
+     ```python
+     my_list = [1, 2, 3]
+     ```
+   - **Tuples**: Enclosed in parentheses `()`.
+     ```python
+     my_tuple = (1, 2, 3)
+     ```
+
+3. **Performance**:
+   - Due to immutability, tuples can be slightly faster than lists when it comes to iteration and other operations because they do not need to handle the complexity of being mutable.
+
+4. **Usage**:
+   - Use **lists** when you need a collection that will change over time.
+   - Use **tuples** for data that should not change, such as coordinates or constants.
+
+These differences make lists more flexible but less efficient for read-only scenarios, while tuples offer better performance and safety in those cases.",14.231756448745728
+5,What is encapsulation in OOP?,"Encapsulation is the mechanism of bundling data (attributes) and methods that operate on the data together, while hiding internal implementation details. It restricts direct access to internal state through access control (public/private/protected). In Python, _ prefix indicates private, __ prefix triggers name mangling. Encapsulation improves code security and maintainability.","Encapsulation in Object-Oriented Programming (OOP) is the practice of bundling data (attributes) and methods (functions) that operate on the data into a single unit or class. It also involves restricting access to some of an object's components, which helps in hiding the internal state of the object from the outside world. This protects the data from accidental interference and ensures that only authorized parts of the code can modify its state.
+
+Key aspects of encapsulation include:
+
+1. **Data Hiding**: Making certain attributes private so they cannot be accessed directly from outside the class.
+2. **Access Modifiers**: Using public, protected, and private keywords to control access to class members.
+3. **Getter and Setter Methods**: Providing controlled ways to access and modify an object’s properties.
+
+Encapsulation promotes modularity, maintainability, and robustness in software design.",10.32185959815979
+6,How do you handle exceptions in Python?,"Use try-except statements to handle exceptions. Code that might fail goes in the try block, except catches and handles exceptions. Multiple except blocks can handle different exception types. else executes when no exception occurs, finally executes regardless. Example: try: x = 1/0 except ZeroDivisionError: print('Cannot divide by zero').","In Python, you can handle exceptions using try-except blocks. Here’s how it works:
+
+1. **Try Block**: You place the code that might throw an exception inside the `try` block.
+2. **Except Block**: If an exception occurs in the `try` block, the program jumps to the corresponding `except` block.
+
+Here is a basic example:
+
+```python
+try:
+    # Code that might cause an exception
+    result = 10 / 0
+except ZeroDivisionError:
+    # Handle specific exception (e.g., division by zero)
+    print(""Cannot divide by zero!"")
+```
+
+### Key Points:
+
+- **Multiple Except Blocks**: You can have multiple except blocks to handle different types of exceptions.
+
+```python
+try:
+    # Some code
+    x = int(input(""Enter a number: ""))
+except ValueError:
+    # Handle if input cannot be converted to an integer
+    print(""That's not a valid number!"")
+except Exception as e:
+    # Handle other possible exceptions
+    print(f""An error occurred: {str(e)}"")
+```
+
+- **Finally Block**: Use this to execute code regardless of whether an exception was raised or not.
+
+```python
+try:
+    # Some code
+    file = open(""example.txt"", ""r"")
+    data = file.read()
+finally:
+    # This will always run
+    file.close()
+```
+
+- **Raising Exceptions**: You can manually raise exceptions with `raise`.
+
+```python
+def process_age(age):
+    if age < 0:
+        raise ValueError(""Age cannot be negative"")
+    return f""You are {age} years old.""
+
+print(process_age(-5))  # Raises ValueError
+```
+
+Handling exceptions effectively helps make your programs more robust and user-friendly.",18.567392110824585
+7,Explain the principle of binary search algorithm.,"Binary search is an efficient algorithm for finding a target value in a sorted array. It works by comparing the target with the middle element: if target is smaller, search the left half; if larger, search the right half; if equal, found. Each step halves the search range, giving O(log n) time complexity. Requires sorted data.","Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing in half the portion of the list that could contain the item, until you've narrowed down the possible locations to just one.
+
+Here’s how it works step-by-step:
+
+1. **Start with the middle element**: If the target value is equal to the middle element of the array, then you’ve found what you’re looking for.
+2. **If the target value is smaller than the middle element**, repeat the process on the left sub-array (the part of the array before the middle element).
+3. **If the target value is larger than the middle element**, repeat the process on the right sub-array (the part of the array after the middle element).
+
+By eliminating half of the remaining elements at each step, binary search significantly reduces the number of comparisons needed to find the target value, making it very efficient. This process continues until the target value is found or determined not to be present in the array.
+
+The key points:
+- The list must be sorted.
+- It operates with a time complexity of O(log n), where n is the number of elements in the list.
+
+This makes binary search much faster than linear search for large datasets!",13.747584819793701
+8,What is a dictionary comprehension in Python?,"Dictionary comprehension is a concise syntax for creating dictionaries: {key: value for item in iterable}. For example: {x: x**2 for x in range(5)} creates {0:0, 1:1, 2:4, 3:9, 4:16}. You can add conditional filtering: {x: x**2 for x in range(10) if x % 2 == 0} keeps only even numbers.","A dictionary comprehension in Python is a concise way to create dictionaries. It allows you to generate new dictionaries from iterables, applying expressions and conditions directly within curly braces `{}`. The general form looks like this:
+
+```python
+{key_expression: value_expression for item in iterable if condition}
+```
+
+For example, to create a dictionary where keys are numbers from 1 to 5 and values are their squares:
+
+```python
+squares = {x: x**2 for x in range(1, 6)}
+print(squares)  # Output: {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+```
+
+This is equivalent to using a loop to build the same dictionary:
+
+```python
+squares = {}
+for x in range(1, 6):
+    squares[x] = x**2
+```
+
+Dictionary comprehensions make your code more readable and often more efficient for creating dictionaries based on existing sequences or other mappings.",11.944880723953247
+9,Explain the difference between stack and queue.,"A stack is a Last-In-First-Out (LIFO) structure where operations occur at one end (top): push adds, pop removes. A queue is a First-In-First-Out (FIFO) structure: enqueue at one end, dequeue at the other. Stacks are used for function calls, undo operations; queues for task scheduling, breadth-first search.","Sure! Both stacks and queues are data structures used to store collections of elements, but they manage those elements differently:
+
+1. **Stack**:
+   - Operates on a Last In First Out (LIFO) principle.
+   - Think of it as a stack of plates: you can only add or remove a plate from the top.
+   - Common operations include `push` (add an element to the top), `pop` (remove the top element), and `peek` (look at the top element without removing it).
+
+2. **Queue**:
+   - Follows a First In First Out (FIFO) principle.
+   - Imagine people waiting in line for tickets; the first person arrives first and gets served first.
+   - Key operations are `enqueue` (add an element to the end of the queue), `dequeue` (remove the front element), and checking the `front` element.
+
+In summary, the main difference is how items are added and removed—stacks add and remove from one end, while queues add to one end and remove from the other.",12.838599681854248
+10,What is a decorator in Python? Give an example.,"A decorator is a higher-order function that takes a function as argument and returns a new function, applied with @syntax. It extends function behavior without modifying the original code. Example: def timer(func): def wrapper(*args): start=time.time(); result=func(*args); print(f'Elapsed: {time.time()-start}s'); return result; return wrapper. Use @timer above a function.","In Python, a decorator is a design pattern that allows you to modify or enhance the behavior of a function or class without changing its source code. Decorators are specified by prefixing the function with `@decorator_name`.
+
+Here’s a simple example:
+
+```python
+def my_decorator(func):
+    def wrapper():
+        print(""Something is happening before the function is called."")
+        func()
+        print(""Something is happening after the function is called."")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print(""Hello!"")
+
+say_hello()
+```
+
+Output:
+```
+Something is happening before the function is called.
+Hello!
+Something is happening after the function is called.
+```
+
+In this example, `my_decorator` is a decorator that adds some functionality (printing messages) around the call to the `say_hello` function. When `say_hello()` is called, it actually calls the `wrapper` function defined inside `my_decorator`.",11.030415773391724
+11,What is a list comprehension in Python?,List comprehension is a concise syntax for creating lists: [expression for item in iterable if condition]. For example: [x**2 for x in range(10)] generates squares of 0-9. With filtering: [x for x in range(10) if x % 2 == 0] keeps only even numbers. More concise and efficient than traditional for loops.,"A list comprehension in Python is a concise way to create lists. It allows you to generate new lists by applying an expression to each element of an existing iterable (like another list, tuple, or range), optionally filtering elements with a condition. Here’s a basic example:
+
+```python
+# Create a list of squares from 0 to 9
+squares = [x**2 for x in range(10)]
+print(squares)  # Output: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+```
+
+In this example:
+- `x**2` is the expression that computes the square of each number.
+- `for x in range(10)` iterates over numbers from 0 to 9.
+
+List comprehensions can also include conditions:
+
+```python
+# Create a list of even numbers squared from 0 to 9
+even_squares = [x**2 for x in range(10) if x % 2 == 0]
+print(even_squares)  # Output: [0, 4, 16, 36, 64]
+```
+
+Here, `if x % 2 == 0` filters out odd numbers, only including even numbers in the resulting list.",14.970026969909668
+12,Explain deep copy and shallow copy in Python.,"Shallow copy copies the object but not nested objects (references shared). Deep copy recursively copies all nested objects (completely independent). Shallow copy: copy.copy() or slicing [:]. Deep copy: copy.deepcopy(). For immutable objects (int, str), copying has no practical effect. For data structures with nested mutable objects, deep copy ensures true independence.","In Python, both shallow copy and deep copy are used to create copies of objects, but they differ in how they handle nested structures.
+
+1. **Shallow Copy**:
+   - A shallow copy creates a new object which stores the reference of the original elements.
+   - Changes made to a nested object in the copied structure will reflect in the original structure because it does not create new objects for nested data.
+   - You can perform a shallow copy using the `copy` module or the `copy()` method available in lists.
+
+   Example with lists:
+   ```python
+   import copy
+
+   list1 = [[1, 2], [3, 4]]
+   list2 = copy.copy(list1)  # Shallow copy
+
+   list1[0][0] = 'X'
+   print(list2)  # Output: [['X', 2], [3, 4]]
+   ```
+
+2. **Deep Copy**:
+   - A deep copy creates a new object and recursively adds the copies of nested objects present in the original elements.
+   - Changes made to a nested object in the copied structure do not affect the original structure because each nested object is duplicated.
+   - You can perform a deep copy using the `deepcopy` function from the `copy` module.
+
+   Example with lists:
+   ```python
+   import copy
+
+   list1 = [[1, 2], [3, 4]]
+   list2 = copy.deepcopy(list1)  # Deep copy
+
+   list1[0][0] = 'X'
+   print(list2)  # Output: [[1, 2], [3, 4]] (unchanged)
+   ```
+
+The key difference lies in how they handle nested objects—shallow copies share references to nested objects, while deep copies create entirely new copies of those objects.",19.241949558258057
+13,What is a hash table? Which Python data structure is based on it?,"A hash table maps keys to array indices via a hash function, achieving O(1) average lookup. Python's dictionary (dict) and set are based on hash tables. Hash collisions are resolved through open addressing. Keys must be hashable (immutable types like int, str, tuple).","A hash table is a data structure that implements an associative array abstract data type, a structure that can map keys to values. It uses a hash function to compute an index into an array of buckets or slots, from which the desired value can be found.
+
+In Python, the `dict` data structure is based on a hash table. This allows for efficient insertion, deletion, and lookup operations, typically in average O(1) time complexity.",6.532138347625732
+14,Explain inheritance in OOP.,Inheritance is a mechanism where a subclass acquires attributes and methods from a parent class. Subclasses can override parent methods or add new ones. Python supports multiple inheritance. Syntax: class Child(Parent). The super() function calls parent methods. Inheritance enables code reuse and hierarchical design.,"Inheritance is a key concept in Object-Oriented Programming (OOP) that allows one class to inherit properties and methods from another class. The class that inherits these characteristics is called the ""derived"" or ""child"" class, while the class whose characteristics are inherited is known as the ""base"" or ""parent"" class.
+
+Here’s how it works:
+
+1. **Parent Class**: This is the base class which contains common attributes and behaviors.
+2. **Child Class**: This is the derived class that inherits the features of the parent class. It can also add new attributes and methods, or override existing ones.
+
+### Key Benefits:
+- **Code Reusability**: You don’t have to rewrite code; you can reuse the functionalities defined in the parent class.
+- **Hierarchical Classification**: Classes form a hierarchy where more specific classes can be created based on more general ones.
+
+### Example in Python:
+```python
+class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def speak(self):
+        return ""Some sound""
+
+class Dog(Animal):
+    def speak(self):
+        return ""Woof!""
+
+# Creating instances
+animal = Animal(""Generic Animal"")
+dog = Dog(""Buddy"")
+
+print(animal.speak())  # Output: Some sound
+print(dog.speak())     # Output: Woof!
+```
+
+In this example:
+- `Animal` is the parent class with a method `speak`.
+- `Dog` is the child class that inherits from `Animal` and overrides the `speak` method.
+
+This structure helps in creating a hierarchical relationship between classes and promotes better organization and maintainability of code.",17.50285530090332
+15,What is polymorphism? Give an example.,"Polymorphism means different objects respond differently to the same message. In Python, it's achieved through duck typing—if an object has the required method, it can be called regardless of type. For example: len() works on strings, lists, and dictionaries, each with its own implementation.","Polymorphism is a concept in object-oriented programming that allows objects of different classes to be treated as objects of a common superclass. This means you can use a single interface to represent multiple types.
+
+Example:
+Consider a class hierarchy for vehicles:
+
+```python
+class Vehicle:
+    def move(self):
+        pass
+
+class Car(Vehicle):
+    def move(self):
+        print(""Car is moving on roads."")
+
+class Plane(Vehicle):
+    def move(self):
+        print(""Plane is flying in the sky."")
+```
+
+In this example, both `Car` and `Plane` inherit from the `Vehicle` class. The `move()` method is defined in the `Vehicle` class but implemented differently in each subclass. 
+
+Here’s how you can use polymorphism:
+
+```python
+def vehicle_move(vehicle):
+    vehicle.move()
+
+car = Car()
+plane = Plane()
+
+vehicle_move(car)  # Output: Car is moving on roads.
+vehicle_move(plane)  # Output: Plane is flying in the sky.
+```
+
+In this code, the `vehicle_move` function accepts any object that is a `Vehicle`. Depending on the actual type of the object passed (whether it's a `Car` or a `Plane`), the appropriate `move` method will be called. This demonstrates polymorphism, where the same method name (`move`) behaves differently based on the object it is called upon.",15.010977506637573
+16,What are generators in Python? What are their advantages?,Generators are functions using yield that return a lazily-evaluated iterator. Advantages: 1) memory efficient—don't store all values at once 2) can represent infinite sequences 3) concise code. Example: def gen(): yield 1; yield 2; yield 3. Also generator expressions: (x**2 for x in range(10)).,"In Python, generators are a type of iterable, like lists or tuples. They generate values on-the-fly and do not store the entire sequence in memory at once. Instead, they produce items one at a time, which makes them more memory-efficient.
+
+### How Generators Work:
+Generators are defined using functions but use the `yield` keyword instead of `return`. When you call a generator function, it doesn't execute the function body immediately. It returns a generator object that you can iterate over (e.g., with a for loop).
+
+Here’s an example:
+
+```python
+def simple_generator():
+    yield 1
+    yield 2
+    yield 3
+
+gen = simple_generator()
+for value in gen:
+    print(value)
+```
+
+Output:
+```
+1
+2
+3
+```
+
+### Advantages of Generators:
+1. **Memory Efficiency**: Since generators generate values on-demand, they save memory when working with large datasets.
+2. **Lazy Evaluation**: Values are produced only as needed, which is useful for infinite sequences or streams of data.
+3. **Simplicity**: Generator functions look similar to regular functions, making them easy to understand and integrate into existing code.
+4. **Flexibility**: You can pause and resume execution by using the `next()` function, allowing for complex logic within the generator.
+
+These features make generators particularly useful in scenarios where performance and resource management are critical.",15.263402462005615
+17,Explain time complexity and space complexity.,"Time complexity describes how execution time grows with input size, using Big-O notation. Common: O(1) constant, O(log n) logarithmic, O(n) linear, O(n²) quadratic. Space complexity describes extra memory needed. Often there's a tradeoff between time and space.","Sure! Time complexity and space complexity are two key aspects of analyzing algorithms:
+
+1. **Time Complexity**: This measures the amount of computing time an algorithm uses in relation to the size of the input data. It helps predict how running time increases with the size of the input.
+
+2. **Space Complexity**: This measures the total amount of memory or storage space required by an algorithm as a function of the size of the input data.
+
+Both are typically expressed using Big O notation, which describes the upper bound of the growth rate of an algorithm's resource usage. For example:
+- A linear time complexity is \(O(n)\), meaning the time grows directly proportional to the input size.
+- An exponential time complexity might be \(O(2^n)\), indicating rapid growth that can make the algorithm impractical for large inputs.
+
+Understanding these concepts helps in choosing efficient algorithms for different applications.",10.420977354049683
+18,What is bubble sort? What is its time complexity?,"Bubble sort repeatedly compares adjacent elements and swaps them if out of order. Each pass 'bubbles' the largest element to the end. Time complexity O(n²), space complexity O(1). It's a stable sorting algorithm but inefficient, suitable for small datasets or teaching demonstrations.","Bubble sort is a simple comparison-based sorting algorithm. It works by repeatedly stepping through the list to be sorted, comparing each pair of adjacent items and swapping them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, which indicates that the list is sorted.
+
+The time complexity of bubble sort is O(n^2) in both average and worst cases, where n is the number of items being sorted. This makes it inefficient on large lists, and generally inferior to other sorting algorithms like quicksort or mergesort. However, it has some advantages for small data sets or nearly sorted lists.",8.181248903274536
+19,Explain lambda functions in Python.,"Lambda is an anonymous function with syntax: lambda arguments: expression. It can only contain a single expression, no statements. Commonly used for simple functions in sorted() key parameter, map(), filter(), etc. Example: square = lambda x: x**2. More concise than def but limited in functionality.","Lambda functions in Python are small anonymous functions defined with the `lambda` keyword. They can take any number of arguments but can only have one expression. Here’s a basic structure:
+
+```python
+lambda arguments: expression
+```
+
+For example, to create a simple function that doubles its input using a lambda function:
+
+```python
+double = lambda x: x * 2
+print(double(5))  # Output will be 10
+```
+
+Lambda functions are often used for short, simple operations where defining a full function would be more cumbersome than writing it inline. Commonly, they are used as arguments to higher-order functions like `map()`, `filter()`, and `sorted()`.
+
+Here’s an example using `map()` with a lambda function:
+
+```python
+numbers = [1, 2, 3, 4]
+squared = list(map(lambda x: x**2, numbers))
+print(squared)  # Output will be [1, 4, 9, 16]
+```
+
+In this case, `map()` applies the lambda function to each element of the `numbers` list.",12.81269884109497
+20,What is a closure? How is it implemented in Python?,"A closure is a function that references free variables from its enclosing scope, retaining access even after the outer function returns. Implemented via nested functions: def outer(x): def inner(): return x; return inner. Closures are used in decorators, callbacks, and function factories. The nonlocal keyword modifies outer variables.","A closure in programming is a function object that has access to variables from its own scope, even when the function is called outside that scope. Essentially, a closure remembers the environment in which it was created.
+
+In Python, closures are implemented by defining functions inside other functions and returning those inner functions. Here’s a simple example:
+
+```python
+def outer_function(x):
+    def inner_function(y):
+        return x + y
+    return inner_function
+
+closure_example = outer_function(10)
+print(closure_example(5))  # Output: 15
+```
+
+In this example:
+- `outer_function` takes an argument `x`.
+- Inside `outer_function`, there is another function `inner_function` that takes an argument `y`.
+- `inner_function` returns the sum of `x` and `y`.
+- When we call `outer_function(10)`, it returns `inner_function`. This returned function (`closure_example`) retains access to the variable `x` (which is 10) even after `outer_function` has finished executing.
+- Calling `closure_example(5)` adds 10 (remembered from the outer function) and 5, resulting in 15.
+
+This demonstrates how a closure allows `inner_function` to remember and use the value of `x` even though `outer_function` has already completed execution.",14.970474004745483
+21,Explain linked lists and their Python implementation.,"A linked list is a linear data structure of nodes, each containing data and a pointer to the next node. Python implementation: class Node: def __init__(self, data): self.data = data; self.next = None. Advantages: O(1) insertion/deletion. Disadvantages: no random access. Variants: singly, doubly, circular linked lists.","A linked list is a linear data structure where each element (node) points to the next node in the sequence. Unlike arrays, which store elements contiguously in memory, nodes of a linked list can be stored anywhere in memory.
+
+### Key Components:
+1. **Node**: Each node contains two parts - 
+   - Data: The value stored in the node.
+   - Pointer (or Reference): A reference to the next node in the sequence.
+
+2. **Head**: A pointer to the first node in the list.
+
+3. **Tail**: Points to the last node or `None` if the list is empty.
+
+### Types of Linked Lists:
+- **Singly Linked List**: Each node has only one pointer that references the next node.
+- **Doubly Linked List**: Each node has two pointers - one pointing to the next node and another pointing to the previous node.
+- **Circular Linked List**: In this type, the tail's next pointer points back to the head, creating a circular structure.
+
+### Python Implementation:
+
+#### Singly Linked List
+
+```python
+class Node:
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None  # Initialize with no next node
+
+class LinkedList:
+    def __init__(self):
+        self.head = None  # Initially, there is no head
+    
+    def append(self, data):
+        new_node = Node(data)
+        
+        if not self.head:
+            self.head = new_node
+            return
+        
+        last_node = self.head
+        while last_node.next:
+            last_node = last_node.next
+        last_node.next = new_node
+
+    def print_list(self):
+        cur_node = self.head
+        while cur_node:
+            print(cur_node.data, end="" -> "")
+            cur_node = cur_node.next
+        print(""None"")
+
+# Example Usage
+llist = LinkedList()
+llist.append(1)
+llist.append(2)
+llist.append(3)
+llist.print_list()  # Output: 1 -> 2 -> 3 -> None
+```
+
+In this example:
+- We define a `Node` class for individual elements.
+- A `LinkedList` class manages the list operations like appending new nodes and printing the entire list.
+
+This basic structure allows you to create more complex operations such as insertion, deletion, and searching within the linked list.",24.03330898284912
+22,What is a binary tree? What are its traversal methods?,A binary tree is a tree where each node has at most two children. Traversal methods: 1) Preorder (root-left-right) 2) Inorder (left-root-right) 3) Postorder (left-right-root) 4) Level-order (level by level). Inorder traversal of a BST yields sorted sequence. Can be implemented recursively or iteratively with a stack.,"A binary tree is a hierarchical data structure where each node has at most two children, referred to as the left child and the right child.
+
+There are three main ways to traverse or visit all nodes in a binary tree:
+
+1. **In-order Traversal**: This method visits the left subtree, then the root node, and finally the right subtree. It is particularly useful for binary search trees (BSTs) as it processes elements in ascending order.
+2. **Pre-order Traversal**: In this method, the root node is visited first, followed by the pre-order traversal of the left subtree, and then the right subtree. It is often used when creating a copy of a tree.
+3. **Post-order Traversal**: Here, the left subtree is traversed first, followed by the right subtree, and then the root node. This method can be used to delete a tree since it ensures that all children are deleted before their parent.
+
+Each traversal method provides a different sequence of visiting nodes, which can be crucial depending on the application or operation needed with the tree.",12.142401933670044
+23,Explain the concept of dynamic programming.,"Dynamic programming decomposes complex problems into overlapping subproblems, storing results to avoid redundant computation. Two key properties: 1) optimal substructure 2) overlapping subproblems. Implementation: top-down (memoization) or bottom-up (tabulation). Classic problems: Fibonacci, knapsack, longest common subsequence.","Dynamic Programming is an algorithmic technique used to solve problems by breaking them down into simpler subproblems, solving each of those subproblems just once, and storing their solutions using a memory-based data structure (like arrays or hash tables). The key idea is to avoid recomputing the solution to the same subproblem over and over again.
+
+This method is particularly useful for optimization problems where the solution can be recursively defined in terms of solutions to smaller instances of the same problem. By storing intermediate results, it ensures that each subproblem is solved only once, leading to significant improvements in efficiency compared to naive recursive approaches.
+
+Dynamic programming often leads to polynomial time algorithms, whereas without it, the same problems might require exponential time to solve. It’s widely applied in fields like computer science, mathematics, and operations research, especially in areas such as combinatorial optimization, game theory, and bioinformatics.",10.46742033958435
+24,What is a greedy algorithm? How does it differ from dynamic programming?,"Greedy algorithms make locally optimal choices at each step without considering the global picture. Suitable for problems with the greedy choice property. Difference from DP: greedy doesn't backtrack, more efficient but may not find global optimum; DP considers all subproblems, guarantees optimality. Classic greedy: activity selection, Huffman coding, MST.","A greedy algorithm is an approach to solving problems where you make the locally optimal choice at each step with the hope of finding a global optimum. It makes decisions based on the current state without considering future consequences.
+
+In contrast, dynamic programming solves problems by breaking them down into simpler subproblems and storing the results of these subproblems (often in a table) to avoid redundant calculations. Dynamic programming considers all possible ways to solve subproblems but ensures that the solution is built optimally by reusing previously computed solutions.
+
+Key differences:
+1. **Decision Making**: Greedy algorithms make immediate choices based on the best option available at that moment, while dynamic programming considers multiple options and their outcomes.
+2. **Optimality**: Greedy algorithms do not guarantee an optimal solution for all cases; they work well when the problem has the property of ""greedy-choice"" or ""optimal substructure."" Dynamic programming guarantees an optimal solution if the problem can be broken down into overlapping subproblems and if the optimal solution can be constructed efficiently from the solutions of those subproblems.
+3. **Time Complexity**: Greedy algorithms often have better time complexity than dynamic programming because they don't store intermediate results like dynamic programming does. However, dynamic programming can still offer efficient solutions depending on how the subproblem storage is implemented.",14.50806212425232
+25,What are *args and **kwargs in Python?,"*args captures variable positional arguments as a tuple. **kwargs captures variable keyword arguments as a dictionary. Example: def func(*args, **kwargs): print(args, kwargs). func(1,2,3, a=4,b=5) outputs (1,2,3) {'a':4,'b':5}. Commonly used for function wrapping and flexible parameters.","In Python, `*args` and `**kwargs` are special syntaxes used in function definitions to pass a variable number of arguments.
+
+- `*args`: Allows you to pass a variable number of non-keyworded arguments to your function. The name `args` is a convention; you can use any identifier prefixed with an asterisk (`*`), like `*params`.
+
+  Example:
+  ```python
+  def my_function(*args):
+      for arg in args:
+          print(arg)
+  
+  my_function(1, 2, 3)  # Output: 1 2 3
+  ```
+
+- `**kwargs`: Allows you to pass a variable number of keyworded arguments (i.e., arguments that are associated with keys). Here, `kwargs` stands for ""keyword arguments,"" but again, you could use another word after the double asterisk (`**`).
+
+  Example:
+  ```python
+  def my_function(**kwargs):
+      for key, value in kwargs.items():
+          print(f""{key} = {value}"")
+  
+  my_function(name=""Alice"", age=30)  # Output: name = Alice age = 30
+  ```
+
+These are particularly useful when you're not sure how many arguments will be passed to your function or if you want to pass functions as a flexible set of named parameters.",15.044732570648193
+26,Explain context managers and the with statement in Python.,"Context managers handle automatic resource acquisition and release. The with statement ensures proper cleanup after use. Implementation: 1) implement __enter__ and __exit__ methods 2) use contextlib.contextmanager decorator. Common uses: file I/O (with open()), database connections, thread locks.","In Python, context managers and the `with` statement are used to simplify the management of resources like files or database connections. They ensure that these resources are properly managed by automatically handling their setup and cleanup.
+
+### Key Concepts
+
+1. **Context Manager**: An object that defines methods for entering and exiting a critical section of code. It typically implements the `__enter__()` and `__exit__()` methods.
+2. **with Statement**: A way to wrap the execution of a block of code within methods defined by a context manager. This ensures that certain actions are taken before and after the block is executed, such as opening a file and ensuring it gets closed afterward.
+
+### Example: File Handling
+
+Here’s an example using the `with` statement to handle file operations:
+
+```python
+# Open a file and read its contents
+with open('example.txt', 'r') as file:
+    content = file.read()
+    print(content)
+```
+
+### Explanation
+
+- **Opening the File**: The `open('example.txt', 'r')` function call returns a file object which is then assigned to the variable `file`.
+- **Entering Context**: When you use `with`, the `__enter__()` method of the returned file object is called, which opens the file.
+- **Executing Code Block**: The indented block under `with` is where your main logic goes (in this case, reading the file).
+- **Exiting Context**: After the block, the `__exit__()` method of the file object is called, which closes the file. Even if an exception occurs inside the block, the file will still be closed.
+
+### Custom Context Managers
+
+You can also create custom context managers by defining classes that implement `__enter__()` and `__exit__()` methods.
+
+Example:
+
+```python
+class ManagedResource:
+    def __init__(self):
+        self.resource = None
+
+    def __enter__(self):
+        # Initialize resource
+        self.resource = ""resource initialized""
+        return self.resource
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        # Clean up resource
+        if self.resource:
+            print(""Cleaning up the resource"")
+
+# Using the custom context manager
+with ManagedResource() as resource:
+    print(resource)
+```
+
+### Summary
+
+- **with Statement**: Simplifies managing resources by automatically handling setup (`__enter__()`) and teardown (`__exit__()`) steps.
+- **Custom Context Managers**: Allow you to define your own resource management logic.
+
+This makes your code cleaner, more readable, and helps prevent common issues like forgetting to close resources.",26.09213161468506
+27,What is a graph? What are its storage methods?,"A graph consists of vertices and edges, classified as directed or undirected. Storage methods: 1) Adjacency matrix: 2D array, suitable for dense graphs 2) Adjacency list: dict/list, suitable for sparse graphs 3) Edge list: stores all edges. Python implementation uses dict for adjacency lists.","A graph is a non-linear data structure consisting of nodes (also called vertices) connected by edges. It's used to represent relationships between objects or entities.
+
+Graphs can be stored in several ways:
+
+1. **Adjacency Matrix**: This method uses a 2D array where rows and columns correspond to vertices. The value at matrix[i][j] indicates whether an edge exists from vertex i to vertex j. This method is simple but may use more space than necessary, especially for sparse graphs.
+
+2. **Adjacency List**: Each vertex has a list that contains all adjacent vertices. This is efficient for sparse graphs as it only requires space proportional to the number of edges. For dense graphs, adjacency lists can require more space than matrices due to the overhead of multiple linked lists.
+
+3. **Edge List**: A list of all edges with their endpoints. Useful when you want to focus on the connections rather than the individual vertices or their properties.
+
+4. **Incidence Matrix**: Represents the connection between vertices and edges. Rows correspond to vertices, columns to edges, and entries indicate which vertex each edge connects to. This method is useful for certain types of graph algorithms.
+
+5. **Incidence List**: Similar to adjacency lists but instead of storing the neighbors of each node, it stores the edges incident to each node.
+
+Each method has its own advantages depending on the specific requirements of the application, such as memory usage, speed of operations like adding/removing edges, etc.",15.749871492385864
+28,Explain the difference between BFS and DFS.,"BFS (Breadth-First Search) uses a queue, explores level by level, finds shortest paths. DFS (Depth-First Search) uses a stack (or recursion), goes deep before backtracking. Both have O(V) space complexity. BFS is ideal for shortest paths; DFS for connectivity detection, topological sorting.","BFS (Breadth-First Search) and DFS (Depth-First Search) are two common algorithms used for traversing or searching through trees and graphs.
+
+**BFS:**
+- **Approach:** Explores all nodes at the present depth level before moving on to nodes at the next depth level.
+- **Data Structure Used:** Queue.
+- **Best For:** Finding the shortest path in an unweighted graph or tree, as it explores all neighbors first before moving to the next level of nodes.
+
+**DFS:**
+- **Approach:** Goes as deep as possible into the graph before backtracking.
+- **Data Structure Used:** Stack (or recursion).
+- **Best For:** Detecting cycles, solving puzzles with only one solution, like mazes, and generating power sets.
+
+In summary, BFS is great for exploring all possibilities at a given distance from the starting point, while DFS delves deeply into each branch before exploring other branches.",11.208960771560669
+29,What are dunder methods (magic methods) in Python?,"Magic methods are special methods with double underscores, automatically called by Python for specific operations. Common: __init__ (constructor), __str__ (string representation), __len__ (length), __getitem__ (index access), __add__ (addition), __eq__ (equality). Implementing magic methods customizes class behavior.","Dunder methods, short for ""double-underscore methods,"" are special methods in Python that you can define in your classes to add functionality that is not directly available in the language but can be implemented by user-defined classes. These methods start and end with double underscores (e.g., `__init__`, `__str__`). They are also sometimes referred to as magic methods.
+
+Here are some common examples:
+
+1. **`__init__(self)`**: Called when an object of a class is initialized.
+2. **`__str__(self)`**: Returns a string representation of the object (used when print(object) or str(object) is called).
+3. **`__len__(self)`**: Returns the length of the object (used when len(object) is called).
+4. **`__add__(self, other)`**: Defines behavior for the + operator between two objects of this class.
+5. **`__getitem__(self, key)`** and **`__setitem__(self, key, value)`**: Allow instances of your class to use square bracket notation like list or dictionary items.
+6. **`__call__(self, *args, **kwargs)`**: Allows instances of the class to be called as functions.
+
+These methods enable you to customize the behavior of your objects and make them more intuitive to work with.",14.612866401672363
+30,Explain GIL (Global Interpreter Lock) in Python.,GIL is CPython's global lock ensuring only one thread executes Python bytecode at a time. This limits multi-threading parallelism for CPU-bound tasks. Solutions: 1) multiprocessing 2) C extensions 3) alternative implementations. IO-bound tasks still benefit from multi-threading.,"The Global Interpreter Lock, or GIL, is a mechanism used in Python to synchronize access to Python objects, preventing multiple native threads from executing Python bytecodes at once. This is necessary because Python's memory management is not thread-safe.
+
+Here’s how it works:
+
+1. **Thread Safety**: The GIL ensures that only one thread executes Python code at a time, even on multi-core processors. This simplifies Python's memory management by avoiding the need for complex locking mechanisms when accessing shared data structures.
+
+2. **Performance Impact**: While the GIL can improve performance for I/O-bound tasks (where the program spends much of its time waiting for external events), it can be a bottleneck for CPU-bound tasks (where the program performs heavy computations). Because only one thread runs at a time under the GIL, multithreaded CPU-intensive applications do not benefit as much from additional cores.
+
+3. **Workarounds**: To overcome the limitations of the GIL, you can use:
+   - **Multiprocessing**: Instead of using threads, use processes which each have their own Python interpreter and memory space.
+   - **Cython**: Rewrite critical sections of your code in Cython, which allows for more efficient C-level threading without the GIL.
+   - **Other Languages**: Consider using other languages like Java or Go if you need true parallelism.
+
+In summary, while the GIL helps maintain simplicity in Python's design, it restricts the ability to fully utilize multiple CPU cores for certain types of workloads.",16.14141011238098
+31,What is quicksort? What is its average time complexity?,"Quicksort selects a pivot, partitions the array into elements smaller and larger than the pivot, then recursively sorts. Average time complexity O(n log n), worst O(n²) for sorted arrays. Optimizations: random pivot, median-of-three. Unstable sort. Often the best general-purpose sorting algorithm in practice.","Quicksort is a highly efficient sorting algorithm that uses a divide-and-conquer approach to sort elements. It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively.
+
+The average time complexity of quicksort is O(n log n), where n is the number of items being sorted. This efficiency makes quicksort one of the fastest general-purpose sorting algorithms available. However, in the worst-case scenario (e.g., when the smallest or largest element is always chosen as the pivot), the time complexity can degrade to O(n^2).",8.842839479446411
+32,What are the characteristics of Python sets?,"Sets are unordered collections of unique elements, implemented with hash tables. Characteristics: 1) unique elements 2) mutable (frozenset is immutable) 3) support set operations (union |, intersection &, difference -) 4) O(1) lookup. Used for deduplication, membership testing, mathematical set operations. Elements must be hashable.","Python sets have several key characteristics:
+
+1. **Unordered**: The elements in a set do not maintain any order.
+2. **Unique Elements Only**: A set cannot contain duplicate values; each element must be unique.
+3. **Mutable**: While individual elements can't be changed, you can add or remove items from a set.
+4. **No Indexing**: You can't access or change an element using indexing since they don't have a specific position.
+5. **Set Operations**: Support operations like union, intersection, difference, and symmetric difference.
+
+These features make sets useful for tasks such as removing duplicates from a list or performing mathematical set operations.",8.447086095809937
+33,Explain regular expressions in Python.,"Regular expressions are patterns for matching text. Python's re module provides support. Common methods: re.match() matches from start, re.search() searches anywhere, re.findall() finds all matches, re.sub() replaces. Common patterns: . any char, * zero or more, + one or more, \d digit, \w alphanumeric, [] character set, () group.","Regular expressions (regex) in Python are patterns used to match character combinations in strings. They are defined using a specialized syntax and can be used with the `re` module.
+
+Here’s a brief overview of how you can use regex in Python:
+
+1. **Importing the Module**: First, import the `re` module.
+   ```python
+   import re
+   ```
+
+2. **Basic Syntax**:
+   - A basic regex pattern is a sequence of characters that forms a search pattern.
+   - For example, `\d` matches any digit from 0-9.
+
+3. **Matching Patterns**:
+   - Use the `search()` method to find if a pattern exists anywhere in the string.
+     ```python
+     result = re.search(r'\d+', 'There are 4 cats.')
+     print(result.group())  # Output: ""4""
+     ```
+   - The `group()` method returns the part of the string where there was a match.
+
+4. **Finding All Matches**:
+   - Use the `findall()` method to get all non-overlapping matches of the pattern in the string.
+     ```python
+     matches = re.findall(r'\d+', 'There are 4 cats and 7 dogs.')
+     print(matches)  # Output: ['4', '7']
+     ```
+
+5. **Substituting Text**:
+   - Use the `sub()` method to replace occurrences of a pattern with another string.
+     ```python
+     new_string = re.sub(r'cats', 'dogs', 'There are 4 cats.')
+     print(new_string)  # Output: ""There are 4 dogs.""
+     ```
+
+6. **Compile Method**:
+   - You can compile a regular expression pattern into a reusable object using `re.compile()`.
+     ```python
+     pattern = re.compile(r'\d+')
+     matches = pattern.findall('There are 4 cats and 7 dogs.')
+     print(matches)  # Output: ['4', '7']
+     ```
+
+7. **Special Characters**:
+   - Special characters like `.`, `*`, `+`, `{}`, `[]`, etc., have special meanings in regex. For literal matching, escape them with a backslash (`\`).
+
+8. **Flags**:
+   - Flags modify the behavior of the regex. Common flags include `re.IGNORECASE`, `re.MULTILINE`, and `re.DOTALL`.
+
+Regular expressions provide a powerful way to manipulate and process text data efficiently. Understanding their syntax and capabilities can greatly enhance your ability to work with textual data in Python.",26.496474027633667
+34,What are iterators and iterables?,"An iterable implements __iter__ method, returning an iterator. An iterator implements __next__ method, returning elements one at a time. For loops call __iter__ to get an iterator, then repeatedly call __next__. Lists, strings, dicts are iterables. Generators are special iterators. StopIteration signals end.","Iterators and iterables are fundamental concepts in Python that allow for easy iteration over sequences of data.
+
+An **iterable** is an object capable of returning its members one at a time, which can be iterated (looped) over using a `for` loop or other iteration mechanisms. Examples of iterables include lists, dictionaries, sets, and strings.
+
+An **iterator** is an object that represents a stream of data; it generates and returns the next value when you call its `next()` method (or in modern Python, you can use the `__next__()` method). Iterators remember their position state internally and do not need to start from scratch on each iteration. You can create an iterator from an iterable by calling the built-in function `iter()`. For example:
+
+```python
+my_list = [1, 2, 3]
+my_iterator = iter(my_list)
+print(next(my_iterator))  # Output: 1
+print(next(my_iterator))  # Output: 2
+```
+
+Key differences:
+- An iterable needs to be converted into an iterator before you can get values out of it.
+- Iterators are often more memory-efficient because they generate items on-the-fly rather than storing all items in memory at once.
+
+In summary, any iterable can produce an iterator, but not everything that can be iterated over is necessarily an iterator itself.",14.924264907836914
+35,Explain abstract classes and interfaces in OOP.,"Abstract classes cannot be instantiated, defining interfaces that subclasses must implement. In Python, use abc module's ABCMeta and @abstractmethod. An interface is a purely abstract class with only method signatures. Python has no formal interface syntax but uses abstract classes. Abstract classes can have concrete methods and attributes.","In Object-Oriented Programming (OOP), both abstract classes and interfaces are used to achieve abstraction, but they serve different purposes.
+
+### Abstract Classes
+
+- **Definition**: An abstract class is a class that cannot be instantiated on its own; it must be inherited by other classes.
+- **Purpose**: Used to provide a common base for subclasses. It can contain both implemented methods and abstract methods (methods without an implementation).
+- **Usage**: Useful when you want to share code among related classes or enforce certain behaviors in derived classes.
+- **Example**:
+  ```java
+  public abstract class Animal {
+      // Common method
+      public void breathe() {
+          System.out.println(""Breathing..."");
+      }
+      
+      // Abstract method
+      public abstract void makeSound();
+  }
+
+  public class Dog extends Animal {
+      @Override
+      public void makeSound() {
+          System.out.println(""Bark"");
+      }
+  }
+  ```
+
+### Interfaces
+
+- **Definition**: An interface is a reference type, similar to a class, that can contain only constants, method signatures, default methods, static methods, and nested types.
+- **Purpose**: Defines a contract that implementing classes must follow. A class can implement multiple interfaces.
+- **Usage**: Used to specify what operations should be performed without defining how these operations are implemented.
+- **Example**:
+  ```java
+  public interface Drawable {
+      void draw();
+  }
+
+  public class Circle implements Drawable {
+      @Override
+      public void draw() {
+          System.out.println(""Drawing a circle."");
+      }
+  }
+  ```
+
+### Key Differences
+
+1. **Multiple Inheritance**:
+   - **Abstract Classes**: A class can extend only one abstract class.
+   - **Interfaces**: A class can implement multiple interfaces.
+
+2. **Implementation**:
+   - **Abstract Classes**: Can have both abstract and non-abstract methods.
+   - **Interfaces**: Must be fully implemented by any class that implements them (though default and static methods allow some flexibility).
+
+3. **Constructors**:
+   - **Abstract Classes**: Can have constructors, which can be called during subclass instantiation.
+   - **Interfaces**: Do not have constructors since they do not create objects.
+
+4. **Access Modifiers**:
+   - **Abstract Classes**: Methods can have access modifiers like `public`, `protected`, and `private`.
+   - **Interfaces**: All members are implicitly `public` and `abstract`.
+
+Understanding these concepts helps in designing flexible and maintainable code structures in OOP.",25.314735412597656
+36,What is the Singleton pattern? How to implement it in Python?,Singleton ensures a class has only one instance. Python implementations: 1) override __new__ method 2) use decorators 3) use modules (modules are singletons) 4) use metaclasses. Simplest approach: check if instance exists in __new__ before creating a new one.,"The Singleton pattern ensures that a class has only one instance, while providing a global point of access to that instance.
+
+### Implementation in Python:
+
+Here’s a simple way to implement the Singleton pattern in Python using a decorator:
+
+```python
+def singleton(cls):
+    instances = {}
+    def get_instance(*args, **kwargs):
+        if cls not in instances:
+            instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
+    return get_instance
+
+@singleton
+class MySingletonClass:
+    def __init__(self):
+        self.value = None
+    
+    def set_value(self, value):
+        self.value = value
+    
+    def get_value(self):
+        return self.value
+
+# Usage
+s1 = MySingletonClass()
+s2 = MySingletonClass()
+
+print(s1 == s2)  # Output: True
+```
+
+### Explanation:
+
+1. **Decorator (`@singleton`)**: This function checks if an instance already exists for a given class (key). If no instance exists, it creates one; otherwise, it returns the existing instance.
+   
+2. **Class Definition**: `MySingletonClass` can be any class you want to make into a singleton. The constructor initializes or sets up the object as needed.
+
+3. **Instance Check**: When you create multiple instances of `MySingletonClass`, they all refer to the same object due to the singleton mechanism implemented by the decorator.
+
+This approach leverages closures and a dictionary to track instances of classes. It's a straightforward method but may have issues with multi-threading. For more robust implementations, consider using `threading.Lock` to handle concurrent access.",17.402617931365967
+37,Explain multi-threading and multi-processing in Python.,"Multi-threading: threading module, shared memory, limited by GIL, suitable for IO-bound tasks. Multi-processing: multiprocessing module, separate memory, bypasses GIL, suitable for CPU-bound tasks. Thread communication uses Queue, Event, Lock. Process communication uses Queue, Pipe, shared memory. concurrent.futures provides high-level interfaces.","Sure! Let's break down both concepts:
+
+### Multi-Threading in Python
+
+**Multi-threading** allows your program to perform multiple tasks concurrently, within a single process. This is useful for I/O-bound and high-latency operations (like network requests or file I/O) where you want to make efficient use of waiting time.
+
+- **Thread**: A thread is a sequence of such instructions that can be scheduled by an operating system.
+- **GIL (Global Interpreter Lock)**: In CPython (the standard reference implementation), only one thread executes at any point in time. This means threads in Python don't truly run in parallel on multiple cores but can switch between each other very quickly to simulate concurrency.
+- **Usage**: You might use threads when you need to do some background work without blocking the main program flow. For CPU-bound tasks, threading won't provide much benefit due to GIL.
+
+Example:
+```python
+import threading
+
+def worker():
+    print(""Worker thread started"")
+    
+thread = threading.Thread(target=worker)
+thread.start()
+```
+
+### Multi-Processing in Python
+
+**Multi-processing**, on the other hand, involves running multiple processes in parallel. Each process has its own memory space and does not share data with other processes directly.
+
+- **Process**: A process is a separate execution path, similar to a thread, but it runs in its own memory space.
+- **No GIL**: Each process in a multi-processing setup can utilize multiple cores independently since they have their own Python interpreters and memory spaces.
+- **Usage**: Use multi-processing for CPU-bound tasks to take advantage of multiple cores. It’s also useful if you want to avoid issues related to the GIL.
+
+Example:
+```python
+from multiprocessing import Process
+
+def worker():
+    print(""Worker process started"")
+
+if __name__ == ""__main__"":
+    p = Process(target=worker)
+    p.start()
+    p.join()
+```
+
+In summary, use **multi-threading** for I/O-bound tasks where you need to save resources, and use **multi-processing** for CPU-bound tasks where you want to fully utilize all available cores.",21.781497478485107
+38,What is a database index? Why does it speed up queries?,"An index is a sorted data structure (usually B+ tree) on one or more table columns. It enables fast data location, avoiding full table scans. Reduces time complexity from O(n) to O(log n). Tradeoffs: extra storage, slower writes. Should be created on frequently queried columns with large data volumes.","A database index is a data structure that improves the speed of data retrieval operations on a database table at the cost of additional writes, storage space to maintain the index, and maintenance during inserts, updates, and deletes.
+
+Indices work similarly to indexes in a physical book; just as you can quickly find information in a book using an index, databases use indices to locate and retrieve specific pieces of information more efficiently.
+
+Indices speed up queries by reducing the amount of data that needs to be scanned. Without an index, a database might have to search through every row in a table to find the data needed for a query. With an index, the database can quickly locate the relevant rows, much like how a book’s index helps you jump directly to the page containing the information you need without flipping through each page. This significantly speeds up read operations compared to scanning all the data.",10.258685827255249
+39,Explain type hints (type annotations) in Python.,"Type hints add type information to variables, function parameters, and return values. Example: def add(x: int, y: int) -> int: return x + y. Python doesn't enforce types but tools like mypy can check statically. Benefits: improved readability, better IDE support, fewer type errors. typing module provides complex types like List, Dict, Optional.","Type hints, also known as type annotations, in Python allow you to specify the expected types of arguments passed to functions and the types returned by those functions. This can help improve code readability and maintainability.
+
+Here’s how you use them:
+
+1. **Function Parameters**: You can specify the expected type for each parameter.
+2. **Return Type**: You can indicate the expected return type from a function.
+
+### Syntax
+
+```python
+def function_name(param1: type1, param2: type2) -> returnType:
+    # function body
+```
+
+- `param1: type1` specifies that the first parameter should be of type `type1`.
+- `-> returnType` indicates the type of value the function will return.
+
+### Examples
+
+#### Example 1: Basic Function with Type Hints
+
+```python
+def greet(name: str) -> str:
+    return f""Hello, {name}!""
+
+print(greet(""Alice""))  # Output: Hello, Alice!
+```
+
+In this example, `name` is expected to be a string, and the function returns a string.
+
+#### Example 2: Multiple Types
+
+```python
+from typing import Union
+
+def add(a: int, b: int) -> int:
+    return a + b
+
+def combine_strings(s1: str, s2: str) -> str:
+    return s1 + s2
+
+# Union allows specifying multiple possible types
+def process_data(data: Union[int, float]) -> None:
+    if isinstance(data, int):
+        print(f""{data} is an integer."")
+    elif isinstance(data, float):
+        print(f""{data} is a float."")
+```
+
+In the second example, `process_data` can accept either an `int` or a `float`.
+
+### Benefits
+
+- **Improved Readability**: Helps other developers understand what types of data your functions expect.
+- **Static Analysis Tools**: Tools like PyCharm, VSCode, and MyPy can catch potential errors based on type hints during development.
+- **IDE Support**: Many IDEs provide better support for navigation and refactoring when type hints are used.
+
+### Limitations
+
+While type hints enhance developer productivity and tooling capabilities, they do not affect runtime behavior; Python remains dynamically typed at runtime.
+
+This is a basic overview of type hints in Python. They are particularly useful in larger projects where maintaining clear interfaces between modules is important.",24.430917739868164
+40,What is HTTP protocol? What are the common HTTP methods?,"HTTP (HyperText Transfer Protocol) is for client-server communication. Common methods: GET (retrieve), POST (submit), PUT (update), DELETE (remove), PATCH (partial update). HTTP is stateless; cookies/sessions maintain state. Status codes: 200 success, 404 not found, 500 server error.","HTTP (Hypertext Transfer Protocol) is a protocol used for transferring data over the web. It defines how messages are formatted and transmitted, and what actions Web servers and browsers should take in response to various commands.
+
+The common HTTP methods include:
+
+1. **GET**: Requests a representation of the specified resource. Usually retrieves the data.
+2. **POST**: Submits an entity to the specified resource, often causing a change in state or side effects on the server.
+3. **PUT**: Replaces all current representations of the target resource with the uploaded content.
+4. **DELETE**: Deletes the specified resource.
+5. **HEAD**: Similar to GET but without the response body; used to check the headers before requesting the full document.
+6. **OPTIONS**: Describes the communication options for the target resource.
+7. **PATCH**: Applies partial modifications to a resource.
+8. **TRACE**: Echoes back the received request, used for testing purposes.
+
+These methods help in differentiating between operations that might have similar outcomes using standard verbs like ""get"" or ""post.""",12.749823808670044
+41,Explain RESTful API design principles.,"REST is an API design style: 1) resources represented by URIs 2) operations via HTTP methods 3) stateless 4) uniform interface 5) layered system. RESTful APIs use JSON for data transfer. Design guidelines: plural nouns, nested resources, versioning, appropriate HTTP status codes.","RESTful API design follows six main principles to ensure scalability, maintainability, and efficiency:
+
+1. **Client-Server Separation**: The client and server should be separate components that communicate over HTTP. The client does not need to know how data is stored or managed on the server.
+
+2. **Statelessness**: Each request from client to server must contain all the information needed to understand and complete the request. This means the server doesn’t store any session state between requests.
+
+3. **Cacheable Responses**: Responses can be labeled as cacheable so that clients can cache them for future use without re-querying the server. This improves performance by reducing load on the server and network traffic.
+
+4. **Layered System**: A layered system allows intermediary servers (like proxies) to be inserted into the service without affecting the operation of the system. This enhances scalability and security.
+
+5. **Uniform Interface**: Resources in the system are identified with URIs, and interactions follow a uniform interface. Key aspects include:
+   - **Identification of resources**
+   - **Manipulation of resources through representations**
+   - **Self-descriptive messages**
+   - **Hypermedia as the engine of application state (HATEOAS)**
+
+6. **Code on Demand (optional)**: Servers can supply small pieces of code to clients, which can then be executed at runtime. This principle is optional but can enhance functionality when used appropriately.
+
+These principles help create APIs that are easy to use, scale well, and are robust against changes.",16.149892568588257
+42,What is Git? What are its common commands?,"Git is a distributed version control system. Common commands: git init (initialize), git add (stage), git commit (commit), git push (push), git pull (pull), git branch (branch), git checkout (switch), git merge (merge), git log (history), git status (status). Branch management is Git's core advantage.","Git is a distributed version control system that helps developers track changes in computer files and coordinate work on those files across multiple people or versions.
+
+Here are some common Git commands:
+
+1. **`git clone <repository-url>`** - Downloads a copy of an existing repository.
+2. **`git init`** - Initializes a new Git repository.
+3. **`git add <file>`** - Adds changes from a file to the staging area.
+4. **`git commit -m ""commit message""`** - Saves changes from the staging area into the repository.
+5. **`git status`** - Shows the working tree status, indicating which files have been modified and need to be committed.
+6. **`git branch`** - Lists all branches and shows the current branch.
+7. **`git checkout <branch-name>`** - Switches branches or applies a commit to the working directory.
+8. **`git merge <branch>`** - Merges one branch into another.
+9. **`git push <remote> <branch>`** - Uploads your local commits to the remote repository.
+10. **`git pull`** - Fetches and merges changes from a remote repository.
+11. **`git log`** - Displays the commit history.
+12. **`git diff`** - Shows differences between commits, commit and working tree, etc.
+
+These commands form the core functionality for using Git effectively.",15.549558877944946
+43,Explain asyncio asynchronous programming in Python.,"asyncio is Python's async IO framework. Core concepts: coroutines (async def), event loop (asyncio.run()), await for async operations. Ideal for IO-bound tasks like network requests, file I/O. async/await syntax makes async code look synchronous. Libraries: aiohttp, aiomysql.","Asyncio is a Python library that allows you to write concurrent code using the async/await syntax. It enables writing single-threaded concurrent code using coroutines, multiplexing I/O access over sockets and other resources, running network clients and servers, and other related primitives.
+
+### Key Concepts:
+
+1. **Coroutines**:
+   - A coroutine is a function that can be paused and resumed (suspended) during execution.
+   - Coroutines are defined with `async def` instead of `def`.
+   - They return an object (`coroutine`) that you can call like a normal function but it will not execute until awaited.
+
+2. **Awaitables**:
+   - Awaitables are objects that can be awaited by coroutines.
+   - When you use the `await` keyword inside a coroutine, it waits for the result of another coroutine or task.
+
+3. **Event Loop**:
+   - The event loop is the core component of asyncio.
+   - It runs your coroutines and manages their execution.
+   - It schedules tasks and executes them when they become ready.
+
+4. **Tasks**:
+   - Tasks are managed by the event loop.
+   - You create tasks from coroutines using `loop.create_task()` or `asyncio.create_task()`.
+   - Tasks manage the lifecycle of coroutines: scheduling, resuming, error handling, etc.
+
+5. **Synchronization Primitives**:
+   - asyncio provides several synchronization mechanisms such as locks, events, queues, semaphores, and more.
+   - These help coordinate multiple coroutines and control access to shared resources.
+
+### Example Code:
+
+```python
+import asyncio
+
+# Define a simple coroutine
+async def say_after(delay, what):
+    await asyncio.sleep(delay)
+    print(what)
+
+async def main():
+    # Create two tasks
+    task1 = asyncio.create_task(say_after(1, 'hello'))
+    task2 = asyncio.create_task(say_after(2, 'world'))
+
+    print(f""Started at {time.strftime('%X')}"")
+
+    # Wait until both tasks are completed (should take around 2 seconds.)
+    await task1
+    await task2
+
+    print(f""Finished at {time.strftime('%X')}"")
+```
+
+### Explanation:
+- `say_after` is a coroutine that suspends its execution for a specified delay and then prints a message.
+- In `main`, we create two tasks based on these coroutines.
+- We then wait for each task to complete using `await`.
+
+This example demonstrates how asyncio can run multiple tasks concurrently without blocking the event loop. The total time taken to execute both tasks is determined by the longest-running one, which aligns with non-blocking I/O operations typical in web servers or data processing pipelines.",27.229628562927246
+44,What are design patterns? Name three common ones.,"Design patterns are reusable solutions to common software design problems. Three common: 1) Singleton: ensures one instance per class 2) Observer: one-to-many dependency, notifies all observers on state change 3) Factory: interface for creating objects, subclasses decide which to instantiate. Categories: creational, structural, behavioral.","Design patterns are standardized solutions to common software design problems. They provide templates for solving recurring issues in software design. Here are three common design patterns:
+
+1. **Singleton Pattern**: Ensures that a class has only one instance, while providing a global point of access to it.
+2. **Observer Pattern**: Defines a dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+3. **Factory Method Pattern**: Provides an interface for creating objects in a superclass but allows subclasses to alter the type of objects that will be created.",7.648634195327759
+45,What is a dataclass in Python?,"dataclass is a decorator introduced in Python 3.7 that auto-generates __init__, __repr__, __eq__ etc. for data-storing classes. Defined with @dataclass decorator. Supports default values and type annotations. More concise than manual data classes, more flexible than namedtuple.","A dataclass in Python is a feature introduced in Python 3.7 that allows you to create classes whose primary purpose is to store data. It simplifies the process of defining simple data containers by automatically adding special methods like `__init__`, `__repr__`, and others based on the class attributes.
+
+Here’s a basic example:
+
+```python
+from dataclasses import dataclass
+
+@dataclass
+class Point:
+    x: int
+    y: int
+
+p = Point(10, 20)
+print(p)  # Output: Point(x=10, y=20)
+```
+
+In this example:
+- The `@dataclass` decorator is used to indicate that the `Point` class is a dataclass.
+- `x` and `y` are fields of the class.
+- When you print an instance of `Point`, it shows the field names and values.
+
+This saves you from manually writing boilerplate code for initializing and representing objects.",11.504623413085938
+46,Explain merge sort's principle and complexity.,"Merge sort uses divide-and-conquer: split array in half, recursively sort, then merge. Merging compares elements from both halves, placing them in order. Time complexity O(n log n) for all cases (best, worst, average), space complexity O(n). Stable sort. Suitable for linked list sorting and external sorting.","Merge sort is a divide-and-conquer algorithm that works by recursively dividing the input array into two halves, sorting each half, and then merging them back together.
+
+### Principle:
+1. **Divide**: The array is divided into two halves until each subarray contains a single element (an array of one element is considered sorted).
+2. **Conquer**: Recursively sort the two halves.
+3. **Combine**: Merge the two sorted halves to produce the sorted output.
+
+The key step in merge sort is the merging process, where elements from two sorted arrays are combined into a single sorted array.
+
+### Complexity:
+- **Time Complexity**:
+  - Best Case: \(O(n \log n)\)
+  - Average Case: \(O(n \log n)\)
+  - Worst Case: \(O(n \log n)\)
+
+- **Space Complexity**:
+  - \(O(n)\) for the additional space required to hold the temporary arrays during the merge process.
+
+This makes merge sort efficient and stable, but it requires more memory compared to some other sorting algorithms like quicksort or heapsort.",12.446295738220215
+47,What is a hash collision? How to resolve it?,"Hash collision occurs when different keys map to the same index. Resolution methods: 1) Chaining: each slot holds a linked list 2) Open addressing: probe next empty slot on collision (linear, quadratic, double hashing) 3) Rehashing. Python dicts use open addressing. Good hash functions should distribute uniformly and compute quickly.","A hash collision occurs when two different pieces of data produce the same hash value, which is a problem because hash functions aim to be unique for each input.
+
+### Resolving Hash Collisions:
+
+1. **Chaining**:
+   - Store all values that hash to the same index in a linked list or another data structure at that index.
+   - When you need to find a value, check all entries at that index.
+
+2. **Open Addressing**:
+   - Use a probing sequence (like linear probing, quadratic probing, or double hashing) to find the next available slot if there’s a collision.
+   - Linear Probing: Try the next slot one by one until an empty slot is found.
+   - Quadratic Probing: Increase the probe location by a quadratic function.
+   - Double Hashing: Use a second hash function to determine how far to move from the initial hash.
+
+3. **Perfect Hashing**:
+   - Create a specialized hash table where every key hashes uniquely into the table slots using multiple hash functions.
+
+4. **Cuckoo Hashing**:
+   - Each item has the option to evict another item during insertion, potentially leading to a recursive process but typically resolving within a few steps.
+
+5. **Increasing Table Size**:
+   - Simply increasing the size of the hash table can reduce the likelihood of collisions, though this may not always solve the issue completely.
+
+Each method has its trade-offs in terms of performance and complexity. The choice depends on specific requirements such as speed, memory usage, and the expected number of insertions and lookups.",16.761959552764893
+48,What is the difference between coroutines and threads in Python?,"Coroutines are lightweight user-space threads with cooperative scheduling, no OS involvement. Threads are OS-scheduled preemptive concurrent units. Coroutines have low switching overhead, no locks, ideal for IO-bound tasks. Threads have GIL limitations, require locking mechanisms. Coroutines use async/await, threads use threading module.","In Python, both coroutines and threads are mechanisms for handling concurrent execution, but they work quite differently:
+
+1. **Threads**:
+   - **Concurrency**: Multiple threads within the same process can run concurrently on a multi-core CPU.
+   - **Context Switching**: Threads are managed by the operating system, which handles context switching (switching between running threads).
+   - **Overhead**: Creating and managing threads has higher overhead compared to coroutines due to the need for thread scheduling by the OS.
+   - **Shared Memory**: All threads in the same process share memory space, so you must be careful about synchronization.
+
+2. **Coroutines**:
+   - **Concurrency**: Coroutines allow for cooperative multitasking within a single thread, meaning control is explicitly given back to the caller when needed.
+   - **Context Switching**: Context switching in coroutines is controlled by the programmer and happens at specific points using `yield` or similar constructs.
+   - **Overhead**: Lower overhead than threads because there’s no need for an operating system to manage them; they are handled by the Python interpreter.
+   - **Isolated Memory**: Each coroutine can have its own local state, although they may still share some data through shared objects if necessary.
+
+In summary, while threads provide true parallelism across multiple cores and handle their own scheduling, coroutines offer more efficient concurrency within a single thread, allowing finer-grained control over execution flow.",15.403264284133911
+49,Explain metaclasses in Python.,"A metaclass is a class that creates classes. type is Python's built-in metaclass. Custom metaclasses control class creation. Syntax: class Foo(metaclass=MyMeta). Common uses: auto-register subclasses, validate class attributes, modify class definitions. Metaclasses are advanced features that should be used judiciously.","Metaclasses in Python are a way to modify or control class definitions as they are being created. Think of them as ""classes for classes."" Just like a class defines how an instance (object) behaves, a metaclass defines how a class behaves.
+
+Here’s a simple breakdown:
+
+1. **What is a Metaclass?**
+   - A metaclass is essentially a class whose instances are classes.
+   - In Python, all classes are objects, and since objects have types, these types (classes) themselves have a type, which is a metaclass.
+
+2. **Creating a Metaclass:**
+   - You can create your own metaclass by subclassing `type`.
+   - For example:
+     ```python
+     class MyMeta(type):
+         def __new__(cls, name, bases, dct):
+             print(""Creating class:"", name)
+             return super().__new__(cls, name, bases, dct)
+
+     class MyClass(metaclass=MyMeta):
+         pass
+     ```
+   - Here, `MyMeta` is a custom metaclass that overrides the `__new__` method to print a message whenever a new class is defined.
+
+3. **Common Uses:**
+   - **Class Preprocessing:** Modify class attributes before they are assigned.
+   - **Logging:** Log information about each class definition.
+   - **Validation:** Ensure certain class properties meet specific criteria.
+   - **Abstract Base Classes:** Enforce certain methods must be implemented in subclasses.
+
+4. **Example with Abstract Methods:**
+   ```python
+   import abc
+
+   class MyMeta(abc.ABCMeta):
+       @abc.abstractmethod
+       def my_abstract_method(self):
+           raise NotImplementedError(""Subclasses must implement this method"")
+
+   class MyConcreteClass(metaclass=MyMeta):
+       def my_concrete_method(self):
+           print(""Doing something concrete"")
+
+   # This will work fine
+   obj = MyConcreteClass()
+
+   # This won't because it doesn't implement the abstract method
+   class NoMethodClass(metaclass=MyMeta):
+       pass
+   ```
+
+In summary, metaclasses allow you to customize and extend the behavior of classes in Python, giving you powerful tools for creating flexible and robust applications.",22.622929334640503
+50,What is Docker? What problem does it solve?,"Docker is a containerization platform that packages applications and dependencies into lightweight containers. It solves the 'works on my machine' problem. Core concepts: images (read-only templates), containers (running instances), Dockerfile (build script), Docker Compose (multi-container orchestration). Benefits: environment consistency, fast deployment, resource isolation.","Docker is an open-source platform that allows developers to package their applications with all of its dependencies into a standardized unit called a container. This ensures that the application will run consistently across different environments.
+
+Docker solves several key problems:
+
+1. **Consistency**: Ensures that the development, testing, and production environments match, reducing issues caused by ""it works on my machine.""
+
+2. **Portability**: Containers can be moved between physical servers, virtual machines, or cloud instances without reconfiguration, making it easier to deploy and scale applications.
+
+3. **Efficiency**: Containers use less resources than traditional virtual machines because they share the operating system kernel, leading to more efficient use of hardware.
+
+4. **Isolation**: Each container runs in isolation from others, which enhances security and stability.
+
+5. **Automation**: Supports automated deployment through tools like Kubernetes, allowing for easy scaling and management of containerized applications.
+
+Overall, Docker simplifies software deployment and management across various environments, making it a powerful tool for modern software development.",11.658390283584595

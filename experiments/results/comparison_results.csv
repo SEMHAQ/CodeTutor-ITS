@@ -1,51 +1,51 @@
 ﻿question_id,question,sys_accuracy,sys_clarity,sys_educational,sys_completeness,sys_overall,base_accuracy,base_clarity,base_educational,base_completeness,base_overall
-0,What is a variable in Python?,5.0,5.0,5.0,5.0,5.0,1,1,1,1,1
-1,What is the difference between for loop and while loop in Python?,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-2,What is recursion? Please give an example.,5.0,5.0,5.0,5.0,5.0,1,1,1,1,1
-3,Explain the difference between lists and tuples in Python.,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-4,What is encapsulation in OOP?,4.0,4.0,4.0,4.0,4.0,1,1,1,1,1
-5,How do you handle exceptions in Python?,5.0,5.0,5.0,5.0,5.0,1,1,1,1,1
-6,Explain the principle of binary search algorithm.,0.0,0.0,0.0,0.0,0.0,1,1,1,1,1
-7,What is a dictionary comprehension in Python?,5.0,5.0,5.0,5.0,5.0,1,1,1,1,1
-8,Explain the difference between stack and queue.,5.0,5.0,5.0,5.0,5.0,1,1,1,1,1
-9,What is a decorator in Python? Give an example.,4.0,4.0,4.0,3.0,3.75,1,1,1,1,1
-10,What is a list comprehension in Python?,5.0,5.0,5.0,5.0,5.0,1,1,1,1,1
-11,Explain deep copy and shallow copy in Python.,5.0,5.0,5.0,5.0,5.0,1,1,1,1,1
-12,What is a hash table? Which Python data structure is based on it?,4.0,4.0,4.0,3.0,3.75,0,0,0,0,0
-13,Explain inheritance in OOP.,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-14,What is polymorphism? Give an example.,5.0,5.0,5.0,5.0,5.0,1,1,1,1,1
-15,What are generators in Python? What are their advantages?,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-16,Explain time complexity and space complexity.,5.0,5.0,5.0,5.0,5.0,1,1,1,1,1
-17,What is bubble sort? What is its time complexity?,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-18,Explain lambda functions in Python.,5.0,5.0,5.0,5.0,5.0,0,0,0,0,0
-19,What is a closure? How is it implemented in Python?,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-20,Explain linked lists and their Python implementation.,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-21,What is a binary tree? What are its traversal methods?,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-22,Explain the concept of dynamic programming.,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-23,What is a greedy algorithm? How does it differ from dynamic programming?,4.0,4.0,4.0,3.0,3.75,1,1,1,1,1
-24,What are *args and **kwargs in Python?,0.0,0.0,0.0,0.0,0.0,1,1,1,1,1
-25,Explain context managers and the with statement in Python.,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-26,What is a graph? What are its storage methods?,5.0,4.0,4.0,4.0,4.25,1,1,1,1,1
-27,Explain the difference between BFS and DFS.,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-28,What are dunder methods (magic methods) in Python?,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-29,Explain GIL (Global Interpreter Lock) in Python.,0.0,0.0,0.0,0.0,0.0,1,1,1,1,1
-30,What is quicksort? What is its average time complexity?,4.0,4.0,4.0,3.0,3.75,1,1,1,1,1
-31,What are the characteristics of Python sets?,4.0,4.0,5.0,3.0,4.0,0,0,0,0,0
-32,Explain regular expressions in Python.,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-33,What are iterators and iterables?,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-34,Explain abstract classes and interfaces in OOP.,0.0,0.0,0.0,0.0,0.0,1,1,1,1,1
-35,What is the Singleton pattern? How to implement it in Python?,4.0,4.0,4.0,3.0,3.75,1,1,1,1,1
-36,Explain multi-threading and multi-processing in Python.,4.0,4.0,4.0,3.0,3.75,0,0,0,0,0
-37,What is a database index? Why does it speed up queries?,4.0,4.0,4.0,4.0,4.0,1,1,1,1,1
-38,Explain type hints (type annotations) in Python.,5.0,5.0,5.0,4.0,4.75,1,1,1,1,1
-39,What is HTTP protocol? What are the common HTTP methods?,0.0,0.0,0.0,0.0,0.0,1,1,1,1,1
-40,Explain RESTful API design principles.,4.0,4.0,4.0,3.0,3.75,1,1,1,1,1
-41,What is Git? What are its common commands?,5.0,5.0,5.0,5.0,5.0,0,0,0,0,0
-42,Explain asyncio asynchronous programming in Python.,1.0,1.0,1.0,1.0,1.0,1,1,1,1,1
-43,What are design patterns? Name three common ones.,1.0,1.0,1.0,1.0,1.0,1,1,1,1,1
-44,What is a dataclass in Python?,0.0,0.0,0.0,0.0,0.0,1,1,1,1,1
-45,Explain merge sort's principle and complexity.,1.0,1.0,1.0,1.0,1.0,1,1,1,1,1
-46,What is a hash collision? How to resolve it?,0.0,0.0,0.0,0.0,0.0,1,1,1,1,1
-47,What is the difference between coroutines and threads in Python?,1.0,1.0,1.0,1.0,1.0,1,1,1,1,1
-48,Explain metaclasses in Python.,0.0,0.0,0.0,0.0,0.0,1,1,1,1,1
-49,What is Docker? What problem does it solve?,1.0,1.0,1.0,1.0,1.0,1,1,1,1,1
+0,What is a variable in Python?,5.0,5.0,5.0,5.0,5.0,5.0,5.0,4.0,4.0,4.5
+1,What is the difference between for loop and while loop in Python?,5.0,5.0,5.0,4.0,4.75,5.0,5.0,5.0,5.0,5.0
+2,What is recursion? Please give an example.,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0
+3,Explain the difference between lists and tuples in Python.,0.0,0.0,0.0,0.0,0.0,5.0,5.0,5.0,5.0,5.0
+4,What is encapsulation in OOP?,4.0,4.0,4.0,4.0,4.0,5.0,5.0,5.0,5.0,5.0
+5,How do you handle exceptions in Python?,0.0,0.0,0.0,0.0,0.0,5.0,5.0,5.0,5.0,5.0
+6,Explain the principle of binary search algorithm.,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0
+7,What is a dictionary comprehension in Python?,0.0,0.0,0.0,0.0,0.0,5.0,5.0,5.0,5.0,5.0
+8,Explain the difference between stack and queue.,5.0,5.0,5.0,5.0,5.0,5.0,5.0,4.0,4.0,4.5
+9,What is a decorator in Python? Give an example.,4.0,4.0,4.0,3.0,3.75,5.0,5.0,5.0,4.0,4.75
+10,What is a list comprehension in Python?,0.0,0.0,0.0,0.0,0.0,5.0,5.0,5.0,5.0,5.0
+11,Explain deep copy and shallow copy in Python.,5.0,5.0,5.0,5.0,5.0,0.0,0.0,0.0,0.0,0.0
+12,What is a hash table? Which Python data structure is based on it?,4.0,4.0,4.0,3.0,3.75,5.0,4.0,4.0,3.0,4.0
+13,Explain inheritance in OOP.,0.0,0.0,0.0,0.0,0.0,5.0,5.0,5.0,5.0,5.0
+14,What is polymorphism? Give an example.,5.0,5.0,5.0,5.0,5.0,0.0,0.0,0.0,0.0,0.0
+15,What are generators in Python? What are their advantages?,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0
+16,Explain time complexity and space complexity.,0.0,0.0,0.0,0.0,0.0,5.0,4.0,4.0,4.0,4.25
+17,What is bubble sort? What is its time complexity?,5.0,5.0,5.0,4.0,4.75,0.0,0.0,0.0,0.0,0.0
+18,Explain lambda functions in Python.,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0
+19,What is a closure? How is it implemented in Python?,5.0,4.0,4.0,4.0,4.25,5.0,5.0,5.0,5.0,5.0
+20,Explain linked lists and their Python implementation.,0.0,0.0,0.0,0.0,0.0,5.0,4.0,4.0,4.0,4.25
+21,What is a binary tree? What are its traversal methods?,5.0,5.0,5.0,4.0,4.75,0.0,0.0,0.0,0.0,0.0
+22,Explain the concept of dynamic programming.,5.0,5.0,5.0,4.0,4.75,5.0,4.0,4.0,4.0,4.25
+23,What is a greedy algorithm? How does it differ from dynamic programming?,0.0,0.0,0.0,0.0,0.0,5.0,5.0,5.0,5.0,5.0
+24,What are *args and **kwargs in Python?,5.0,5.0,5.0,5.0,5.0,0.0,0.0,0.0,0.0,0.0
+25,Explain context managers and the with statement in Python.,5.0,5.0,5.0,4.0,4.75,0.0,0.0,0.0,0.0,0.0
+26,What is a graph? What are its storage methods?,5.0,4.0,4.0,3.0,4.0,0.0,0.0,0.0,0.0,0.0
+27,Explain the difference between BFS and DFS.,5.0,5.0,5.0,5.0,5.0,0.0,0.0,0.0,0.0,0.0
+28,What are dunder methods (magic methods) in Python?,5.0,5.0,5.0,4.0,4.75,0.0,0.0,0.0,0.0,0.0
+29,Explain GIL (Global Interpreter Lock) in Python.,5.0,4.0,4.0,4.0,4.25,0.0,0.0,0.0,0.0,0.0
+30,What is quicksort? What is its average time complexity?,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+31,What are the characteristics of Python sets?,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+32,Explain regular expressions in Python.,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+33,What are iterators and iterables?,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+34,Explain abstract classes and interfaces in OOP.,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+35,What is the Singleton pattern? How to implement it in Python?,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+36,Explain multi-threading and multi-processing in Python.,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+37,What is a database index? Why does it speed up queries?,4.0,4.0,4.0,4.0,4.0,0.0,0.0,0.0,0.0,0.0
+38,Explain type hints (type annotations) in Python.,5.0,5.0,5.0,4.0,4.75,0.0,0.0,0.0,0.0,0.0
+39,What is HTTP protocol? What are the common HTTP methods?,5.0,5.0,5.0,4.0,4.75,0.0,0.0,0.0,0.0,0.0
+40,Explain RESTful API design principles.,4.0,4.0,4.0,3.0,3.75,0.0,0.0,0.0,0.0,0.0
+41,What is Git? What are its common commands?,5.0,5.0,5.0,5.0,5.0,0.0,0.0,0.0,0.0,0.0
+42,Explain asyncio asynchronous programming in Python.,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0
+43,What are design patterns? Name three common ones.,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0
+44,What is a dataclass in Python?,1.0,1.0,1.0,1.0,1.0,5.0,5.0,4.0,4.0,4.5
+45,Explain merge sort's principle and complexity.,0.0,0.0,0.0,0.0,0.0,5.0,5.0,5.0,5.0,5.0
+46,What is a hash collision? How to resolve it?,0.0,0.0,0.0,0.0,0.0,4.0,4.0,4.0,4.0,4.0
+47,What is the difference between coroutines and threads in Python?,0.0,0.0,0.0,0.0,0.0,4.0,4.0,4.0,4.0,4.0
+48,Explain metaclasses in Python.,0.0,0.0,0.0,0.0,0.0,4.0,4.0,4.0,4.0,4.0
+49,What is Docker? What problem does it solve?,0.0,0.0,0.0,0.0,0.0,5.0,5.0,5.0,5.0,5.0
