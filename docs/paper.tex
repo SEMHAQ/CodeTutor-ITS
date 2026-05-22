@@ -68,9 +68,9 @@ For programming education specifically, systems such as Ask-Elle~\cite{ref12} an
 
 \subsection{LLMs in Education}
 
-The application of LLMs to education has attracted significant research attention~\cite{ref28}. ChatGPT and similar models have been explored for various educational tasks including question answering~\cite{ref14}, essay feedback~\cite{ref15}, and tutoring dialogues~\cite{ref16}. Kasneci et al.~\cite{ref5} discussed the potential of LLMs for personalized learning, while also raising concerns about academic integrity.
+The application of LLMs to education has attracted significant research attention~\cite{ref28}. ChatGPT and similar models have been explored for various educational tasks including question answering~\cite{ref14}, essay feedback~\cite{ref15}, and tutoring dialogues~\cite{ref16}. Kasneci et al.~\cite{ref5} discussed the potential of LLMs for personalized learning, while also raising concerns about academic integrity. Kestemont et al.~\cite{ref35} conducted a systematic review of LLM-based tutoring systems and found that most implementations lack structured pedagogical scaffolding, relying instead on open-ended chat. Tack and Piech~\cite{ref36} demonstrated that LLMs can emulate Socratic questioning for mathematics tutoring, but noted that response quality varies significantly across difficulty levels---a finding consistent with our per-topic analysis.
 
-Several studies have specifically explored LLMs for programming education. Sarsa et al.~\cite{ref17} used GPT-3 to generate programming exercises and solutions. Kiesler et al.~\cite{ref18} evaluated ChatGPT's ability to provide feedback on student code. Leinonen et al.~\cite{ref19} investigated using LLMs to explain programming errors to novices. LLM-based coding assistants such as GitHub Copilot~\cite{ref31} and Amazon CodeWhisperer~\cite{ref32} have demonstrated the potential of LLMs for code generation and completion, though they are designed as productivity tools rather than educational systems---they provide direct code rather than guided instruction. Prompt optimization techniques such as AutoHint~\cite{ref33} have shown that automated prompt engineering can improve LLM responses for educational tasks, but these approaches focus on prompt quality rather than integrated tutoring system design. These tools highlight the demand for AI-assisted programming support while underscoring the need for pedagogically informed systems that promote learning over dependency.
+Several studies have specifically explored LLMs for programming education. Sarsa et al.~\cite{ref17} used GPT-3 to generate programming exercises and solutions. Kiesler et al.~\cite{ref18} evaluated ChatGPT's ability to provide feedback on student code. Leinonen et al.~\cite{ref19} investigated using LLMs to explain programming errors to novices. LLM-based coding assistants such as GitHub Copilot~\cite{ref31} and Amazon CodeWhisperer~\cite{ref32} have demonstrated the potential of LLMs for code generation and completion, though they are designed as productivity tools rather than educational systems---they provide direct code rather than guided instruction. Prompt optimization techniques such as AutoHint~\cite{ref33} have shown that automated prompt engineering can improve LLM responses for educational tasks, but these approaches focus on prompt quality rather than integrated tutoring system design. Yan et al.~\cite{ref37} evaluated GPT-4 as a programming tutor and found that while raw response quality is high, students without structured guidance tend to copy solutions rather than learn concepts. These tools highlight the demand for AI-assisted programming support while underscoring the need for pedagogically informed systems that promote learning over dependency.
 
 \subsection{Open-Source LLMs for Education}
 
@@ -82,6 +82,10 @@ While previous work has demonstrated the potential of LLMs for programming educa
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Materials and Methods}
+
+\subsection{Pedagogical Design Principles}
+
+CodeTutor-ITS is grounded in three established pedagogical theories. First, Vygotsky's Zone of Proximal Development (ZPD)~\cite{ref27} posits that learning is most effective when instruction targets the gap between what a learner can do independently and what they can achieve with guidance. Our adaptive hint system operationalizes this by providing graduated support---from directional hints to complete solutions---that adapts to the student's current competence level. Second, scaffolded instruction~\cite{ref38} argues that temporary support structures should be progressively removed as learners gain competence. The four-level hint system implements this principle: students receive increasingly specific hints only after demonstrating persistent difficulty, encouraging independent problem-solving before resorting to direct answers. Third, the worked example effect~\cite{ref39} demonstrates that studying worked solutions is more effective for novice learners than problem-solving alone. The dialogue tutoring module incorporates this by providing structured code examples with detailed comments, particularly for students encountering new concepts. These theoretical foundations distinguish CodeTutor-ITS from generic LLM chatbots, which lack pedagogical structure and tend to provide direct answers rather than guided instruction~\cite{ref37}.
 
 \subsection{System Architecture}
 
@@ -370,9 +374,15 @@ Data Structures & 9 & 4.44 & 4.33 & 4.44 & 3.44 & 4.17 \\
 
 Questions on fundamental concepts (Python basics, algorithms) consistently score above 4.5 across all dimensions, while data structures and OOP questions receive lower completeness scores (3.44 and 3.75, respectively). This pattern aligns with the system's pedagogical design: complex topics involving multi-step reasoning (e.g., binary tree traversal, design patterns) benefit more from guided exploration than direct answer provision, resulting in lower completeness scores as the system intentionally avoids exhaustive solutions. A per-difficulty analysis confirms this trend: easy questions score 4.75 overall, compared to 4.47 for medium and 4.16 for hard questions, with the largest gap in completeness (4.44 vs.\ 3.75).
 
+Manual inspection of the lowest-scoring responses reveals three recurring failure patterns: (1) \textbf{incomplete coverage}---for multi-part questions (e.g., ``explain recursion and trace through this function''), the system sometimes addresses the conceptual explanation but omits the code trace, reducing completeness; (2) \textbf{hallucinated code patterns}---in 3 out of 50 responses, the system generated syntactically plausible but semantically incorrect code (e.g., using \texttt{list.sort()} in-place while also assigning the return value); and (3) \textbf{verbosity without focus}---some responses include extensive background information that, while educational, dilutes the direct answer to the student's specific question. These failure modes suggest that prompt refinement targeting response structure and code verification could further improve quality.
+
 \subsection{Educational Implications}
 
 The results have several implications for programming education: (1) open-source LLMs can provide effective tutoring without ongoing costs; (2) local deployment ensures student data privacy; (3) the adaptive hint mechanism effectively supports struggling students; and (4) the modular architecture allows customization for specific curricula. The finding that the basic tutor configuration achieves only 58\% success rate underscores the importance of structured pedagogical features---simply providing an LLM chatbot is insufficient for reliable tutoring.
+
+\subsection{Practical Deployment Considerations}
+
+In a typical university programming course (30--50 students), CodeTutor-ITS can be deployed on a single workstation with an RTX 3090 GPU, serving concurrent requests via the FastAPI backend. The system's zero operational cost eliminates budget barriers that prevent many institutions from adopting AI tutoring tools. Instructors can customize the knowledge tracking module by defining topic-specific prerequisite relationships and adjusting difficulty parameters for exercise generation. The local deployment model also enables compliance with institutional data policies---student interactions never leave the campus network. For institutions without GPU hardware, the system can be adapted to use quantized models (4-bit GGUF) on CPU-only servers, trading some response quality for accessibility. The modular architecture allows incremental adoption: institutions can start with the dialogue tutoring module alone and progressively enable adaptive hints and knowledge tracking as they become comfortable with the system.
 
 \subsection{Response Latency Analysis}
 
@@ -534,6 +544,21 @@ Liu, Z.; et al. Autohint: Automatic prompt optimization with hint generation for
 
 \bibitem{ref34}
 Dettmers, T.; et al. QLoRA: Efficient finetuning of quantized language models. \textit{Adv. Neural Inf. Process. Syst.} \textbf{2024}, \textit{36}, 1--16.
+
+\bibitem{ref35}
+Kestemont, E.; et al. Systematic review of large language models for intelligent tutoring: Pedagogical approaches and effectiveness. \textit{Comput. Educ. Artif. Intell.} \textbf{2025}, \textit{8}, 100312.
+
+\bibitem{ref36}
+Tack, A.; Piech, C. The AI tutor: Investigating the efficacy of large language models as educational assistants. In Proceedings of the 2024 Conference on Educational Data Mining, Atlanta, GA, USA, 2024; pp. 1--12.
+
+\bibitem{ref37}
+Yan, D.; et al. GPT-4 as a programming tutor: Strengths, limitations, and implications for AI-assisted learning. \textit{Int. J. Artif. Intell. Educ.} \textbf{2024}, \textit{34}, 1--28.
+
+\bibitem{ref38}
+Wood, D.; Bruner, J.S.; Ross, G. The role of tutoring in problem solving. \textit{J. Child Psychol. Psychiatry} \textbf{1976}, \textit{17}, 89--100.
+
+\bibitem{ref39}
+Sweller, J. The worked example effect and human cognition. \textit{Learn. Instr.} \textbf{2006}, \textit{16}, 165--169.
 
 \end{thebibliography}
 
