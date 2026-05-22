@@ -1,0 +1,50 @@
+\documentclass[11pt]{letter}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{times}
+
+\signature{Donghai Peng\\School of Information Engineering\\Shaoguan University\\
+Huanjie Yu (Corresponding Author)\\School of Computer Science\\Hunan University of Technology and Business\\
+Huajin Jiang\\School of Computer Science\\Hunan University of Technology and Business}
+
+\address{School of Information Engineering\\Shaoguan University\\Shaoguan, Guangdong 512005, China}
+
+\begin{document}
+
+\begin{letter}{Editorial Office\\Applied Sciences\\MDPI}
+
+\opening{Dear Editor,}
+
+We are pleased to submit our manuscript entitled ``Design and Evaluation of an Open-Source LLM-Based Intelligent Tutoring System for Programming Education'' for consideration for publication in \textit{Applied Sciences}.
+
+This paper presents CodeTutor-ITS, an intelligent tutoring system for programming education built on the open-source Qwen2.5-7B-Instruct model. The system integrates four modules---dialogue tutoring, adaptive hints, exercise generation, and knowledge tracking---into a single locally-deployable platform. Unlike commercial LLM-based solutions, our system runs entirely on local hardware, ensuring zero operational cost and complete data privacy.
+
+We believe this work is well-suited for \textit{Applied Sciences} for the following reasons:
+
+\begin{itemize}
+    \item \textbf{Practical relevance:} The system addresses a real need in programming education, where the demand for personalized instruction far exceeds available teaching resources. The open-source design enables institutions to adopt and customize the system without licensing fees or cloud dependencies.
+    \item \textbf{Comprehensive evaluation:} We conduct five experiments---LLM-as-Judge evaluation, prompt strategy comparison, ablation study, supplementary quality metrics, and LoRA fine-tuning analysis---providing a thorough assessment of the system's capabilities and limitations.
+    \item \textbf{Methodological rigor:} All claims are supported by appropriate statistical tests (Wilcoxon signed-rank tests, paired $t$-tests, one-sample $t$-tests) with effect sizes reported. Cross-family validation using LLaMA-3-70B as an independent judge mitigates same-family bias.
+    \item \textbf{Reproducibility:} The complete system source code and experimental data are publicly available on GitHub, enabling other researchers and educators to reproduce and extend our work.
+\end{itemize}
+
+The manuscript has not been published elsewhere and is not under consideration by another journal. All authors have read and approved the manuscript and agree with its submission to \textit{Applied Sciences}. The authors declare no conflicts of interest.
+
+During the preparation of this manuscript, the authors used large language models for text editing and grammar checking. The authors have reviewed and edited the output and take full responsibility for the content of this publication.
+
+This research was funded by the Guangdong Province Undergraduate Teaching Quality and Teaching Reform Project (grant no. Yue-Jiao-Gao-Han [2024] No. 30), the Guangdong Provincial Department of Education Provincial First-class Undergraduate Course (grant no. Yue-Jiao-Gao-Han [2023] No. 33), and the Shaoguan University Institutional Quality Engineering Project (grant no. Shao-Yuan-Jiao [2023] No. 30).
+
+We suggest the following potential reviewers:
+\begin{enumerate}
+    \item Researchers with expertise in intelligent tutoring systems and AI-assisted education
+    \item Researchers with experience in large language model evaluation and prompt engineering
+    \item Researchers working on open-source AI systems for educational applications
+\end{enumerate}
+
+Thank you for considering our manuscript. We look forward to your response.
+
+\closing{Sincerely,}
+
+\end{letter}
+\end{document}
