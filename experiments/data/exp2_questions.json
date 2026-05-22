@@ -1,0 +1,17 @@
+[
+    {"id": 1, "question": "What is a list comprehension in Python?", "topic": "python_basics", "difficulty": "easy"},
+    {"id": 2, "question": "Explain the concept and working principle of recursion", "topic": "algorithms", "difficulty": "medium"},
+    {"id": 3, "question": "What is polymorphism in OOP?", "topic": "oop", "difficulty": "medium"},
+    {"id": 4, "question": "Explain what decorators are in Python", "topic": "python_basics", "difficulty": "hard"},
+    {"id": 5, "question": "What are time complexity and space complexity?", "topic": "algorithms", "difficulty": "easy"},
+    {"id": 6, "question": "What is the difference between for loop and while loop in Python?", "topic": "control_flow", "difficulty": "easy"},
+    {"id": 7, "question": "How do you handle exceptions in Python?", "topic": "python_basics", "difficulty": "easy"},
+    {"id": 8, "question": "Explain the principle of binary search algorithm", "topic": "algorithms", "difficulty": "medium"},
+    {"id": 9, "question": "Explain the difference between stack and queue", "topic": "data_structures", "difficulty": "easy"},
+    {"id": 10, "question": "Explain inheritance in OOP", "topic": "oop", "difficulty": "easy"},
+    {"id": 11, "question": "What are generators in Python? What are their advantages?", "topic": "python_basics", "difficulty": "medium"},
+    {"id": 12, "question": "What is a binary tree? What are its traversal methods?", "topic": "data_structures", "difficulty": "medium"},
+    {"id": 13, "question": "Explain the concept of dynamic programming", "topic": "algorithms", "difficulty": "hard"},
+    {"id": 14, "question": "What are dunder methods (magic methods) in Python?", "topic": "oop", "difficulty": "medium"},
+    {"id": 15, "question": "What is HTTP protocol? What are the common HTTP methods?", "topic": "web_basics", "difficulty": "easy"}
+]

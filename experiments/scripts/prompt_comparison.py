@@ -81,12 +81,15 @@ def evaluate_response_quality(response: str) -> Dict:
     }
 
 
-def run_comparison(test_questions: List[str], output_path: str):
+def run_comparison(test_questions: List[str], output_path: str, questions_meta: List[Dict] = None):
     """Run prompt strategy comparison."""
     results = []
 
     for q_idx, question in enumerate(test_questions):
         print(f"\nQuestion {q_idx+1}/{len(test_questions)}: {question[:50]}...")
+
+        # Get topic/difficulty from metadata if available
+        meta = questions_meta[q_idx] if questions_meta and q_idx < len(questions_meta) else {}
 
         for strategy_name, prompt_template in PROMPT_STRATEGIES.items():
             prompt = prompt_template.format(question=question)
@@ -101,6 +104,8 @@ def run_comparison(test_questions: List[str], output_path: str):
             result = {
                 "question_id": q_idx,
                 "question": question,
+                "topic": meta.get("topic", "unknown"),
+                "difficulty": meta.get("difficulty", "unknown"),
                 "strategy": strategy_name,
                 "response": response,
                 "response_time": response_time,
@@ -130,6 +135,29 @@ def run_comparison(test_questions: List[str], output_path: str):
     }).round(3)
 
     print(summary.to_string())
+
+    # Print per-topic breakdown
+    if "topic" in df.columns and df["topic"].nunique() > 1:
+        print("\n" + "=" * 60)
+        print("PER-TOPIC BREAKDOWN")
+        print("=" * 60)
+        topic_summary = df.groupby(["topic", "strategy"]).agg({
+            "completeness_score": "mean",
+            "word_count": "mean",
+        }).round(3)
+        print(topic_summary.to_string())
+
+    # Print per-difficulty breakdown
+    if "difficulty" in df.columns and df["difficulty"].nunique() > 1:
+        print("\n" + "=" * 60)
+        print("PER-DIFFICULTY BREAKDOWN")
+        print("=" * 60)
+        diff_summary = df.groupby(["difficulty", "strategy"]).agg({
+            "completeness_score": "mean",
+            "word_count": "mean",
+        }).round(3)
+        print(diff_summary.to_string())
+
     print(f"\nResults saved to: {output_path}")
 
     return df
@@ -139,16 +167,34 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", "-o", default="experiments/results/prompt_comparison_results.csv")
+    parser.add_argument("--output", "-o", default="experiments/results/prompt_comparison_exp2.csv")
+    parser.add_argument("--questions", "-q", default=None, help="Path to questions JSON file")
     args = parser.parse_args()
 
-    # Default test questions
-    test_questions = [
-        "What is a list comprehension in Python?",
-        "Explain the concept and working principle of recursion",
-        "What is polymorphism in OOP?",
-        "Explain what decorators are in Python",
-        "What are time complexity and space complexity?",
-    ]
+    # Load questions from file or use defaults
+    questions_data = None
+    if args.questions and os.path.exists(args.questions):
+        with open(args.questions, "r", encoding="utf-8") as f:
+            questions_data = json.load(f)
+        test_questions = [q["question"] for q in questions_data]
+        print(f"Loaded {len(test_questions)} questions from {args.questions}")
+    else:
+        # Default: 15 questions from exp2_questions.json
+        default_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "exp2_questions.json")
+        if os.path.exists(default_path):
+            with open(default_path, "r", encoding="utf-8") as f:
+                questions_data = json.load(f)
+            test_questions = [q["question"] for q in questions_data]
+            print(f"Loaded {len(test_questions)} questions from {default_path}")
+        else:
+            # Fallback to 5 questions
+            test_questions = [
+                "What is a list comprehension in Python?",
+                "Explain the concept and working principle of recursion",
+                "What is polymorphism in OOP?",
+                "Explain what decorators are in Python",
+                "What are time complexity and space complexity?",
+            ]
+            print(f"Using {len(test_questions)} default questions")
 
-    run_comparison(test_questions, args.output)
+    run_comparison(test_questions, args.output, questions_meta=questions_data)
