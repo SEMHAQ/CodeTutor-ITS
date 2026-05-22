@@ -94,6 +94,15 @@ CodeTutor-ITS follows a client-server architecture with four core components, as
 \label{fig:architecture}
 \end{figure}
 
+Figure~\ref{fig:frontend} shows the user interface of CodeTutor-ITS. The sidebar provides mode selection (Dialogue Tutor, Code Hints, Exercise Generator), programming language selection, and session management. The main area displays the chat-based tutoring interaction where students can ask questions and receive structured, guided responses.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/frontend_screenshot}
+\caption{User interface of CodeTutor-ITS. The sidebar offers tutoring mode and language selection, while the main area provides a chat-based interaction for programming guidance.}
+\label{fig:frontend}
+\end{figure}
+
 \subsection{Dialogue Tutoring Module}
 
 The dialogue tutoring module implements a comprehensive guided instruction approach, where the system provides thorough, structured explanations rather than simply answering questions. The module uses a carefully designed system prompt that instructs the LLM to: (1) provide thorough, complete explanations covering all key aspects; (2) structure responses with clear sections including concept explanation, code examples, and practical tips; (3) use step-by-step reasoning to walk through problems; (4) include working code examples with detailed comments; and (5) suggest related topics for deeper learning. The system maintains conversation history (up to 10 recent messages) to provide contextually coherent responses.
