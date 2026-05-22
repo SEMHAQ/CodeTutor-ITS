@@ -283,10 +283,10 @@ def plot_comparison(results_path: str):
 def plot_finetune_comparison(results_path: str):
     df = pd.read_csv(results_path)
 
-    fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4))
 
     metrics = ["accuracy", "clarity", "educational", "completeness", "overall"]
-    metric_labels = ["Accuracy", "Clarity", "Educational", "Completeness", "Overall"]
+    metric_labels = ["Accuracy", "Clarity", "Edu.", "Comp.", "Overall"]
     base_means = [df[f"base_{m}"].mean() for m in metrics]
     ft_means   = [df[f"ft_{m}"].mean() for m in metrics]
 
@@ -297,7 +297,7 @@ def plot_finetune_comparison(results_path: str):
     axes[0].bar(x + w/2, ft_means, w, label="LoRA Fine-tuned", color=GREEN, edgecolor="none")
     axes[0].set_ylabel("Score (1–5)")
     axes[0].set_xticks(x)
-    axes[0].set_xticklabels(metric_labels)
+    axes[0].set_xticklabels(metric_labels, rotation=30, ha="right")
     axes[0].set_ylim(0, 5.5)
     axes[0].axhline(y=3, color="gray", linestyle=":", linewidth=0.75, alpha=0.6)
     axes[0].legend(frameon=False)
@@ -309,6 +309,7 @@ def plot_finetune_comparison(results_path: str):
     axes[1].bar(metric_labels, improvements, color=imp_colors, width=BAR_WIDTH, edgecolor="none")
     axes[1].set_ylabel("Score Difference")
     axes[1].axhline(y=0, color="black", linewidth=0.75)
+    axes[1].tick_params(axis="x", rotation=30)
     _clean_axes(axes[1])
 
     plt.tight_layout()
