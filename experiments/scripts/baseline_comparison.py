@@ -9,7 +9,7 @@ import os
 import sys
 import time
 import pandas as pd
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 # Ensure project root is in path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspa
 BASELINE_SYSTEM_PROMPT = "You are a helpful programming assistant. Answer the student's question clearly and concisely."
 
 # Import judge evaluation
-from gpt_judge_evaluation import call_hf_inference, parse_judge_scores, JUDGE_PROMPT
+from gpt_judge_evaluation import call_openrouter, parse_judge_scores, JUDGE_PROMPT
 
 
 def load_test_dataset(filepath: str) -> List[Dict]:
@@ -141,16 +141,13 @@ def compare_with_judge(
     system_results_path: str = "experiments/results/tutoring_quality_results.csv",
     baseline_results_path: str = "experiments/results/baseline_responses.csv",
     output_path: str = "experiments/results/comparison_results.csv",
-    model: str = "Qwen/Qwen2.5-72B-Instruct",
-    token: Optional[str] = None,
+    model: str = "qwen/qwen-2.5-72b-instruct",
     sample_size: int = 50,
 ):
-    """Evaluate both system and baseline responses with GPT-as-Judge."""
+    """Evaluate both system and baseline responses with GPT-as-Judge (OpenRouter)."""
 
-    if token is None:
-        token = os.environ.get("HUGGINGFACE_TOKEN") or os.environ.get("HF_TOKEN")
-    if not token:
-        print("ERROR: No HuggingFace token found.")
+    if not os.environ.get("OPENROUTER_API_KEY"):
+        print("ERROR: Set OPENROUTER_API_KEY environment variable.")
         return None
 
     system_df = pd.read_csv(system_results_path)
@@ -183,7 +180,7 @@ def compare_with_judge(
             reference_answer=reference,
             system_response=sys_response[:1500],
         )
-        sys_judge = call_hf_inference(sys_prompt, model=model, token=token)
+        sys_judge = call_openrouter(sys_prompt, model=model)
         sys_scores = parse_judge_scores(sys_judge)
 
         time.sleep(2)  # Rate limiting
@@ -194,7 +191,7 @@ def compare_with_judge(
             reference_answer=reference,
             system_response=base_response[:1500],
         )
-        base_judge = call_hf_inference(base_prompt, model=model, token=token)
+        base_judge = call_openrouter(base_prompt, model=model)
         base_scores = parse_judge_scores(base_judge)
 
         time.sleep(2)
@@ -263,8 +260,7 @@ if __name__ == "__main__":
     cmp_parser.add_argument("--system", default="experiments/results/tutoring_quality_results.csv")
     cmp_parser.add_argument("--baseline", default="experiments/results/baseline_responses.csv")
     cmp_parser.add_argument("--output", "-o", default="experiments/results/comparison_results.csv")
-    cmp_parser.add_argument("--model", default="Qwen/Qwen2.5-72B-Instruct")
-    cmp_parser.add_argument("--token", "-t", default=None)
+    cmp_parser.add_argument("--model", default="qwen/qwen-2.5-72b-instruct")
     cmp_parser.add_argument("--sample", "-s", type=int, default=50)
 
     args = parser.parse_args()
@@ -283,7 +279,6 @@ if __name__ == "__main__":
             baseline_results_path=args.baseline,
             output_path=args.output,
             model=args.model,
-            token=args.token,
             sample_size=args.sample,
         )
     else:
