@@ -41,11 +41,11 @@
 
 | # | Issue Description | Reviewer | Type | Section | Resolution Summary | Location of Change | Status |
 |---|-------------------|----------|------|---------|-------------------|-------------------|--------|
-| A | Contribution list uses old experiment order | R2 | Editorial | Introduction | Update to match new Exp 1-5 order | Lines 52-57 | PENDING |
-| B | Cross-family n=42 vs n=50 unexplained | R2 | Minor | Results/Exp 1 | Add sentence explaining 8 parse failures | Cross-family table text | PENDING |
-| C | Success criteria not operationalized | R2 | Minor | Results/Exp 3 | Add 1-2 sentences on generation error definition | Ablation section | PENDING |
-| D | ref33 (AutoHint) doesn't match Codex tutoring claim | R2 | Minor | Related Work | Replace ref33 or reframe sentence | Line 73 | PENDING |
-| E | Conclusions >80% overlap with Abstract | R2 | Editorial | Conclusions | Expand with synthesis/implications | Conclusions section | PENDING |
+| A | Contribution list uses old experiment order | R2 | Editorial | Introduction | Updated to match new Exp 1-5 order | Lines 52-57 | RESOLVED |
+| B | Cross-family n=42 vs n=50 unexplained | R2 | Minor | Results/Exp 1 | Added sentence explaining 8 parse failures | Cross-family table text | RESOLVED |
+| C | Success criteria not operationalized | R2 | Minor | Results/Exp 3 | Added operationalized criteria (100 char min, repetition check, topic relevance) | Ablation section | RESOLVED |
+| D | ref33 (AutoHint) doesn't match Codex tutoring claim | R2 | Minor | Related Work | Reframed sentence to match AutoHint's actual content (prompt optimization) | Related Work | RESOLVED |
+| E | Conclusions >80% overlap with Abstract | R2 | Editorial | Conclusions | Expanded with broader implications paragraph (3 key findings + forward look) | Conclusions section | RESOLVED |
 
 ---
 
@@ -75,4 +75,4 @@
 - [x] Abstract matches Results section ordering
 - [x] AI disclosure statement present
 - [x] Author contributions statement present
-- [ ] Address 5 remaining minor issues (Issues A-E) before final submission
+- [x] All 5 remaining minor issues (Issues A-E) resolved
