@@ -83,6 +83,9 @@ def call_openrouter(prompt: str, model: str = "qwen/qwen-2.5-72b-instruct",
         print("  No OpenRouter API key. Set OPENROUTER_API_KEY.")
         return ""
 
+    # Ensure token is ASCII-safe (strip any invisible Unicode chars from env var)
+    token = token.encode("ascii", errors="ignore").decode("ascii").strip()
+
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json",
