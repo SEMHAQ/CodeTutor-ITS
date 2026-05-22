@@ -68,13 +68,13 @@ For programming education specifically, systems such as Ask-Elle~\cite{ref12} an
 
 \subsection{LLMs in Education}
 
-The application of LLMs to education has attracted significant research attention~\cite{ref28}. ChatGPT and similar models have been explored for various educational tasks including question answering~\cite{ref14}, essay feedback~\cite{ref15}, and tutoring dialogues~\cite{ref16}. Kasneci et al.~\cite{ref5} discussed the potential of LLMs for personalized learning, while also raising concerns about academic integrity. Kestemont et al.~\cite{ref35} conducted a systematic review of LLM-based tutoring systems and found that most implementations lack structured pedagogical scaffolding, relying instead on open-ended chat. Tack and Piech~\cite{ref36} demonstrated that LLMs can emulate Socratic questioning for mathematics tutoring, but noted that response quality varies significantly across difficulty levels---a finding consistent with our per-topic analysis.
+The application of LLMs to education has attracted significant research attention~\cite{ref14}. ChatGPT and similar models have been explored for various educational tasks including question answering~\cite{ref15}, essay feedback~\cite{ref16}, and tutoring dialogues~\cite{ref17}. Kasneci et al.~\cite{ref5} discussed the potential of LLMs for personalized learning, while also raising concerns about academic integrity. Research has shown that most LLM-based tutoring implementations lack structured pedagogical scaffolding, relying instead on open-ended chat, and that response quality varies significantly across difficulty levels.
 
-Several studies have specifically explored LLMs for programming education. Sarsa et al.~\cite{ref17} used GPT-3 to generate programming exercises and solutions. Kiesler et al.~\cite{ref18} evaluated ChatGPT's ability to provide feedback on student code. Leinonen et al.~\cite{ref19} investigated using LLMs to explain programming errors to novices. LLM-based coding assistants such as GitHub Copilot~\cite{ref31} and Amazon CodeWhisperer~\cite{ref32} have demonstrated the potential of LLMs for code generation and completion, though they are designed as productivity tools rather than educational systems---they provide direct code rather than guided instruction. Prompt optimization techniques such as AutoHint~\cite{ref33} have shown that automated prompt engineering can improve LLM responses for educational tasks, but these approaches focus on prompt quality rather than integrated tutoring system design. Yan et al.~\cite{ref37} evaluated GPT-4 as a programming tutor and found that while raw response quality is high, students without structured guidance tend to copy solutions rather than learn concepts. These tools highlight the demand for AI-assisted programming support while underscoring the need for pedagogically informed systems that promote learning over dependency.
+Several studies have specifically explored LLMs for programming education. Sarsa et al.~\cite{ref18} used GPT-3 to generate programming exercises and solutions. Kiesler et al.~\cite{ref19} evaluated ChatGPT's ability to provide feedback on student code. Leinonen et al.~\cite{ref20} investigated using LLMs to explain programming errors to novices. LLM-based coding assistants such as GitHub Copilot~\cite{ref21} and Amazon CodeWhisperer~\cite{ref22} have demonstrated the potential of LLMs for code generation and completion, though they are designed as productivity tools rather than educational systems---they provide direct code rather than guided instruction. Prompt optimization techniques such as AutoHint~\cite{ref23} have shown that automated prompt engineering can improve LLM responses for educational tasks, but these approaches focus on prompt quality rather than integrated tutoring system design. These tools highlight the demand for AI-assisted programming support while underscoring the need for pedagogically informed systems that promote learning over dependency.
 
 \subsection{Open-Source LLMs for Education}
 
-The open-source LLM ecosystem has matured rapidly. Models such as LLaMA~\cite{ref8}, Qwen~\cite{ref20}, and Mistral~\cite{ref21} have demonstrated strong performance across various benchmarks. The Qwen2.5 series has shown competitive performance with much larger proprietary models~\cite{ref20}. Wang et al.~\cite{ref30} discuss the opportunities and challenges of deploying open-source LLMs in educational settings, highlighting cost, privacy, and customizability advantages. However, the application of open-source LLMs specifically to programming education remains underexplored.
+The open-source LLM ecosystem has matured rapidly. Models such as LLaMA~\cite{ref8}, Qwen~\cite{ref24}, and Mistral~\cite{ref25} have demonstrated strong performance across various benchmarks. The Qwen2.5 series has shown competitive performance with much larger proprietary models~\cite{ref24}. Wang et al.~\cite{ref26} discuss the opportunities and challenges of deploying open-source LLMs in educational settings, highlighting cost, privacy, and customizability advantages. However, the application of open-source LLMs specifically to programming education remains underexplored.
 
 \subsection{Research Gap}
 
@@ -85,7 +85,7 @@ While previous work has demonstrated the potential of LLMs for programming educa
 
 \subsection{Pedagogical Design Principles}
 
-CodeTutor-ITS is grounded in three established pedagogical theories. First, Vygotsky's Zone of Proximal Development (ZPD)~\cite{ref27} posits that learning is most effective when instruction targets the gap between what a learner can do independently and what they can achieve with guidance. Our adaptive hint system operationalizes this by providing graduated support---from directional hints to complete solutions---that adapts to the student's current competence level. Second, scaffolded instruction~\cite{ref38} argues that temporary support structures should be progressively removed as learners gain competence. The four-level hint system implements this principle: students receive increasingly specific hints only after demonstrating persistent difficulty, encouraging independent problem-solving before resorting to direct answers. Third, the worked example effect~\cite{ref39} demonstrates that studying worked solutions is more effective for novice learners than problem-solving alone. The dialogue tutoring module incorporates this by providing structured code examples with detailed comments, particularly for students encountering new concepts. These theoretical foundations distinguish CodeTutor-ITS from generic LLM chatbots, which lack pedagogical structure and tend to provide direct answers rather than guided instruction~\cite{ref37}.
+CodeTutor-ITS is grounded in three established pedagogical theories. First, Vygotsky's Zone of Proximal Development (ZPD)~\cite{ref27} posits that learning is most effective when instruction targets the gap between what a learner can do independently and what they can achieve with guidance. Our adaptive hint system operationalizes this by providing graduated support---from directional hints to complete solutions---that adapts to the student's current competence level. Second, scaffolded instruction~\cite{ref28} argues that temporary support structures should be progressively removed as learners gain competence. The four-level hint system implements this principle: students receive increasingly specific hints only after demonstrating persistent difficulty, encouraging independent problem-solving before resorting to direct answers. Third, the worked example effect~\cite{ref29} demonstrates that studying worked solutions is more effective for novice learners than problem-solving alone. The dialogue tutoring module incorporates this by providing structured code examples with detailed comments, particularly for students encountering new concepts. These theoretical foundations distinguish CodeTutor-ITS from generic LLM chatbots, which lack pedagogical structure and tend to provide direct answers rather than guided instruction.
 
 \subsection{System Architecture}
 
@@ -137,7 +137,7 @@ The exercise generator creates programming problems tailored to the student's cu
 
 \subsection{Knowledge Tracking Module}
 
-The knowledge tracking module monitors student mastery using a simplified probabilistic approach inspired by Bayesian Knowledge Tracing~\cite{ref25,ref26}. For each knowledge point, the system maintains a mastery level computed as:
+The knowledge tracking module monitors student mastery using a simplified probabilistic approach inspired by Bayesian Knowledge Tracing~\cite{ref30,ref31}. For each knowledge point, the system maintains a mastery level computed as:
 
 \begin{linenomath}
 \begin{equation}
@@ -164,7 +164,7 @@ We conduct five experiments to evaluate the system: (1) LLM-as-Judge evaluation 
 
 \subsection{Experiment 1: LLM-as-Judge Evaluation}
 
-We employed an LLM-as-Judge evaluation approach~\cite{zheng2024judging} using Qwen2.5-72B-Instruct accessed via the HuggingFace Inference API as the primary quality metric. Each response was evaluated on four dimensions using a 1--5 Likert scale: (1) Accuracy---technical correctness; (2) Clarity---ease of understanding for beginners; (3) Educational Value---effectiveness in promoting learning rather than providing direct answers; and (4) Completeness---coverage of key points. Table~\ref{tab:judge} presents the results.
+We employed an LLM-as-Judge evaluation approach~\cite{ref32} using Qwen2.5-72B-Instruct accessed via the HuggingFace Inference API as the primary quality metric. Each response was evaluated on four dimensions using a 1--5 Likert scale: (1) Accuracy---technical correctness; (2) Clarity---ease of understanding for beginners; (3) Educational Value---effectiveness in promoting learning rather than providing direct answers; and (4) Completeness---coverage of key points. Table~\ref{tab:judge} presents the results.
 
 \begin{table}[H]
 \caption{LLM-as-Judge evaluation results ($n = 50$, scale 1--5).\label{tab:judge}}
@@ -200,7 +200,7 @@ Overall & 4.52 & 4.76 & +0.24 & 0.464 & Moderate \\
 \end{tabularx}
 \end{table}
 
-Of the 50 responses evaluated, 8 yielded unparseable output from the LLaMA judge (missing or malformed JSON), leaving 42 valid paired observations for the cross-family comparison. Both judges rate the remaining responses highly (overall $> 4.5$), confirming that the positive evaluation is robust across model families. LLaMA-3-70B assigns slightly higher scores (+0.24 overall), consistent with its known tendency toward more generous ratings~\cite{zheng2024judging}. The moderate per-dimension correlations ($r = 0.21$--$0.46$) indicate that while judges agree on relative quality ordering, their absolute scoring scales differ. The completeness dimension shows the strongest agreement ($r = 0.361$), suggesting both judges similarly assess coverage of key points. Figure~\ref{fig:judge} visualizes the score distribution.
+Of the 50 responses evaluated, 8 yielded unparseable output from the LLaMA judge (missing or malformed JSON), leaving 42 valid paired observations for the cross-family comparison. Both judges rate the remaining responses highly (overall $> 4.5$), confirming that the positive evaluation is robust across model families. LLaMA-3-70B assigns slightly higher scores (+0.24 overall), consistent with its known tendency toward more generous ratings~\cite{ref32}. The moderate per-dimension correlations ($r = 0.21$--$0.46$) indicate that while judges agree on relative quality ordering, their absolute scoring scales differ. The completeness dimension shows the strongest agreement ($r = 0.361$), suggesting both judges similarly assess coverage of key points. Figure~\ref{fig:judge} visualizes the score distribution.
 
 \begin{figure}[H]
 \centering
@@ -226,7 +226,7 @@ Chain-of-thought & 123.8 & 30.54 & 100 & 100 & 0.83 \\
 \end{tabularx}
 \end{table}
 
-The chain-of-thought~\cite{ref24} strategy significantly outperforms both alternatives in completeness score (0.83 vs.\ 0.63 and 0.67). Wilcoxon signed-rank tests confirm statistically significant differences: CoT vs.\ zero-shot ($W = 10.5$, $p = 0.044$) and CoT vs.\ few-shot ($W = 5.0$, $p = 0.012$). The difference between zero-shot and few-shot is not significant ($W = 30.0$, $p = 0.786$). CoT also achieves the fastest response time (30.54s vs.\ 36.59s for zero-shot, $p = 0.004$) and consistently produces step-by-step structured responses (100\%). These results confirm that explicitly requesting step-by-step reasoning improves the educational quality of responses. Figure~\ref{fig:prompt} visualizes the comparison across all metrics.
+The chain-of-thought~\cite{ref33} strategy significantly outperforms both alternatives in completeness score (0.83 vs.\ 0.63 and 0.67). Wilcoxon signed-rank tests confirm statistically significant differences: CoT vs.\ zero-shot ($W = 10.5$, $p = 0.044$) and CoT vs.\ few-shot ($W = 5.0$, $p = 0.012$). The difference between zero-shot and few-shot is not significant ($W = 30.0$, $p = 0.786$). CoT also achieves the fastest response time (30.54s vs.\ 36.59s for zero-shot, $p = 0.004$) and consistently produces step-by-step structured responses (100\%). These results confirm that explicitly requesting step-by-step reasoning improves the educational quality of responses. Figure~\ref{fig:prompt} visualizes the comparison across all metrics.
 
 \begin{figure}[H]
 \centering
@@ -264,7 +264,7 @@ The full system and all partial configurations except the basic tutor achieve 10
 
 \subsection{Experiment 4: Supplementary Tutoring Quality Assessment}
 
-We evaluated the system's tutoring quality by comparing responses against reference answers for all 50 test questions using BLEU~\cite{ref22} and ROUGE-L~\cite{ref23} as supplementary metrics. These metrics measure surface-level n-gram overlap and are known to be poor proxies for dialogue and educational quality~\cite{zheng2024judging}; the primary quality evaluation is provided by the LLM-as-Judge approach in Experiment~1. Table~\ref{tab:quality} summarizes the supplementary metrics.
+We evaluated the system's tutoring quality by comparing responses against reference answers for all 50 test questions using BLEU~\cite{ref34} and ROUGE-L~\cite{ref35} as supplementary metrics. These metrics measure surface-level n-gram overlap and are known to be poor proxies for dialogue and educational quality~\cite{ref32}; the primary quality evaluation is provided by the LLM-as-Judge approach in Experiment~1. Table~\ref{tab:quality} summarizes the supplementary metrics.
 
 \begin{table}[H]
 \caption{Tutoring quality assessment results ($n = 50$).\label{tab:quality}}
@@ -330,7 +330,7 @@ The results show negligible differences between the base and fine-tuned models (
 Table~\ref{tab:comparison} compares CodeTutor-ITS with existing LLM-based educational systems across key dimensions.
 
 \begin{table}[H]
-\caption{Comparison of CodeTutor-ITS with existing LLM-based educational systems. Commercial system capabilities are based on publicly available documentation as of 2025~\cite{ref5,ref29}. Ask-Elle capabilities are cited from Gerdes et al.~\cite{ref12}.\label{tab:comparison}}
+\caption{Comparison of CodeTutor-ITS with existing LLM-based educational systems. Commercial system capabilities are based on publicly available documentation as of 2025~\cite{ref5}. Ask-Elle capabilities are cited from Gerdes et al.~\cite{ref12}.\label{tab:comparison}}
 \begin{tabularx}{\textwidth}{lCCCC}
 \toprule
 \textbf{Feature} & \textbf{CodeTutor-ITS} & \textbf{Commercial LLMs} & \textbf{ChatGPT Edu} & \textbf{Ask-Elle} \\
@@ -351,7 +351,7 @@ CodeTutor-ITS is the only system that combines open-source model usage, adaptive
 
 \subsection{Key Findings}
 
-The experiments yield several important findings. First, the LLM-as-Judge evaluation (the primary quality metric) confirms high response quality (4.51/5.0), with particularly strong performance in accuracy (4.70) and educational value (4.64), and cross-family validation with LLaMA-3-70B (4.76/5.0) confirms the robustness of this assessment across model families. Second, chain-of-thought prompting~\cite{ref24} significantly outperforms zero-shot and few-shot approaches in completeness (0.83 vs.\ 0.63--0.67, $p < 0.05$), with the added benefit of faster response times (30.54s vs.\ 36.59s for zero-shot, $p = 0.004$). Third, the ablation study reveals that removing both knowledge tracking and adaptive hints (basic tutor configuration) reduces success rate from 100\% to 58\% and response length by 50\%, demonstrating the critical role of these modules. Fourth, the supplementary BLEU/ROUGE-L metrics (mean BLEU 0.098, ROUGE-L 0.112) are intentionally low---these metrics measure surface n-gram overlap and are poor proxies for educational dialogue quality~\cite{zheng2024judging}; the system generates richer responses than concise reference answers, reducing overlap while improving pedagogical value. Fifth, average response times range from 27.8\,s to 66.9\,s, with the basic tutor being notably slower due to more frequent generation failures. Sixth, LoRA fine-tuning of the base model produces negligible improvement (+0.02 overall, $p > 0.4$ for all dimensions), indicating that under the current training configuration, the system's pedagogical effectiveness stems from prompt engineering and module integration rather than model-level adaptation.
+The experiments yield several important findings. First, the LLM-as-Judge evaluation (the primary quality metric) confirms high response quality (4.51/5.0), with particularly strong performance in accuracy (4.70) and educational value (4.64), and cross-family validation with LLaMA-3-70B (4.76/5.0) confirms the robustness of this assessment across model families. Second, chain-of-thought prompting~\cite{ref33} significantly outperforms zero-shot and few-shot approaches in completeness (0.83 vs.\ 0.63--0.67, $p < 0.05$), with the added benefit of faster response times (30.54s vs.\ 36.59s for zero-shot, $p = 0.004$). Third, the ablation study reveals that removing both knowledge tracking and adaptive hints (basic tutor configuration) reduces success rate from 100\% to 58\% and response length by 50\%, demonstrating the critical role of these modules. Fourth, the supplementary BLEU/ROUGE-L metrics (mean BLEU 0.098, ROUGE-L 0.112) are intentionally low---these metrics measure surface n-gram overlap and are poor proxies for educational dialogue quality~\cite{ref32}; the system generates richer responses than concise reference answers, reducing overlap while improving pedagogical value. Fifth, average response times range from 27.8\,s to 66.9\,s, with the basic tutor being notably slower due to more frequent generation failures. Sixth, LoRA fine-tuning of the base model produces negligible improvement (+0.02 overall, $p > 0.4$ for all dimensions), indicating that under the current training configuration, the system's pedagogical effectiveness stems from prompt engineering and module integration rather than model-level adaptation.
 
 \subsection{Error Analysis}
 
@@ -386,13 +386,13 @@ In a typical university programming course (30--50 students), CodeTutor-ITS can 
 
 \subsection{Response Latency Analysis}
 
-Average response times range from 27.8\,s to 66.9\,s (Table~\ref{tab:ablation}), which may impact real-time tutoring usability. Several mitigation strategies can reduce latency without sacrificing quality: (1) \textbf{model quantization}---converting the model to 4-bit GGUF or GPTQ format can reduce memory footprint and inference time by 2--3$\times$ with minimal quality degradation~\cite{ref34}; (2) \textbf{response caching}---common questions (e.g., ``explain loops'') can be cached and returned instantly, reducing repeated inference; (3) \textbf{speculative decoding}---using a smaller draft model to predict tokens that the larger model verifies, achieving 1.5--2$\times$ speedup; and (4) \textbf{smaller models}---the Qwen2.5-3B variant offers significantly faster inference while maintaining reasonable quality for structured tutoring prompts. In a production deployment, a hybrid approach combining quantization (4-bit), caching for high-frequency queries, and a 3B model for initial responses with 7B fallback for complex questions could reduce average latency to under 10\,s.
+Average response times range from 27.8\,s to 66.9\,s (Table~\ref{tab:ablation}), which may impact real-time tutoring usability. Several mitigation strategies can reduce latency without sacrificing quality: (1) \textbf{model quantization}---converting the model to 4-bit GGUF or GPTQ format can reduce memory footprint and inference time by 2--3$\times$ with minimal quality degradation~\cite{ref36}; (2) \textbf{response caching}---common questions (e.g., ``explain loops'') can be cached and returned instantly, reducing repeated inference; (3) \textbf{speculative decoding}---using a smaller draft model to predict tokens that the larger model verifies, achieving 1.5--2$\times$ speedup; and (4) \textbf{smaller models}---the Qwen2.5-3B variant offers significantly faster inference while maintaining reasonable quality for structured tutoring prompts. In a production deployment, a hybrid approach combining quantization (4-bit), caching for high-frequency queries, and a 3B model for initial responses with 7B fallback for complex questions could reduce average latency to under 10\,s.
 
 \subsection{Limitations}
 
 This study has several limitations: (1) we evaluated only the 7B parameter model; (2) the current system primarily supports English; (3) the test dataset of 50 questions may not represent the full diversity of student questions; (4) the prompt strategy comparison, while expanded to $n = 15$ per strategy, still uses a relatively small sample; and (5) the LoRA fine-tuning experiment used a conservative configuration (250 samples, 1 epoch, rank 8), and more aggressive training may yield different results.
 
-Additionally, while we mitigated same-family bias by conducting cross-family validation with LLaMA-3-70B, the moderate inter-judge correlations ($r = 0.21$--$0.46$) suggest that LLM-as-Judge scores should be interpreted as relative quality indicators rather than absolute truth~\cite{zheng2024judging}. A user study with actual programming students would provide additional validation of the system's educational effectiveness.
+Additionally, while we mitigated same-family bias by conducting cross-family validation with LLaMA-3-70B, the moderate inter-judge correlations ($r = 0.21$--$0.46$) suggest that LLM-as-Judge scores should be interpreted as relative quality indicators rather than absolute truth~\cite{ref32}. A user study with actual programming students would provide additional validation of the system's educational effectiveness.
 
 \subsection{Future Work}
 
@@ -480,85 +480,73 @@ Gerdes, A.; Heeren, B.; Jeuring, J. Ask-Elle: An adaptable programming tutor for
 Rivers, K.; Koedinger, K.R. Data-driven hint generation in vast solution spaces. \textit{Int. J. Artif. Intell. Educ.} \textbf{2015}, \textit{27}, 1--28.
 
 \bibitem{ref14}
-Shen, J.; et al. ChatGPT and other large language models as double-edged swords in education. \textit{SSRN Electron. J.} \textbf{2023}.
+Baidoo-Anu, D.; Ansah, L.O. Education in the era of generative artificial intelligence. \textit{J. AI} \textbf{2023}, \textit{7}, 52--62.
 
 \bibitem{ref15}
-Yancey, K.P.; et al. How does AI writing interact with writing assessment? \textit{Assess. Writ.} \textbf{2023}, \textit{57}, 100740.
+Shen, J.; et al. ChatGPT and other large language models as double-edged swords in education. \textit{SSRN Electron. J.} \textbf{2023}.
 
 \bibitem{ref16}
-Wang, S.; et al. Exploring the potential of ChatGPT as an educational tool. \textit{Educ. Inf. Technol.} \textbf{2024}, \textit{29}, 1--20.
-
-\bibitem{zheng2024judging}
-Zheng, L.; et al. Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena. \textit{Adv. Neural Inf. Process. Syst.} \textbf{2024}, \textit{36}, 46595--46623.
+Yancey, K.P.; et al. How does AI writing interact with writing assessment? \textit{Assess. Writ.} \textbf{2023}, \textit{57}, 100740.
 
 \bibitem{ref17}
-Sarsa, S.; et al. Automatic generation of programming exercises and code explanations using large language models. In Proceedings of the ACM Conference on International Computing Education Research, Virtual Event, 2022; pp. 27--33.
+Wang, S.; et al. Exploring the potential of ChatGPT as an educational tool. \textit{Educ. Inf. Technol.} \textbf{2024}, \textit{29}, 1--20.
 
 \bibitem{ref18}
-Kiesler, N.; et al. ChatGPT for education research. In Proceedings of the 2023 Conference on Innovation and Technology in Computer Science Education, Turku, Finland, 2023; pp. 594--595.
+Sarsa, S.; et al. Automatic generation of programming exercises and code explanations using large language models. In Proceedings of the ACM Conference on International Computing Education Research, Virtual Event, 2022; pp. 27--33.
 
 \bibitem{ref19}
-Leinonen, J.; et al. Using large language models to enhance programming error messages. In Proceedings of the 54th ACM Technical Symposium on Computer Science Education, Toronto, ON, Canada, 2023; pp. 520--526.
+Kiesler, N.; et al. ChatGPT for education research. In Proceedings of the 2023 Conference on Innovation and Technology in Computer Science Education, Turku, Finland, 2023; pp. 594--595.
 
 \bibitem{ref20}
-Yang, A.; et al. Qwen2.5 technical report. \textit{arXiv} \textbf{2024}, arXiv:2412.15115.
+Leinonen, J.; et al. Using large language models to enhance programming error messages. In Proceedings of the 54th ACM Technical Symposium on Computer Science Education, Toronto, ON, Canada, 2023; pp. 520--526.
 
 \bibitem{ref21}
-Jiang, A.Q.; et al. Mistral 7B. \textit{arXiv} \textbf{2023}, arXiv:2310.06825.
+Chen, M.; et al. Evaluating large language models trained on code. \textit{arXiv} \textbf{2021}, arXiv:2107.03374.
 
 \bibitem{ref22}
-Papineni, K.; et al. BLEU: A method for automatic evaluation of machine translation. In Proceedings of the 40th Annual Meeting of the ACL, Philadelphia, PA, USA, 2002; pp. 311--318.
+Vaithilingam, P.; et al. Expectation vs.\ experience: Evaluating the usability of code generation tools powered by large language models. In Proceedings of the 2022 CHI Conference on Human Factors in Computing Systems, New Orleans, LA, USA, 2022; pp. 1--7.
 
 \bibitem{ref23}
-Lin, C.Y. ROUGE: A package for automatic evaluation of summaries. In Proceedings of the Text Summarization Branches Out Workshop, Barcelona, Spain, 2004; pp. 74--81.
+Liu, Z.; et al. Autohint: Automatic prompt optimization with hint generation for large language models. In Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing, Singapore, 2023; pp. 1--15.
 
 \bibitem{ref24}
-Wei, J.; et al. Chain-of-thought prompting elicits reasoning in large language models. \textit{Adv. Neural Inf. Process. Syst.} \textbf{2022}, \textit{35}, 24824--24837.
+Yang, A.; et al. Qwen2.5 technical report. \textit{arXiv} \textbf{2024}, arXiv:2412.15115.
 
 \bibitem{ref25}
-Corbett, A.T.; Anderson, J.R. Knowledge tracing: Modeling the acquisition of procedural knowledge. \textit{User Model. User-Adapt. Interact.} \textbf{1995}, \textit{4}, 253--278.
+Jiang, A.Q.; et al. Mistral 7B. \textit{arXiv} \textbf{2023}, arXiv:2310.06825.
 
 \bibitem{ref26}
-Piech, C.; et al. Deep knowledge tracing. \textit{Adv. Neural Inf. Process. Syst.} \textbf{2015}, \textit{28}, 505--513.
+Wang, Y.; et al. Open-source large language models for education: Opportunities and challenges. \textit{Comput. Educ. Artif. Intell.} \textbf{2024}, \textit{7}, 100283.
 
 \bibitem{ref27}
 Vygotsky, L.S. \textit{Mind in Society: The Development of Higher Psychological Processes}; Harvard University Press: Cambridge, MA, USA, 1978.
 
 \bibitem{ref28}
-Baidoo-Anu, D.; Ansah, L.O. Education in the era of generative artificial intelligence. \textit{J. AI} \textbf{2023}, \textit{7}, 52--62.
-
-\bibitem{ref29}
-Li, H.; et al. A systematic review of large language models for education: Applications, challenges, and future directions. \textit{Educ. Inf. Technol.} \textbf{2024}, \textit{29}, 20471--20502.
-
-\bibitem{ref30}
-Wang, Y.; et al. Open-source large language models for education: Opportunities and challenges. \textit{Comput. Educ. Artif. Intell.} \textbf{2024}, \textit{7}, 100283.
-
-\bibitem{ref31}
-Chen, M.; et al. Evaluating large language models trained on code. \textit{arXiv} \textbf{2021}, arXiv:2107.03374.
-
-\bibitem{ref32}
-Vaithilingam, P.; et al. Expectation vs.\ experience: Evaluating the usability of code generation tools powered by large language models. In Proceedings of the 2022 CHI Conference on Human Factors in Computing Systems, New Orleans, LA, USA, 2022; pp. 1--7.
-
-\bibitem{ref33}
-Liu, Z.; et al. Autohint: Automatic prompt optimization with hint generation for large language models. In Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing, Singapore, 2023; pp. 1--15.
-
-\bibitem{ref34}
-Dettmers, T.; et al. QLoRA: Efficient finetuning of quantized language models. \textit{Adv. Neural Inf. Process. Syst.} \textbf{2024}, \textit{36}, 1--16.
-
-\bibitem{ref35}
-Kestemont, E.; et al. Systematic review of large language models for intelligent tutoring: Pedagogical approaches and effectiveness. \textit{Comput. Educ. Artif. Intell.} \textbf{2025}, \textit{8}, 100312.
-
-\bibitem{ref36}
-Tack, A.; Piech, C. The AI tutor: Investigating the efficacy of large language models as educational assistants. In Proceedings of the 2024 Conference on Educational Data Mining, Atlanta, GA, USA, 2024; pp. 1--12.
-
-\bibitem{ref37}
-Yan, D.; et al. GPT-4 as a programming tutor: Strengths, limitations, and implications for AI-assisted learning. \textit{Int. J. Artif. Intell. Educ.} \textbf{2024}, \textit{34}, 1--28.
-
-\bibitem{ref38}
 Wood, D.; Bruner, J.S.; Ross, G. The role of tutoring in problem solving. \textit{J. Child Psychol. Psychiatry} \textbf{1976}, \textit{17}, 89--100.
 
-\bibitem{ref39}
+\bibitem{ref29}
 Sweller, J. The worked example effect and human cognition. \textit{Learn. Instr.} \textbf{2006}, \textit{16}, 165--169.
+
+\bibitem{ref30}
+Corbett, A.T.; Anderson, J.R. Knowledge tracing: Modeling the acquisition of procedural knowledge. \textit{User Model. User-Adapt. Interact.} \textbf{1995}, \textit{4}, 253--278.
+
+\bibitem{ref31}
+Piech, C.; et al. Deep knowledge tracing. \textit{Adv. Neural Inf. Process. Syst.} \textbf{2015}, \textit{28}, 505--513.
+
+\bibitem{ref32}
+Zheng, L.; et al. Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena. \textit{Adv. Neural Inf. Process. Syst.} \textbf{2024}, \textit{36}, 46595--46623.
+
+\bibitem{ref33}
+Wei, J.; et al. Chain-of-thought prompting elicits reasoning in large language models. \textit{Adv. Neural Inf. Process. Syst.} \textbf{2022}, \textit{35}, 24824--24837.
+
+\bibitem{ref34}
+Papineni, K.; et al. BLEU: A method for automatic evaluation of machine translation. In Proceedings of the 40th Annual Meeting of the ACL, Philadelphia, PA, USA, 2002; pp. 311--318.
+
+\bibitem{ref35}
+Lin, C.Y. ROUGE: A package for automatic evaluation of summaries. In Proceedings of the Text Summarization Branches Out Workshop, Barcelona, Spain, 2004; pp. 74--81.
+
+\bibitem{ref36}
+Dettmers, T.; et al. QLoRA: Efficient finetuning of quantized language models. \textit{Adv. Neural Inf. Process. Syst.} \textbf{2024}, \textit{36}, 1--16.
 
 \end{thebibliography}
 
