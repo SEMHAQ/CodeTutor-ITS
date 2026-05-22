@@ -298,20 +298,20 @@ def plot_finetune_comparison(results_path: str):
     axes[0].set_ylabel("Score (1–5)")
     axes[0].set_xticks(x)
     axes[0].set_xticklabels(metric_labels)
-    axes[0].set_ylim(0, 5.5)
+    axes[0].set_ylim(0, 6.0)
     axes[0].axhline(y=3, color="gray", linestyle=":", linewidth=0.75, alpha=0.6)
-    axes[0].legend(frameon=False, loc="lower right")
+    axes[0].legend(frameon=False, loc="upper right")
     _clean_axes(axes[0])
 
-    # Improvement
+    # Improvement — lollipop chart
     improvements = [ft_means[i] - base_means[i] for i in range(len(metrics))]
     imp_colors = [GREEN if v >= 0 else ORANGE for v in improvements]
-    bars = axes[1].bar(metric_labels, improvements, color=imp_colors, width=BAR_WIDTH, edgecolor="none")
-    axes[1].set_ylabel("Score Difference")
-    axes[1].axhline(y=0, color="black", linewidth=0.75)
-    for bar, v in zip(bars, improvements):
-        axes[1].text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.005,
-                     f"{v:+.2f}", ha="center", va="bottom", fontsize=8)
+    axes[1].hlines(y=metric_labels, xmin=0, xmax=improvements, color=imp_colors, linewidth=1.5)
+    axes[1].scatter(improvements, metric_labels, color=imp_colors, s=50, zorder=3)
+    axes[1].axvline(x=0, color="black", linewidth=0.75)
+    for i, v in enumerate(improvements):
+        axes[1].text(v + 0.005, i, f"{v:+.2f}", ha="left", va="center", fontsize=8)
+    axes[1].set_xlabel("Score Difference")
     _clean_axes(axes[1])
 
     plt.tight_layout()
