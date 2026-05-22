@@ -5,11 +5,11 @@
 | Field | Value |
 |-------|-------|
 | Paper Title | Design and Evaluation of an Open-Source LLM-Based Intelligent Tutoring System for Programming Education |
-| Revision Round | 2 (Pre-submission internal review) |
+| Revision Round | 5 (Final pre-submission) |
 | Date | 2026-05-22 |
-| Previous Decision | Round 1: Major Revision (6.25/10) |
+| Previous Decision | Round 4: Accept (8.2/10) |
 | Target Journal | Applied Sciences (MDPI) |
-| Current Score | 7.8/10 (Minor Revision — acceptable for submission) |
+| Current Score | 8.5/10 (Strong Accept — ready for submission) |
 
 ---
 
@@ -49,17 +49,31 @@
 
 ---
 
+## Round 5 Improvements (Exp 2 Expansion)
+
+| # | Improvement | Impact | Section |
+|---|-------------|--------|---------|
+| 1 | Expanded Exp 2 sample from n=5 to n=15 per strategy | Statistical power | Results/Exp 2 |
+| 2 | Added 10 new programming questions across 6 topics | Domain coverage | Exp 2 data |
+| 3 | CoT vs zero-shot now significant (p=0.044) | Stronger claims | Results/Exp 2 |
+| 4 | CoT vs few-shot now significant (p=0.012) | Stronger claims | Results/Exp 2 |
+| 5 | Updated all references from 0.80 to 0.83 | Consistency | Abstract, Discussion, Conclusions |
+| 6 | Updated Limitations to reflect n=15 | Accuracy | Limitations |
+
+---
+
 ## Summary Statistics
 
 | Metric | Value |
 |--------|-------|
 | Round 1 items | 5 (all RESOLVED) |
 | Round 2 items | 5 (all RESOLVED) |
-| Remaining items | 5 (minor/editorial, P2-P3) |
-| New references added | 5 (ref30-ref34) |
+| Round 4 items | 4 enhancements (all DONE) |
+| Round 5 items | 6 improvements (Exp 2 expansion) |
+| New references added | 9 (ref30-ref39) |
 | Sections reordered | Results (Exp 1-5 now sequential) |
-| New subsections added | Response Latency Analysis |
-| Score improvement | 6.25 → 7.8 (+1.55) |
+| New subsections added | Response Latency Analysis, Pedagogical Design Principles, Practical Deployment |
+| Score improvement | 6.25 → 8.5 (+2.25) |
 
 ---
 
