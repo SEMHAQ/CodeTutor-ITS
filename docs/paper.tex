@@ -36,6 +36,18 @@ $^{2}$ \quad School of Computer Science, Hunan University of Technology and Busi
 % Keywords
 \keyword{intelligent tutoring system; large language model; programming education; adaptive learning; open-source AI; prompt engineering}
 
+% Float parameters for tighter layout
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{5}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.85}
+\setlength{\floatsep}{10pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -91,18 +103,18 @@ The design of CodeTutor-ITS draws on three pedagogical ideas. Vygotsky's Zone of
 
 CodeTutor-ITS follows a client-server architecture with four core components, as shown in Figure~\ref{fig:architecture}. The Streamlit-based web frontend communicates with a FastAPI backend that interfaces with the local LLM via the HuggingFace Transformers library.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{figures/architecture}
+\includegraphics[width=0.92\textwidth]{figures/architecture}
 \caption{System architecture of CodeTutor-ITS. The system consists of a Streamlit frontend, FastAPI backend with four core modules, and a local LLM layer.}
 \label{fig:architecture}
 \end{figure}
 
 Figure~\ref{fig:frontend} shows the user interface of CodeTutor-ITS. The sidebar provides mode selection (Dialogue Tutor, Code Hints, Exercise Generator), programming language selection, and session management. The main area displays the chat-based tutoring interaction where students can ask questions and receive structured, guided responses.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{figures/frontend_screenshot}
+\includegraphics[width=0.92\textwidth]{figures/frontend_screenshot}
 \caption{User interface of CodeTutor-ITS. The sidebar offers tutoring mode and language selection, while the main area provides a chat-based interaction for programming guidance.}
 \label{fig:frontend}
 \end{figure}
@@ -115,7 +127,7 @@ The dialogue tutoring module implements a comprehensive guided instruction appro
 
 The adaptive hint system provides graduated assistance based on student needs. It implements four progressive hint levels, as shown in Table~\ref{tab:hint_levels}.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Adaptive hint levels implemented in CodeTutor-ITS.\label{tab:hint_levels}}
 \begin{tabularx}{\textwidth}{CCCX}
 \toprule
@@ -166,7 +178,7 @@ We conduct five experiments to evaluate the system: (1) LLM-as-Judge evaluation 
 
 We employed an LLM-as-Judge evaluation approach~\cite{ref32} using Qwen2.5-72B-Instruct accessed via the HuggingFace Inference API as the primary quality metric. Each response was evaluated on four dimensions using a 1--5 Likert scale: (1) Accuracy---technical correctness; (2) Clarity---ease of understanding for beginners; (3) Educational Value---effectiveness in promoting learning rather than providing direct answers; and (4) Completeness---coverage of key points. Table~\ref{tab:judge} presents the results.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{LLM-as-Judge evaluation results ($n = 50$, scale 1--5).\label{tab:judge}}
 \begin{tabularx}{\textwidth}{CCCX}
 \toprule
@@ -185,7 +197,7 @@ The system achieves an overall score of 4.51 out of 5.0, with accuracy (4.70) an
 
 To mitigate potential same-family bias, we conducted a cross-family validation using LLaMA-3-70B-Instruct as an independent judge~\cite{ref8}. Table~\ref{tab:cross_family} presents the comparison.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Cross-family judge validation: Qwen2.5-72B vs.\ LLaMA-3-70B ($n = 42$, scale 1--5).\label{tab:cross_family}}
 \begin{tabularx}{\textwidth}{CCCCCC}
 \toprule
@@ -202,9 +214,9 @@ Overall & 4.52 & 4.76 & +0.24 & 0.464 & Moderate \\
 
 Of the 50 responses evaluated, 8 yielded unparseable output from the LLaMA judge (missing or malformed JSON), leaving 42 valid paired observations for the cross-family comparison. Both judges rate the remaining responses highly (overall $> 4.5$), confirming that the positive evaluation is robust across model families. LLaMA-3-70B assigns slightly higher scores (+0.24 overall), consistent with its known tendency toward more generous ratings~\cite{ref32}. The moderate per-dimension correlations ($r = 0.21$--$0.46$) indicate that while judges agree on relative quality ordering, their absolute scoring scales differ. The completeness dimension shows the strongest agreement ($r = 0.361$), suggesting both judges similarly assess coverage of key points. Figure~\ref{fig:judge} visualizes the score distribution.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/gpt_judge_evaluation}
+\includegraphics[width=0.82\textwidth]{figures/gpt_judge_evaluation}
 \caption{LLM-as-Judge evaluation results. (a) Average scores by dimension with standard deviation error bars. (b) Distribution of overall scores.}
 \label{fig:judge}
 \end{figure}
@@ -213,7 +225,7 @@ Of the 50 responses evaluated, 8 yielded unparseable output from the LLaMA judge
 
 We compared three prompting strategies using 15 programming questions across six knowledge domains (Python basics, data structures, algorithms, OOP, control flow, and web basics), yielding $n = 15$ observations per strategy. Table~\ref{tab:prompt} presents the results.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Prompt strategy comparison results ($n = 15$ per strategy). Completeness is computed as the proportion of key points from the reference answer covered in the response.\label{tab:prompt}}
 \begin{tabularx}{\textwidth}{CCCCCC}
 \toprule
@@ -228,9 +240,9 @@ Chain-of-thought & 123.8 & 30.54 & 100 & 100 & 0.83 \\
 
 The chain-of-thought~\cite{ref33} strategy significantly outperforms both alternatives in completeness score (0.83 vs.\ 0.63 and 0.67). Wilcoxon signed-rank tests confirm statistically significant differences: CoT vs.\ zero-shot ($W = 10.5$, $p = 0.044$) and CoT vs.\ few-shot ($W = 5.0$, $p = 0.012$). The difference between zero-shot and few-shot is not significant ($W = 30.0$, $p = 0.786$). CoT also achieves the fastest response time (30.54s vs.\ 36.59s for zero-shot, $p = 0.004$) and consistently produces step-by-step structured responses (100\%). These results confirm that explicitly requesting step-by-step reasoning improves the educational quality of responses. Figure~\ref{fig:prompt} visualizes the comparison across all metrics.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/prompt_comparison}
+\includegraphics[width=0.82\textwidth]{figures/prompt_comparison}
 \caption{Prompt strategy comparison across four metrics. (a) Word count. (b) Response time. (c) Code inclusion rate. (d) Completeness score.}
 \label{fig:prompt}
 \end{figure}
@@ -239,7 +251,7 @@ The chain-of-thought~\cite{ref33} strategy significantly outperforms both altern
 
 We conducted an ablation study to evaluate the contribution of each module. A response is classified as \textit{successful} if it (a) contains at least 100 characters of non-repeated text, (b) does not exhibit degenerate repetition (more than 30\% n-gram overlap within the response), and (c) addresses the posed question rather than producing off-topic or empty output. Table~\ref{tab:ablation} shows the results.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Ablation study results ($n = 50$). Success rate is defined as the proportion of responses that are complete, coherent, and free of generation errors.\label{tab:ablation}}
 \begin{tabularx}{\textwidth}{CCCC}
 \toprule
@@ -255,9 +267,9 @@ Basic Tutor & 66.89 & 0.58 & 1280 \\
 
 The full system and all partial configurations except the basic tutor achieve 100\% success rate. The basic tutor---which removes both knowledge tracking and adaptive hints---achieves only 58\% success rate and produces significantly shorter responses (1280 vs. 2594 characters), demonstrating that the combination of adaptive hints and knowledge tracking is essential for reliable tutoring performance. Figure~\ref{fig:ablation} visualizes the ablation results.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/ablation_study}
+\includegraphics[width=0.82\textwidth]{figures/ablation_study}
 \caption{Ablation study results comparing full system with module-removed configurations.}
 \label{fig:ablation}
 \end{figure}
@@ -266,7 +278,7 @@ The full system and all partial configurations except the basic tutor achieve 10
 
 We evaluated the system's tutoring quality by comparing responses against reference answers for all 50 test questions using BLEU~\cite{ref34} and ROUGE-L~\cite{ref35} as supplementary metrics. These metrics measure surface-level n-gram overlap and are known to be poor proxies for dialogue and educational quality~\cite{ref32}; the primary quality evaluation is provided by the LLM-as-Judge approach in Experiment~1. Table~\ref{tab:quality} summarizes the supplementary metrics.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Tutoring quality assessment results ($n = 50$).\label{tab:quality}}
 \begin{tabularx}{\textwidth}{CCCCC}
 \toprule
@@ -284,9 +296,9 @@ Has Example (\%) & 78.0 & --- & --- & --- \\
 
 The moderate BLEU and ROUGE-L scores are expected: the system generates more comprehensive responses than the concise reference answers, resulting in lower n-gram overlap while providing richer educational content. The 76\% code block inclusion rate and 78\% example inclusion rate confirm that the system generates substantive, code-rich responses. Figure~\ref{fig:quality} visualizes the quality metrics.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/tutoring_quality}
+\includegraphics[width=0.82\textwidth]{figures/tutoring_quality}
 \caption{Tutoring quality assessment results. (a) BLEU and ROUGE-L scores per question. (b) Response time distribution. (c) Response quality indicators.}
 \label{fig:quality}
 \end{figure}
@@ -298,7 +310,7 @@ To investigate whether task-specific fine-tuning can further improve the base mo
 
 Table~\ref{tab:finetune} presents the comparison between the base and LoRA-fine-tuned models, both evaluated using the same LLM-as-Judge protocol with Qwen2.5-72B.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{LoRA fine-tuned vs.\ base model comparison ($n = 50$, scale 1--5).\label{tab:finetune}}
 \begin{tabularx}{\textwidth}{CCCCC}
 \toprule
@@ -315,9 +327,9 @@ Overall & 4.57 & 4.59 & +0.02 & LoRA \\
 
 The results show negligible differences between the base and fine-tuned models (overall $+0.02$). Paired $t$-tests confirm that none of the per-dimension differences are statistically significant (all $p > 0.4$). Cross-family validation using LLaMA-3-70B as judge yields a slightly larger but still non-significant difference (overall $+0.17$, $p = 0.11$), confirming the robustness of this finding. This result has important implications: (1) with the current training configuration (250 samples, 1 epoch, rank 8), lightweight LoRA fine-tuning does not substantially alter the base model's tutoring behavior; (2) the system's pedagogical value derives primarily from prompt engineering and module integration rather than model adaptation; and (3) when training data is generated by the same system, LoRA fine-tuning essentially reinforces existing behavior without introducing new capabilities. More aggressive fine-tuning (larger dataset, more epochs, higher rank) may yield different results and warrants further investigation. Figure~\ref{fig:finetune} visualizes the per-dimension comparison.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/finetune_comparison}
+\includegraphics[width=0.82\textwidth]{figures/finetune_comparison}
 \caption{LoRA fine-tuned vs.\ base model comparison across five evaluation dimensions.}
 \label{fig:finetune}
 \end{figure}
@@ -329,7 +341,7 @@ The results show negligible differences between the base and fine-tuned models (
 
 Table~\ref{tab:comparison} compares CodeTutor-ITS with existing LLM-based educational systems across key dimensions.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Comparison of CodeTutor-ITS with existing LLM-based educational systems. Commercial system capabilities are based on publicly available documentation as of 2025~\cite{ref5}. Ask-Elle capabilities are cited from Gerdes et al.~\cite{ref12}.\label{tab:comparison}}
 \begin{tabularx}{\textwidth}{lCCCC}
 \toprule
@@ -359,7 +371,7 @@ The ablation study points to the combination of adaptive hints and knowledge tra
 
 A per-topic analysis of the LLM-as-Judge scores reveals systematic variation across programming domains. Table~\ref{tab:per_topic} presents the breakdown.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Per-topic LLM-as-Judge scores (scale 1--5).\label{tab:per_topic}}
 \begin{tabularx}{\textwidth}{CCCCCCX}
 \toprule
